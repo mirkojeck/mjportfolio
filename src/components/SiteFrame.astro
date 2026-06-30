@@ -1,0 +1,24 @@
+---
+import type { SiteSettings } from '@lib/siteContent';
+
+const { site } = Astro.props as { site: SiteSettings };
+---
+
+<div class="mil-frame">
+  <div class="mil-frame-top">
+    <a href="/" class="mil-logo">
+      {site.brand.logoImage ? <img src={site.brand.logoImage} alt={site.brand.logoAlt} /> : site.brand.shortName}
+    </a>
+    <div class="mil-menu-btn">
+      <span></span>
+    </div>
+  </div>
+  <div class="mil-frame-bottom">
+    <div class="mil-current-page"></div>
+    <div class="mil-back-to-top">
+      <a href="#top" class="mil-link mil-dark mil-arrow-place">
+        <span>Back to top</span>
+      </a>
+    </div>
+  </div>
+</div>

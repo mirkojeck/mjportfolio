@@ -1,0 +1,596 @@
+{"message":"connected.","label":"vite","level":"info"}
+{"message":"Generated 1ms","label":"types","level":"info"}
+{"message":"connected.","label":"vite","level":"info"}
+{"message":"Syncing content","label":"content","level":"info"}
+{"message":"Synced content","label":"content","level":"info"}
+{"message":"Re-optimizing dependencies because vite config has changed","label":"vite","level":"info"}
+{"message":" astro  v7.0.3 ready in 1071 ms\n┃ Local    http://127.0.0.1:4321/","label":"SKIP_FORMAT","level":"info"}
+{"message":"watching for file changes...","label":null,"level":"info"}
+{"message":"[200] HEAD /admin/ 17ms","label":null,"level":"info"}
+{"message":"[200] HEAD / 6ms","label":null,"level":"info"}
+{"message":"[200] /admin/ 125ms","label":null,"level":"info"}
+{"message":"[200] / 8ms","label":null,"level":"info"}
+{"message":"[200] /admin/ 23ms","label":null,"level":"info"}
+{"message":"[404] /fonts/webfonts/fa-brands-400.woff2 294ms","label":null,"level":"info"}
+{"message":"[404] /fonts/webfonts/fa-regular-400.woff2 257ms","label":null,"level":"info"}
+{"message":"[404] /fonts/webfonts/fa-brands-400.woff 2ms","label":null,"level":"info"}
+{"message":"[404] /fonts/webfonts/fa-regular-400.woff 6ms","label":null,"level":"info"}
+{"message":"[404] /fonts/webfonts/fa-brands-400.ttf 2ms","label":null,"level":"info"}
+{"message":"[404] /fonts/webfonts/fa-regular-400.ttf 0ms","label":null,"level":"info"}
+{"message":"[404] /fonts/webfonts/fa-regular-400.woff2 2ms","label":null,"level":"info"}
+{"message":"[404] /fonts/webfonts/fa-regular-400.woff 0ms","label":null,"level":"info"}
+{"message":"[404] /fonts/webfonts/fa-regular-400.ttf 0ms","label":null,"level":"info"}
+{"message":"[404] /fonts/webfonts/fa-brands-400.woff2 2ms","label":null,"level":"info"}
+{"message":"[404] /fonts/webfonts/fa-regular-400.woff2 0ms","label":null,"level":"info"}
+{"message":"[404] /fonts/webfonts/fa-regular-400.woff 0ms","label":null,"level":"info"}
+{"message":"[404] /fonts/webfonts/fa-brands-400.woff 3ms","label":null,"level":"info"}
+{"message":"[404] /fonts/webfonts/fa-regular-400.ttf 0ms","label":null,"level":"info"}
+{"message":"[404] /fonts/webfonts/fa-brands-400.ttf 2ms","label":null,"level":"info"}
+{"message":"service.html","label":"watch","level":"info"}
+{"message":"project-4.html","label":"watch","level":"info"}
+{"message":"contact.html","label":"watch","level":"info"}
+{"message":"home-1.html","label":"watch","level":"info"}
+{"message":"services.html","label":"watch","level":"info"}
+{"message":"project-5.html","label":"watch","level":"info"}
+{"message":"portfolio-1.html","label":"watch","level":"info"}
+{"message":"home-2.html","label":"watch","level":"info"}
+{"message":"404.html","label":"watch","level":"info"}
+{"message":"project-3.html","label":"watch","level":"info"}
+{"message":"portfolio-3.html","label":"watch","level":"info"}
+{"message":"blog.html","label":"watch","level":"info"}
+{"message":"team.html","label":"watch","level":"info"}
+{"message":"portfolio-2.html","label":"watch","level":"info"}
+{"message":"project-2.html","label":"watch","level":"info"}
+{"message":"project-1.html","label":"watch","level":"info"}
+{"message":"publication.html","label":"watch","level":"info"}
+{"message":"project-6.html","label":"watch","level":"info"}
+{"message":"blog-inner.html","label":"watch","level":"info"}
+{"message":"Syncing content","label":"content","level":"info"}
+{"message":"Content config changed","label":"content","level":"info"}
+{"message":"Clearing content store","label":"content","level":"info"}
+{"message":"Synced content","label":"content","level":"info"}
+{"message":"[200] /admin/ 34ms","label":null,"level":"info"}
+{"message":"Reloaded data from interior-design-studio.md","label":"glob-loader","level":"info"}
+{"message":"Reloaded data from home-security-camera.md","label":"glob-loader","level":"info"}
+{"message":"Reloaded data from skincare-brand.md","label":"glob-loader","level":"info"}
+{"message":"Reloaded data from cascade-of-lava.md","label":"glob-loader","level":"info"}
+{"message":"Reloaded data from air-purifier.md","label":"glob-loader","level":"info"}
+{"message":"Reloaded data from chocolate-brand.md","label":"glob-loader","level":"info"}
+{"message":"[200] /admin/ 6ms","label":null,"level":"info"}
+{"message":"[200] /admin/ 14ms","label":null,"level":"info"}
+{"message":"src/pages/admin/index.astro","label":"watch","level":"info"}
+{"message":"[404] /admin/ 6ms","label":null,"level":"info"}
+{"message":"[200] HEAD /mj-admin/ 12ms","label":null,"level":"info"}
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+54 │ @import 'variables';
+   │         ^^^^^^^^^^^
+   ╵
+    src/styles/style.scss 54:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+55 │ @import 'common';
+   │         ^^^^^^^^
+   ╵
+    src/styles/style.scss 55:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+56 │ @import 'components';
+   │         ^^^^^^^^^^^^
+   ╵
+    src/styles/style.scss 56:9  root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($i * 1, 5) or calc($i * 1 / 5)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+     ╷
+1044 │             transform: rotateY(#{$i * 1/5}turn) translateZ(69px) rotateX(26.5deg);
+     │                                  ^^^^^^^^
+     ╵
+    src/styles/_components.scss 1044:34  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($i * 1, 5) or calc($i * 1 / 5)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+     ╷
+1049 │             transform: rotateY(#{$i * 1/5}turn) translateZ(-69px) rotateX(206.5deg);
+     │                                  ^^^^^^^^
+     ╵
+    src/styles/_components.scss 1049:34  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($i * 1, 5) or calc($i * 1 / 5)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+     ╷
+1070 │                 transform:rotate(#{$i * 1/5}turn)
+     │                                    ^^^^^^^^
+     ╵
+    src/styles/_components.scss 1070:36  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div(1, $steps) or calc(1 / $steps)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+     ╷
+2437 │         #{percentage($i*(1/$steps))} {
+     │                          ^^^^^^^^
+     ╵
+    src/styles/_components.scss 2437:26  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use math.percentage instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+     ╷
+2437 │         #{percentage($i*(1/$steps))} {
+     │           ^^^^^^^^^^^^^^^^^^^^^^^^^
+     ╵
+    src/styles/_components.scss 2437:11  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use math.random instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+     ╷
+2438 │             clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+     │                        ^^^^^^^^^^^
+     ╵
+    src/styles/_components.scss 2438:24  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use math.random instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+     ╷
+2438 │             clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+     │                                                ^^^^^^^^^^^
+     ╵
+    src/styles/_components.scss 2438:48  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use math.random instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+     ╷
+2439 │             transform: skew((random(100) / 100) + deg);
+     │                              ^^^^^^^^^^^
+     ╵
+    src/styles/_components.scss 2439:30  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div(random(100), 100) or calc(random(100) / 100)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+     ╷
+2439 │             transform: skew((random(100) / 100) + deg);
+     │                              ^^^^^^^^^^^^^^^^^
+     ╵
+    src/styles/_components.scss 2439:30  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use math.percentage instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+     ╷
+2448 │         #{percentage($i*(1/$steps))} {
+     │           ^^^^^^^^^^^^^^^^^^^^^^^^^
+     ╵
+    src/styles/_components.scss 2448:11  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+WARNING: 8 repetitive deprecation warnings omitted.
+Run in verbose mode to see all warnings.
+
+{"message":"[200] HEAD /portfolio/ 81ms","label":null,"level":"info"}
+{"message":"[200] HEAD /projects/interior-design-studio/ 79ms","label":null,"level":"info"}
+{"message":"[404] HEAD /admin/ 0ms","label":null,"level":"info"}
+{"message":"[200] /mj-admin/ 13ms","label":null,"level":"info"}
+{"message":"[200] /mj-admin/ 3ms","label":null,"level":"info"}
+{"message":"[200] HEAD /mj-admin/ 76ms","label":null,"level":"info"}
+{"message":"[200] /mj-admin/ 17ms","label":null,"level":"info"}
+{"message":"Configuration file updated. Restarting...","label":null,"level":"info"}
+{"message":"connected.","label":"vite","level":"info"}
+{"message":"connected.","label":"vite","level":"info"}
+{"message":"Re-optimizing dependencies because lockfile has changed","label":"vite","level":"info"}
+{"message":"server restarted.","label":"vite","level":"info"}
+{"message":"[200] /mj-admin/ 23ms","label":null,"level":"info"}
+{"message":"[200] /mj-admin/ 16ms","label":null,"level":"info"}
+{"message":"[200] /mj-admin/ 13ms","label":null,"level":"info"}
+{"message":"[200] /mj-admin 32ms","label":null,"level":"info"}
+{"message":"[404] /config.yml 176ms","label":null,"level":"info"}
+{"message":"[Unhandled rejection] Error: Failed to load config.yml (404)\n > ../../../../../../decap-cms@3.14.1/dist/decap-cms.js:17:42638\n > ../../../../../../decap-cms@3.14.1/dist/decap-cms.js:17:42444\n","label":"vite","level":"error"}
+{"message":"Configuration file updated. Restarting...","label":null,"level":"info"}
+{"message":"connected.","label":"vite","level":"info"}
+{"message":"connected.","label":"vite","level":"info"}
+{"message":"server restarted.","label":"vite","level":"info"}
+{"message":"[200] /mj-admin 11ms","label":null,"level":"info"}
+{"message":"[404] /config.yml 38ms","label":null,"level":"info"}
+{"message":"[Unhandled rejection] Error: Failed to load config.yml (404)\n > ../../../../../../decap-cms@3.14.1/dist/decap-cms.js:17:42638\n > ../../../../../../decap-cms@3.14.1/dist/decap-cms.js:17:42444\n","label":"vite","level":"error"}
+{"message":"[200] /mj-admin 4ms","label":null,"level":"info"}
+{"message":"[404] /config.yml 19ms","label":null,"level":"info"}
+{"message":"[Unhandled rejection] Error: Failed to load config.yml (404)\n > ../../../../../../decap-cms@3.14.1/dist/decap-cms.js:17:42638\n > ../../../../../../decap-cms@3.14.1/dist/decap-cms.js:17:42444\n","label":"vite","level":"error"}
+{"message":"[200] /mj-admin/ 3ms","label":null,"level":"info"}
+{"message":"[200] / 18ms","label":null,"level":"info"}
+{"message":"[200] /mj-admin/ 41ms","label":null,"level":"info"}
+{"message":"[200] /mj-admin/ 67ms","label":null,"level":"info"}
+{"message":"[200] HEAD /mj-admin/ 314ms","label":null,"level":"info"}
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+54 │ @import 'variables';
+   │         ^^^^^^^^^^^
+   ╵
+    src/styles/style.scss 54:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+55 │ @import 'common';
+   │         ^^^^^^^^
+   ╵
+    src/styles/style.scss 55:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+56 │ @import 'components';
+   │         ^^^^^^^^^^^^
+   ╵
+    src/styles/style.scss 56:9  root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($i * 1, 5) or calc($i * 1 / 5)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+     ╷
+1044 │             transform: rotateY(#{$i * 1/5}turn) translateZ(69px) rotateX(26.5deg);
+     │                                  ^^^^^^^^
+     ╵
+    src/styles/_components.scss 1044:34  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($i * 1, 5) or calc($i * 1 / 5)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+     ╷
+1049 │             transform: rotateY(#{$i * 1/5}turn) translateZ(-69px) rotateX(206.5deg);
+     │                                  ^^^^^^^^
+     ╵
+    src/styles/_components.scss 1049:34  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($i * 1, 5) or calc($i * 1 / 5)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+     ╷
+1070 │                 transform:rotate(#{$i * 1/5}turn)
+     │                                    ^^^^^^^^
+     ╵
+    src/styles/_components.scss 1070:36  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div(1, $steps) or calc(1 / $steps)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+     ╷
+2437 │         #{percentage($i*(1/$steps))} {
+     │                          ^^^^^^^^
+     ╵
+    src/styles/_components.scss 2437:26  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use math.percentage instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+     ╷
+2437 │         #{percentage($i*(1/$steps))} {
+     │           ^^^^^^^^^^^^^^^^^^^^^^^^^
+     ╵
+    src/styles/_components.scss 2437:11  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use math.random instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+     ╷
+2438 │             clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+     │                        ^^^^^^^^^^^
+     ╵
+    src/styles/_components.scss 2438:24  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use math.random instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+     ╷
+2438 │             clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+     │                                                ^^^^^^^^^^^
+     ╵
+    src/styles/_components.scss 2438:48  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use math.random instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+     ╷
+2439 │             transform: skew((random(100) / 100) + deg);
+     │                              ^^^^^^^^^^^
+     ╵
+    src/styles/_components.scss 2439:30  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div(random(100), 100) or calc(random(100) / 100)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+     ╷
+2439 │             transform: skew((random(100) / 100) + deg);
+     │                              ^^^^^^^^^^^^^^^^^
+     ╵
+    src/styles/_components.scss 2439:30  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use math.percentage instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+     ╷
+2448 │         #{percentage($i*(1/$steps))} {
+     │           ^^^^^^^^^^^^^^^^^^^^^^^^^
+     ╵
+    src/styles/_components.scss 2448:11  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+WARNING: 8 repetitive deprecation warnings omitted.
+Run in verbose mode to see all warnings.
+
+{"message":"[200] HEAD / 97ms","label":null,"level":"info"}
+{"message":"[200] / 302ms","label":null,"level":"info"}
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+54 │ @import 'variables';
+   │         ^^^^^^^^^^^
+   ╵
+    src/styles/style.scss 54:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+55 │ @import 'common';
+   │         ^^^^^^^^
+   ╵
+    src/styles/style.scss 55:9  root stylesheet
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+56 │ @import 'components';
+   │         ^^^^^^^^^^^^
+   ╵
+    src/styles/style.scss 56:9  root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($i * 1, 5) or calc($i * 1 / 5)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+     ╷
+1044 │             transform: rotateY(#{$i * 1/5}turn) translateZ(69px) rotateX(26.5deg);
+     │                                  ^^^^^^^^
+     ╵
+    src/styles/_components.scss 1044:34  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($i * 1, 5) or calc($i * 1 / 5)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+     ╷
+1049 │             transform: rotateY(#{$i * 1/5}turn) translateZ(-69px) rotateX(206.5deg);
+     │                                  ^^^^^^^^
+     ╵
+    src/styles/_components.scss 1049:34  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div($i * 1, 5) or calc($i * 1 / 5)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+     ╷
+1070 │                 transform:rotate(#{$i * 1/5}turn)
+     │                                    ^^^^^^^^
+     ╵
+    src/styles/_components.scss 1070:36  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div(1, $steps) or calc(1 / $steps)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+     ╷
+2437 │         #{percentage($i*(1/$steps))} {
+     │                          ^^^^^^^^
+     ╵
+    src/styles/_components.scss 2437:26  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use math.percentage instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+     ╷
+2437 │         #{percentage($i*(1/$steps))} {
+     │           ^^^^^^^^^^^^^^^^^^^^^^^^^
+     ╵
+    src/styles/_components.scss 2437:11  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use math.random instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+     ╷
+2438 │             clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+     │                        ^^^^^^^^^^^
+     ╵
+    src/styles/_components.scss 2438:24  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use math.random instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+     ╷
+2438 │             clip: rect(random(100)+px, 9999px, random(100)+px, 0);
+     │                                                ^^^^^^^^^^^
+     ╵
+    src/styles/_components.scss 2438:48  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use math.random instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+     ╷
+2439 │             transform: skew((random(100) / 100) + deg);
+     │                              ^^^^^^^^^^^
+     ╵
+    src/styles/_components.scss 2439:30  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [slash-div]: Using / for division outside of calc() is deprecated and will be removed in Dart Sass 2.0.0.
+
+Recommendation: math.div(random(100), 100) or calc(random(100) / 100)
+
+More info and automated migrator: https://sass-lang.com/d/slash-div
+
+     ╷
+2439 │             transform: skew((random(100) / 100) + deg);
+     │                              ^^^^^^^^^^^^^^^^^
+     ╵
+    src/styles/_components.scss 2439:30  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+DEPRECATION WARNING [global-builtin]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use math.percentage instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+     ╷
+2448 │         #{percentage($i*(1/$steps))} {
+     │           ^^^^^^^^^^^^^^^^^^^^^^^^^
+     ╵
+    src/styles/_components.scss 2448:11  @import
+    src/styles/style.scss 56:9           root stylesheet
+
+WARNING: 8 repetitive deprecation warnings omitted.
+Run in verbose mode to see all warnings.
+
+{"message":"[200] /portfolio/ 466ms","label":null,"level":"info"}
+{"message":"[200] / 50ms","label":null,"level":"info"}
+{"message":"[200] /portfolio/ 334ms","label":null,"level":"info"}
+{"message":"[Unhandled error] Error: Syntax error, unrecognized expression: #.\n > se.error ../../../../../../js/plugins/jquery.min.js:2:13639\n > ../../../../../../js/plugins/jquery.min.js:2:21650\n > ../../../../../../js/plugins/jquery.min.js:2:22477\n > S.se [as find] ../../../../../../js/plugins/jquery.min.js:2:7116\n > S.find ../../../../../../js/plugins/jquery.min.js:2:25047\n > S.init ../../../../../../js/plugins/jquery.min.js:2:25536\n > S ../../../../../../js/plugins/jquery.min.js:2:1051\n > HTMLAnchorElement.<anonymous> ../../../../../../js/main.js:125:22\n > HTMLDocument.dispatch ../../../../../../js/plugins/jquery.min.js:2:43064\n > S.event.add.v.handle ../../../../../../js/plugins/jquery.min.js:2:41048\n","label":"vite","level":"error"}
+{"message":"[Unhandled error] SyntaxError: Failed to execute 'querySelector' on 'Document': '#.' is not a valid selector.\n > e ../../../../../../js/plugins/swup.min.js:1:6390\n > e.exports ../../../../../../js/plugins/swup.min.js:1:7482\n","label":"vite","level":"error"}
+{"message":"[Unhandled error] Error: Syntax error, unrecognized expression: #.\n > se.error ../../../../../../js/plugins/jquery.min.js:2:13639\n > ../../../../../../js/plugins/jquery.min.js:2:21650\n > ../../../../../../js/plugins/jquery.min.js:2:22477\n > S.se [as find] ../../../../../../js/plugins/jquery.min.js:2:7116\n > S.find ../../../../../../js/plugins/jquery.min.js:2:25047\n > S.init ../../../../../../js/plugins/jquery.min.js:2:25536\n > S ../../../../../../js/plugins/jquery.min.js:2:1051\n > HTMLAnchorElement.<anonymous> ../../../../../../js/main.js:125:22\n > HTMLDocument.dispatch ../../../../../../js/plugins/jquery.min.js:2:43064\n > S.event.add.v.handle ../../../../../../js/plugins/jquery.min.js:2:41048\n","label":"vite","level":"error"}
+{"message":"[Unhandled error] SyntaxError: Failed to execute 'querySelector' on 'Document': '#.' is not a valid selector.\n > e ../../../../../../js/plugins/swup.min.js:1:6390\n > e.exports ../../../../../../js/plugins/swup.min.js:1:7482\n","label":"vite","level":"error"}
+{"message":"[200] /mj-admin/ 76ms","label":null,"level":"info"}
+{"message":"[200] / 294ms","label":null,"level":"info"}
+{"message":"[200] /portfolio/ 400ms","label":null,"level":"info"}
+{"message":"[200] /portfolio/ 44ms","label":null,"level":"info"}
+{"message":"[Unhandled error] Error: Syntax error, unrecognized expression: #.\n > se.error ../../../../../../js/plugins/jquery.min.js:2:13639\n > ../../../../../../js/plugins/jquery.min.js:2:21650\n > ../../../../../../js/plugins/jquery.min.js:2:22477\n > S.se [as find] ../../../../../../js/plugins/jquery.min.js:2:7116\n > S.find ../../../../../../js/plugins/jquery.min.js:2:25047\n > S.init ../../../../../../js/plugins/jquery.min.js:2:25536\n > S ../../../../../../js/plugins/jquery.min.js:2:1051\n > HTMLAnchorElement.<anonymous> ../../../../../../js/main.js:125:22\n > HTMLDocument.dispatch ../../../../../../js/plugins/jquery.min.js:2:43064\n > S.event.add.v.handle ../../../../../../js/plugins/jquery.min.js:2:41048\n","label":"vite","level":"error"}
+{"message":"[Unhandled error] SyntaxError: Failed to execute 'querySelector' on 'Document': '#.' is not a valid selector.\n > e ../../../../../../js/plugins/swup.min.js:1:6390\n > e.exports ../../../../../../js/plugins/swup.min.js:1:7482\n","label":"vite","level":"error"}
+{"message":"[Unhandled error] Error: Syntax error, unrecognized expression: #.\n > se.error ../../../../../../js/plugins/jquery.min.js:2:13639\n > ../../../../../../js/plugins/jquery.min.js:2:21650\n > ../../../../../../js/plugins/jquery.min.js:2:22477\n > S.se [as find] ../../../../../../js/plugins/jquery.min.js:2:7116\n > S.find ../../../../../../js/plugins/jquery.min.js:2:25047\n > S.init ../../../../../../js/plugins/jquery.min.js:2:25536\n > S ../../../../../../js/plugins/jquery.min.js:2:1051\n > HTMLAnchorElement.<anonymous> ../../../../../../js/main.js:125:22\n > HTMLDocument.dispatch ../../../../../../js/plugins/jquery.min.js:2:43064\n > S.event.add.v.handle ../../../../../../js/plugins/jquery.min.js:2:41048\n","label":"vite","level":"error"}
+{"message":"[Unhandled error] SyntaxError: Failed to execute 'querySelector' on 'Document': '#.' is not a valid selector.\n > e ../../../../../../js/plugins/swup.min.js:1:6390\n > e.exports ../../../../../../js/plugins/swup.min.js:1:7482\n","label":"vite","level":"error"}
+{"message":"[Unhandled error] Error: Syntax error, unrecognized expression: #.\n > se.error ../../../../../../js/plugins/jquery.min.js:2:13639\n > ../../../../../../js/plugins/jquery.min.js:2:21650\n > ../../../../../../js/plugins/jquery.min.js:2:22477\n > S.se [as find] ../../../../../../js/plugins/jquery.min.js:2:7116\n > S.find ../../../../../../js/plugins/jquery.min.js:2:25047\n > S.init ../../../../../../js/plugins/jquery.min.js:2:25536\n > S ../../../../../../js/plugins/jquery.min.js:2:1051\n > HTMLAnchorElement.<anonymous> ../../../../../../js/main.js:125:22\n > HTMLDocument.dispatch ../../../../../../js/plugins/jquery.min.js:2:43064\n > S.event.add.v.handle ../../../../../../js/plugins/jquery.min.js:2:41048\n","label":"vite","level":"error"}
+{"message":"[Unhandled error] SyntaxError: Failed to execute 'querySelector' on 'Document': '#.' is not a valid selector.\n > e ../../../../../../js/plugins/swup.min.js:1:6390\n > e.exports ../../../../../../js/plugins/swup.min.js:1:7482\n","label":"vite","level":"error"}
+{"message":"[Unhandled error] Error: Syntax error, unrecognized expression: #.\n > se.error ../../../../../../js/plugins/jquery.min.js:2:13639\n > ../../../../../../js/plugins/jquery.min.js:2:21650\n > ../../../../../../js/plugins/jquery.min.js:2:22477\n > S.se [as find] ../../../../../../js/plugins/jquery.min.js:2:7116\n > S.find ../../../../../../js/plugins/jquery.min.js:2:25047\n > S.init ../../../../../../js/plugins/jquery.min.js:2:25536\n > S ../../../../../../js/plugins/jquery.min.js:2:1051\n > HTMLAnchorElement.<anonymous> ../../../../../../js/main.js:125:22\n > HTMLDocument.dispatch ../../../../../../js/plugins/jquery.min.js:2:43064\n > S.event.add.v.handle ../../../../../../js/plugins/jquery.min.js:2:41048\n","label":"vite","level":"error"}
+{"message":"[Unhandled error] SyntaxError: Failed to execute 'querySelector' on 'Document': '#.' is not a valid selector.\n > e ../../../../../../js/plugins/swup.min.js:1:6390\n > e.exports ../../../../../../js/plugins/swup.min.js:1:7482\n","label":"vite","level":"error"}
+{"message":"[Unhandled error] Error: Syntax error, unrecognized expression: #.\n > se.error ../../../../../../js/plugins/jquery.min.js:2:13639\n > ../../../../../../js/plugins/jquery.min.js:2:21650\n > ../../../../../../js/plugins/jquery.min.js:2:22477\n > S.se [as find] ../../../../../../js/plugins/jquery.min.js:2:7116\n > S.find ../../../../../../js/plugins/jquery.min.js:2:25047\n > S.init ../../../../../../js/plugins/jquery.min.js:2:25536\n > S ../../../../../../js/plugins/jquery.min.js:2:1051\n > HTMLAnchorElement.<anonymous> ../../../../../../js/main.js:125:22\n > HTMLDocument.dispatch ../../../../../../js/plugins/jquery.min.js:2:43064\n > S.event.add.v.handle ../../../../../../js/plugins/jquery.min.js:2:41048\n","label":"vite","level":"error"}
+{"message":"[Unhandled error] SyntaxError: Failed to execute 'querySelector' on 'Document': '#.' is not a valid selector.\n > e ../../../../../../js/plugins/swup.min.js:1:6390\n > e.exports ../../../../../../js/plugins/swup.min.js:1:7482\n","label":"vite","level":"error"}
+{"message":"[200] /mj-admin/ 187ms","label":null,"level":"info"}
+{"message":"[200] /mj-admin/ 68ms","label":null,"level":"info"}
+{"message":"[200] /mj-admin/ 26ms","label":null,"level":"info"}

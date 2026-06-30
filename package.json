@@ -1,0 +1,26 @@
+{
+  "name": "mirko-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "cms:local": "decap-server",
+    "test:e2e": "npm run build && playwright test"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "latest",
+    "astro": "latest",
+    "sass": "latest",
+    "yaml": "latest"
+  },
+  "devDependencies": {
+    "@astrojs/check": "latest",
+    "@playwright/test": "latest",
+    "decap-server": "^3.9.1",
+    "typescript": "latest"
+  }
+}

@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import Footer from '@components/Footer.astro';
+import HeadMeta from '@components/HeadMeta.astro';
+import HiddenSvgAssets from '@components/HiddenSvgAssets.astro';
+import MenuOverlay from '@components/MenuOverlay.astro';
+import Preloader from '@components/Preloader.astro';
+import ScriptLoader from '@components/ScriptLoader.astro';
+import SiteFrame from '@components/SiteFrame.astro';
+import { getHomeSettings, getNavigation, getSiteSettings, sortByOrder } from '@lib/siteContent';
+import '../styles/style.scss';
+
+type Props = {
+  title?: string;
+  description?: string;
+  image?: string;
+};
+
+const { title, description, image } = Astro.props;
+const site = getSiteSettings();
+const home = getHomeSettings();
+const navigation = getNavigation();
+const projects = sortByOrder(await getCollection('projects'));
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <HeadMeta site={site} title={title} description={description} image={image} />
+  </head>
+  <body>
+    <div class="mil-wrapper" id="top">
+      <div class="mil-ball">
+        <span class="mil-icon-1">
+          <svg viewBox="0 0 128 128">
+            <path d="M106.1 41.9a3 3 0 0 0-4.2 4.2L116.8 61H11.2l14.9-14.9a3 3 0 0 0-4.2-4.2l-20 20a3 3 0 0 0 0 4.2l20 20a3 3 0 0 0 4.2-4.2L11.2 67h105.5l-14.9 14.9a3 3 0 1 0 4.2 4.2l20-20a3 3 0 0 0 0-4.2l-19.9-20z"></path>
+          </svg>
+        </span>
+        <div class="mil-more-text">More</div>
+        <div class="mil-choose-text">Choose</div>
+      </div>
+      <Preloader site={site} home={home} />
+      <div class="mil-progress-track"><div class="mil-progress"></div></div>
+      <MenuOverlay site={site} navigation={navigation} projects={projects} />
+      <div class="mil-curtain"></div>
+      <SiteFrame site={site} />
+      <div class="mil-content">
+        <div id="swupMain" class="mil-main-transition">
+          <slot />
+          <Footer site={site} navigation={navigation} />
+          <HiddenSvgAssets />
+        </div>
+      </div>
+    </div>
+    <ScriptLoader />
+  </body>
+</html>

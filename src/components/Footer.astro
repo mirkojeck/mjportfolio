@@ -1,0 +1,74 @@
+---
+import type { Navigation, SiteSettings } from '@lib/siteContent';
+
+const { site, navigation } = Astro.props as { site: SiteSettings; navigation: Navigation };
+---
+
+<footer class="mil-dark-bg">
+  <div class="mi-invert-fix">
+    <div class="container mil-p-120-60">
+      <div class="row justify-content-between">
+        <div class="col-md-4 col-lg-4 mil-mb-60">
+          <div class="mil-muted mil-logo mil-up mil-mb-30">
+            {site.brand.logoImage ? <img src={site.brand.logoImage} alt={site.brand.logoAlt} /> : site.brand.logoText}
+          </div>
+          <p class="mil-light-soft mil-up mil-mb-30">Subscribe for selected studio updates:</p>
+          <form class="mil-subscribe-form mil-up" data-editable-form>
+            <input type="email" name="email" placeholder="Enter your email" />
+            <button type="submit" class="mil-button mil-icon-button-sm mil-arrow-place" aria-label="Subscribe"></button>
+          </form>
+        </div>
+        <div class="col-md-7 col-lg-6">
+          <div class="row justify-content-end">
+            <div class="col-md-6 col-lg-7">
+              <nav class="mil-footer-menu mil-mb-60">
+                <ul>
+                  {navigation.footer.map((item) => (
+                    <li class="mil-up">
+                      <a href={item.href}>{item.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+            <div class="col-md-6 col-lg-5">
+              <ul class="mil-menu-list mil-up mil-mb-60">
+                {site.legalLinks.map((item) => (
+                  <li><a href={item.href} class="mil-light-soft">{item.label}</a></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-between flex-sm-row-reverse">
+        <div class="col-md-7 col-lg-6">
+          <div class="row justify-content-between">
+            {site.contact.locations.map((location) => (
+              <div class="col-md-6 col-lg-5 mil-mb-60">
+                <h6 class="mil-muted mil-up mil-mb-30">{location.label}</h6>
+                <p class="mil-light-soft mil-up">{location.address}<br /><span class="mil-no-wrap">{location.phone}</span></p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="col-md-4 col-lg-6 mil-mb-60">
+          <div class="mil-vert-between">
+            <div class="mil-mb-30">
+              <ul class="mil-social-icons mil-up">
+                {site.socials.map((social) => (
+                  <li>
+                    <a href={social.href} target="_blank" rel="noreferrer" class="social-icon">
+                      <i class="far fa-circle"></i><span class="sr-only">{social.label}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <p class="mil-light-soft mil-up">Copyright © {new Date().getFullYear()} {site.brand.name}. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

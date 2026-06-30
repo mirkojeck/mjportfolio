@@ -1,0 +1,283 @@
+backend:
+  name: github
+  repo: REPLACE_WITH_OWNER/REPLACE_WITH_REPO
+  branch: main
+
+publish_mode: editorial_workflow
+local_backend: true
+
+media_folder: public/img/uploads
+public_folder: /img/uploads
+
+collections:
+  - name: settings
+    label: Site Settings
+    files:
+      - name: site
+        label: Site
+        file: src/data/site.yml
+        fields:
+          - label: Brand
+            name: brand
+            widget: object
+            fields:
+              - { label: Site Name, name: name, widget: string }
+              - { label: Short Logo Text, name: shortName, widget: string }
+              - { label: Domain, name: domain, widget: string }
+              - { label: Footer Logo Text, name: logoText, widget: string }
+              - { label: Logo Image, name: logoImage, widget: image, required: false }
+              - { label: Logo Alt Text, name: logoAlt, widget: string }
+          - label: SEO
+            name: seo
+            widget: object
+            fields:
+              - { label: Default Title, name: title, widget: string }
+              - { label: Default Description, name: description, widget: text }
+              - { label: Open Graph Image, name: image, widget: image }
+              - { label: Favicon, name: favicon, widget: image }
+              - { label: Canonical Base URL, name: canonicalBaseUrl, widget: string }
+          - label: Projects Display
+            name: projects
+            widget: object
+            fields:
+              - { label: Sort Direction, name: sortDirection, widget: select, options: [asc, desc], default: desc }
+              - { label: Featured Limit, name: featuredLimit, widget: number, default: 6, min: 1 }
+          - label: Contact
+            name: contact
+            widget: object
+            fields:
+              - { label: Email, name: email, widget: string }
+              - { label: Phone, name: phone, widget: string }
+              - label: Locations
+                name: locations
+                widget: list
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Address, name: address, widget: text }
+                  - { label: Phone, name: phone, widget: string }
+          - label: Social Links
+            name: socials
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: URL, name: href, widget: string }
+          - label: Legal Links
+            name: legalLinks
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: URL, name: href, widget: string }
+      - name: navigation
+        label: Navigation
+        file: src/data/navigation.yml
+        fields:
+          - label: Main Menu
+            name: main
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: URL, name: href, widget: string }
+          - label: Footer Menu
+            name: footer
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: URL, name: href, widget: string }
+      - name: home
+        label: Home Page
+        file: src/data/home.yml
+        fields:
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - { label: Preloader Line 1, name: preloaderLine1, widget: string }
+              - { label: Preloader Line 2, name: preloaderLine2, widget: string }
+              - { label: Preloader Line 3, name: preloaderLine3, widget: string }
+              - { label: Title Part 1, name: titlePart1, widget: string }
+              - { label: Thin Title Part 1, name: titleThin1, widget: string }
+              - { label: Title Part 2, name: titlePart2, widget: string }
+              - { label: Thin Title Part 2, name: titleThin2, widget: string }
+              - { label: Description, name: description, widget: text }
+              - { label: CTA Label, name: ctaLabel, widget: string }
+              - { label: CTA URL, name: ctaHref, widget: string }
+              - { label: Secondary CTA Label, name: secondaryCtaLabel, widget: string }
+              - { label: Secondary CTA URL, name: secondaryCtaHref, widget: string }
+          - label: About
+            name: about
+            widget: object
+            fields:
+              - { label: Title Part 1, name: titlePart1, widget: string }
+              - { label: Title Part 2, name: titlePart2, widget: string }
+              - { label: Thin Title, name: titleThin, widget: string }
+              - { label: Paragraphs, name: paragraphs, widget: list, field: { label: Paragraph, name: paragraph, widget: text } }
+              - { label: Quote, name: quote, widget: text }
+              - { label: Quote Image, name: quoteImage, widget: image }
+              - { label: Main Image, name: image, widget: image }
+          - label: Services Preview
+            name: servicesPreview
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: text }
+              - { label: Title Line 1, name: titleLine1, widget: string }
+              - { label: Title Line 2, name: titleLine2, widget: string }
+              - { label: Image, name: image, widget: image }
+              - { label: CTA Label, name: ctaLabel, widget: string }
+              - { label: CTA URL, name: ctaHref, widget: string }
+              - label: Items
+                name: items
+                widget: list
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Summary, name: summary, widget: text }
+                  - { label: URL, name: href, widget: string }
+          - label: Featured Projects
+            name: featuredProjects
+            widget: object
+            fields:
+              - { label: Heading, name: heading, widget: string }
+              - { label: Source, name: source, widget: select, options: [isFeatured], default: isFeatured }
+              - { label: Limit, name: limit, widget: number, default: 6, min: 1 }
+          - label: Team Preview
+            name: teamPreview
+            widget: object
+            fields:
+              - { label: Title Part 1, name: titlePart1, widget: string }
+              - { label: Title Part 2, name: titlePart2, widget: string }
+              - { label: Paragraphs, name: paragraphs, widget: list, field: { label: Paragraph, name: paragraph, widget: text } }
+              - { label: CTA Label, name: ctaLabel, widget: string }
+              - { label: CTA URL, name: ctaHref, widget: string }
+              - { label: Closing Line 1, name: closingLine1, widget: string }
+              - { label: Closing Line 2, name: closingLine2, widget: string }
+              - { label: Note, name: note, widget: string }
+              - label: Members
+                name: members
+                widget: list
+                fields:
+                  - { label: Name, name: name, widget: string }
+                  - { label: Role, name: role, widget: string }
+                  - { label: Image, name: image, widget: image }
+                  - { label: URL, name: href, widget: string }
+          - label: Reviews
+            name: reviews
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: text }
+              - { label: Title Part 1, name: titlePart1, widget: string }
+              - { label: Title Part 2, name: titlePart2, widget: string }
+              - label: Items
+                name: items
+                widget: list
+                fields:
+                  - { label: Name, name: name, widget: string }
+                  - { label: Company, name: company, widget: string }
+                  - { label: Quote, name: quote, widget: text }
+          - label: Partners
+            name: partners
+            widget: list
+            fields:
+              - { label: Image, name: image, widget: image }
+              - { label: URL, name: href, widget: string }
+              - { label: Width, name: width, widget: string }
+          - label: Blog Preview
+            name: blogPreview
+            widget: object
+            fields:
+              - { label: Heading, name: heading, widget: string }
+              - { label: CTA Label, name: ctaLabel, widget: string }
+              - { label: CTA URL, name: ctaHref, widget: string }
+              - label: Items
+                name: items
+                widget: list
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Category, name: category, widget: string }
+                  - { label: Date Label, name: date, widget: string }
+                  - { label: Image, name: image, widget: image }
+                  - { label: URL, name: href, widget: string }
+                  - { label: Excerpt, name: excerpt, widget: text }
+          - label: Call To Action
+            name: callToAction
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: text }
+              - { label: Title, name: title, widget: string }
+              - { label: CTA Label, name: ctaLabel, widget: string }
+              - { label: CTA URL, name: ctaHref, widget: string }
+      - name: contact
+        label: Contact Page
+        file: src/data/contact-page.yml
+        fields:
+          - { label: Heading, name: heading, widget: string }
+          - { label: Description, name: description, widget: text }
+          - label: Form
+            name: form
+            widget: object
+            fields:
+              - { label: Name Label, name: nameLabel, widget: string }
+              - { label: Email Label, name: emailLabel, widget: string }
+              - { label: Message Label, name: messageLabel, widget: string }
+              - { label: Submit Label, name: submitLabel, widget: string }
+          - { label: Map Embed URL, name: mapEmbedUrl, widget: string, required: false }
+  - name: projects
+    label: Projects
+    folder: src/content/projects
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Summary, name: summary, widget: text }
+      - { label: Cover, name: cover, widget: image }
+      - { label: Gallery, name: gallery, widget: list, field: { label: Image, name: image, widget: image }, required: false }
+      - { label: Client, name: client, widget: string }
+      - { label: Year, name: year, widget: number }
+      - { label: Date, name: date, widget: datetime, required: false }
+      - { label: Services, name: services, widget: list, required: false }
+      - { label: External URL, name: externalUrl, widget: string, required: false }
+      - { label: Order, name: order, widget: number, default: 999 }
+      - { label: Featured, name: isFeatured, widget: boolean, default: false }
+      - { label: SEO Title, name: seoTitle, widget: string, required: false }
+      - { label: SEO Description, name: seoDescription, widget: text, required: false }
+      - { label: Body, name: body, widget: markdown }
+  - name: services
+    label: Services
+    folder: src/content/services
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Summary, name: summary, widget: text }
+      - { label: Features, name: features, widget: list, required: false }
+      - { label: Order, name: order, widget: number, default: 999 }
+  - name: team
+    label: Team
+    folder: src/content/team
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Name, name: name, widget: string }
+      - { label: Role, name: role, widget: string }
+      - { label: Image, name: image, widget: image }
+      - label: Socials
+        name: socials
+        widget: list
+        required: false
+        fields:
+          - { label: Label, name: label, widget: string }
+          - { label: URL, name: href, widget: string }
+      - { label: Order, name: order, widget: number, default: 999 }
+  - name: posts
+    label: Blog Posts
+    folder: src/content/posts
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime }
+      - { label: Excerpt, name: excerpt, widget: text }
+      - { label: Cover, name: cover, widget: image }
+      - { label: Tags, name: tags, widget: list, required: false }
+      - { label: Order, name: order, widget: number, default: 999 }
+      - { label: SEO Title, name: seoTitle, widget: string, required: false }
+      - { label: SEO Description, name: seoDescription, widget: text, required: false }
+      - { label: Body, name: body, widget: markdown }

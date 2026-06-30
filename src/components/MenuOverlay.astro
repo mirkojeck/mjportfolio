@@ -1,0 +1,77 @@
+---
+import type { Navigation, SiteSettings } from '@lib/siteContent';
+
+const { site, navigation, projects } = Astro.props as {
+  site: SiteSettings;
+  navigation: Navigation;
+  projects: Array<{ id: string; data: { title: string } }>;
+};
+---
+
+<div class="mil-menu-frame">
+  <div class="mil-frame-top">
+    <a href="/" class="mil-logo">
+      {site.brand.logoImage ? <img src={site.brand.logoImage} alt={site.brand.logoAlt} /> : site.brand.shortName}
+    </a>
+    <div class="mil-menu-btn">
+      <span></span>
+    </div>
+  </div>
+  <div class="container">
+    <div class="mil-menu-content">
+      <div class="row">
+        <div class="col-xl-5">
+          <nav class="mil-main-menu" id="swupMenu">
+            <ul>
+              {navigation.main.map((item) => (
+                <li class={Astro.url.pathname === item.href ? 'mil-active' : ''}>
+                  <a href={item.href}>{item.label}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+        <div class="col-xl-7">
+          <div class="mil-menu-right-frame">
+            <div class="mil-animation-in">
+              <div class="mil-animation-frame">
+                <div class="mil-animation mil-position-1 mil-scale" data-value-1="2" data-value-2="2"></div>
+              </div>
+            </div>
+            <div class="mil-menu-right">
+              <div class="row">
+                <div class="col-lg-8 mil-mb-60">
+                  <h6 class="mil-muted mil-mb-30">Selected Projects</h6>
+                  <ul class="mil-menu-list">
+                    {projects.map((project) => (
+                      <li>
+                        <a href={`/projects/${project.id}/`} class="mil-light-soft">{project.data.title}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div class="col-lg-4 mil-mb-60">
+                  <h6 class="mil-muted mil-mb-30">Useful Links</h6>
+                  <ul class="mil-menu-list">
+                    {site.legalLinks.map((item) => (
+                      <li><a href={item.href} class="mil-light-soft">{item.label}</a></li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div class="mil-divider mil-mb-60"></div>
+              <div class="row justify-content-between">
+                {site.contact.locations.map((location) => (
+                  <div class="col-lg-4 mil-mb-60">
+                    <h6 class="mil-muted mil-mb-30">{location.label}</h6>
+                    <p class="mil-light-soft mil-up">{location.address} <span class="mil-no-wrap">{location.phone}</span></p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

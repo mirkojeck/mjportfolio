@@ -1,0 +1,33 @@
+---
+type Props = {
+  eyebrow?: string;
+  title: string;
+  text?: string;
+  dark?: boolean;
+};
+
+const { eyebrow, title, text, dark = true } = Astro.props;
+---
+
+<section class={dark ? 'mil-banner mil-dark-bg' : 'mil-banner'}>
+  <div class={dark ? 'mi-invert-fix' : ''}>
+    <div class="mil-animation-frame">
+      <div class="mil-animation mil-position-1 mil-scale" data-value-1="4" data-value-2="1.4"></div>
+      <div class="mil-animation mil-position-2 mil-scale" data-value-1="2" data-value-2="1"></div>
+    </div>
+    <div class="mil-gradient"></div>
+    <div class="container">
+      <div class="mil-banner-content mil-up">
+        {eyebrow && <p class="mil-light-soft mil-mb-30">{eyebrow}</p>}
+        <h1 class={dark ? 'mil-muted mil-mb-60' : 'mil-mb-60'} set:html={title}></h1>
+        {text && (
+          <div class="row">
+            <div class="col-md-7 col-lg-5">
+              <p class={dark ? 'mil-light-soft mil-mb-60' : 'mil-mb-60'}>{text}</p>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

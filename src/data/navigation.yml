@@ -1,0 +1,22 @@
+main:
+  - label: Home
+    href: /
+  - label: Portfolio
+    href: /portfolio/
+  - label: Services
+    href: /services.html
+  - label: Blog
+    href: /blog.html
+  - label: Contact
+    href: /contact.html
+footer:
+  - label: Home
+    href: /
+  - label: Portfolio
+    href: /portfolio/
+  - label: Services
+    href: /services.html
+  - label: Contact
+    href: /contact.html
+  - label: Blog
+    href: /blog.html

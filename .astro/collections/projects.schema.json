@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "cover": {
+      "type": "string",
+      "minLength": 1
+    },
+    "gallery": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "client": {
+      "type": "string"
+    },
+    "year": {
+      "type": "number"
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "services": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "externalUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "order": {
+      "default": 999,
+      "type": "number"
+    },
+    "isFeatured": {
+      "default": false,
+      "type": "boolean"
+    },
+    "seoTitle": {
+      "type": "string"
+    },
+    "seoDescription": {
+      "type": "string"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "summary",
+    "cover",
+    "client",
+    "year"
+  ]
+}

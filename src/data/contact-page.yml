@@ -1,0 +1,8 @@
+heading: Tell us about your project
+description: Share the essentials and we will get back to you.
+form:
+  nameLabel: Name
+  emailLabel: Email
+  messageLabel: Message
+  submitLabel: Send message
+mapEmbedUrl: ''

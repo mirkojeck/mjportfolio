@@ -1,0 +1,21 @@
+---
+import type { HomeSettings, SiteSettings } from '@lib/siteContent';
+
+const { site, home } = Astro.props as { site: SiteSettings; home?: HomeSettings };
+---
+
+<div class="mil-preloader">
+  <div class="mil-preloader-animation">
+    <div class="mil-pos-abs mil-animation-1">
+      <p class="mil-h3 mil-muted mil-thin">{home?.hero.preloaderLine1 ?? 'Focused'}</p>
+      <p class="mil-h3 mil-muted">{home?.hero.preloaderLine2 ?? 'Creative'}</p>
+      <p class="mil-h3 mil-muted mil-thin">{home?.hero.preloaderLine3 ?? 'Digital'}</p>
+    </div>
+    <div class="mil-pos-abs mil-animation-2">
+      <div class="mil-reveal-frame">
+        <p class="mil-reveal-box"></p>
+        <p class="mil-h3 mil-muted mil-thin">{site.brand.domain}</p>
+      </div>
+    </div>
+  </div>
+</div>
