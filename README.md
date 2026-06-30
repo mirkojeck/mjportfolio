@@ -92,3 +92,4 @@ npm run test:e2e
 - No missing images or console errors on primary pages.
 - Site title, SEO description, favicon, Open Graph image, project order, and featured projects are editable through Decap-managed files.
 # mjportfolio
+# mjportfolio
