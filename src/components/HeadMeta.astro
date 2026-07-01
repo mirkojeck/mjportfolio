@@ -14,7 +14,12 @@ const pageTitle = title ?? site.seo.title;
 const pageDescription = description ?? site.seo.description;
 const pageImage = image ?? site.seo.image;
 const pageUrl = canonical ?? Astro.url.pathname;
-const baseUrl = site.seo.canonicalBaseUrl || site.brand.domain;
+const normalizeBaseUrl = (value: string): string => {
+  const trimmed = value.trim().replace(/\/+$/, '');
+  if (!trimmed) return 'http://localhost:4321';
+  return /^https?:\/\//.test(trimmed) ? trimmed : `https://${trimmed}`;
+};
+const baseUrl = normalizeBaseUrl(site.brand.domain || site.seo.canonicalBaseUrl);
 ---
 
 <meta charset="UTF-8" />

@@ -18,11 +18,18 @@ const upsertTag = (html: string, pattern: RegExp, tag: string): string => {
   return html.replace('</head>', `    ${tag}\n</head>`);
 };
 
+const normalizeBaseUrl = (value: string): string => {
+  const trimmed = value.trim().replace(/\/+$/, '');
+  if (!trimmed) return 'http://localhost:4321';
+  return /^https?:\/\//.test(trimmed) ? trimmed : `https://${trimmed}`;
+};
+
 export const applyLegacyHeadMeta = (html: string, site: SiteSettings, options: LegacyMetaOptions = {}): string => {
   const title = escapeAttribute(options.title ?? site.seo.title);
   const description = escapeAttribute(options.description ?? site.seo.description);
-  const image = new URL(options.image ?? site.seo.image, site.seo.canonicalBaseUrl).toString();
-  const canonical = new URL(options.canonical ?? '/', site.seo.canonicalBaseUrl).toString();
+  const baseUrl = normalizeBaseUrl(site.brand.domain || site.seo.canonicalBaseUrl);
+  const image = new URL(options.image ?? site.seo.image, baseUrl).toString();
+  const canonical = new URL(options.canonical ?? '/', baseUrl).toString();
   const favicon = escapeAttribute(site.seo.favicon);
 
   let output = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${title}</title>`);

@@ -6,7 +6,7 @@ main:
   - label: Services
     href: /services/
   - label: Gallery
-    href: /blog/
+    href: /gallery/
   - label: Contact
     href: /contact/
 footer:
@@ -19,4 +19,4 @@ footer:
   - label: Contact
     href: /contact/
   - label: Gallery
-    href: /blog/
+    href: /gallery/

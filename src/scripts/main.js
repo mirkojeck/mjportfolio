@@ -499,7 +499,23 @@ $(function () {
 
     ***************************/
 
-    var menu = ['<div class="mil-custom-dot mil-slide-1"></div>', '<div class="mil-custom-dot mil-slide-2"></div>', '<div class="mil-custom-dot mil-slide-3"></div>', '<div class="mil-custom-dot mil-slide-4"></div>', '<div class="mil-custom-dot mil-slide-5"></div>', '<div class="mil-custom-dot mil-slide-6"></div>', '<div class="mil-custom-dot mil-slide-7"></div>']
+    var escapeReviewImage = function (image) {
+        return String(image || '').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    };
+    var reviewPagination = document.querySelector('.mil-revi-pagination');
+    var reviewImages = [];
+    if (reviewPagination && reviewPagination.dataset.reviewImages) {
+        try {
+            reviewImages = JSON.parse(reviewPagination.dataset.reviewImages);
+        } catch (error) {
+            reviewImages = [];
+        }
+    }
+    var menu = reviewImages.length
+        ? reviewImages.map(function (image) {
+            return '<div class="mil-custom-dot" style="background-image:url(&quot;' + escapeReviewImage(image) + '&quot;)"></div>';
+        })
+        : ['<div class="mil-custom-dot mil-slide-1"></div>', '<div class="mil-custom-dot mil-slide-2"></div>', '<div class="mil-custom-dot mil-slide-3"></div>', '<div class="mil-custom-dot mil-slide-4"></div>', '<div class="mil-custom-dot mil-slide-5"></div>', '<div class="mil-custom-dot mil-slide-6"></div>', '<div class="mil-custom-dot mil-slide-7"></div>']
     var mySwiper = new Swiper('.mil-reviews-slider', {
         // If we need pagination
         pagination: {
@@ -940,7 +956,23 @@ $(function () {
 
         ***************************/
 
-        var menu = ['<div class="mil-custom-dot mil-slide-1"></div>', '<div class="mil-custom-dot mil-slide-2"></div>', '<div class="mil-custom-dot mil-slide-3"></div>', '<div class="mil-custom-dot mil-slide-4"></div>', '<div class="mil-custom-dot mil-slide-5"></div>', '<div class="mil-custom-dot mil-slide-6"></div>', '<div class="mil-custom-dot mil-slide-7"></div>']
+        var escapeReviewImage = function (image) {
+            return String(image || '').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        };
+        var reviewPagination = document.querySelector('.mil-revi-pagination');
+        var reviewImages = [];
+        if (reviewPagination && reviewPagination.dataset.reviewImages) {
+            try {
+                reviewImages = JSON.parse(reviewPagination.dataset.reviewImages);
+            } catch (error) {
+                reviewImages = [];
+            }
+        }
+        var menu = reviewImages.length
+            ? reviewImages.map(function (image) {
+                return '<div class="mil-custom-dot" style="background-image:url(&quot;' + escapeReviewImage(image) + '&quot;)"></div>';
+            })
+            : ['<div class="mil-custom-dot mil-slide-1"></div>', '<div class="mil-custom-dot mil-slide-2"></div>', '<div class="mil-custom-dot mil-slide-3"></div>', '<div class="mil-custom-dot mil-slide-4"></div>', '<div class="mil-custom-dot mil-slide-5"></div>', '<div class="mil-custom-dot mil-slide-6"></div>', '<div class="mil-custom-dot mil-slide-7"></div>']
         var mySwiper = new Swiper('.mil-reviews-slider', {
             // If we need pagination
             pagination: {

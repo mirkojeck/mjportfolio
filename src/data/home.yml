@@ -9,7 +9,7 @@ hero:
   preloaderLine2: Creative
   preloaderLine3: Excellence
   secondaryCtaLabel: View works
-  ctaHref: /services.html
+  ctaHref: /services/
   description: Welcome to our world of endless imagination and boundless
     creativity. Together, let's embark on a remarkable journey where dreams
     become tangible realities.
@@ -36,24 +36,24 @@ servicesPreview:
   titleLine2: For Your Business.
   image: /img/photo/2.jpg
   ctaLabel: What we do
-  ctaHref: /services.html
+  ctaHref: /services/
   items:
     - title: Branding and Identity Design
       summary: Our creative agency is a team of professionals focused on helping your
         brand grow.
-      href: /service.html
+      href: /services/brand-strategy/
     - title: Website Design and Development
       summary: Our creative agency is a team of professionals focused on helping your
         brand grow.
-      href: /service.html
+      href: /services/web-experience/
     - title: Advertising and Marketing Campaigns
       summary: Our creative agency is a team of professionals focused on helping your
         brand grow.
-      href: /service.html
+      href: /services/product-design/
     - title: Creative Consulting and Development
       summary: Our creative agency is a team of professionals focused on helping your
         brand grow.
-      href: /service.html
+      href: /services/content-systems/
 featuredProjects:
   heading: Featured Projects
   source: isFeatured
@@ -75,20 +75,20 @@ teamPreview:
     - name: Anna Oldman
       role: Art Director
       image: /img/faces/1.jpg
-      href: /team.html
+      href: /team/
     - name: Oscar Freeman
       role: Frontend Dev
       image: /img/faces/3.jpg
-      href: /team.html
+      href: /team/
     - name: Emma Newman
       role: Founder
       image: /img/faces/2.jpg
-      href: /team.html
+      href: /team/
     - name: Lisa Trueman
       role: UI/UX Designer
       image: /img/faces/4.jpg
-      href: /team.html
-  ctaHref: /team.html
+      href: /team/
+  ctaHref: /team/
 reviews:
   eyebrow: Customer reviews are a valuable source of information for both
     businesses and consumers.
@@ -97,14 +97,20 @@ reviews:
   items:
     - name: Sarah Newman
       company: Envato market
+      image: /img/faces/1.jpg
       quote: This creative agency stands out with their exceptional talent and
         expertise. Their ability to think outside the box and bring unique ideas
         to life is truly impressive.
     - name: Emma Trueman
       company: Envato market
+      image: /img/faces/2.jpg
       quote: I had the pleasure of working with this creative agency, and I must say,
         they truly impressed me. I highly recommend this agency for their
         consistent delivery of exceptional creative solutions.
+    - name: Tariq.S
+      company: DXBMARK LLC
+      image: /img/uploads/favicon.webp
+      quote: One of the amazing things is to have a Client like Mr. Jeck.
 partners:
   - image: /img/partners/1.svg
     href: "#."
@@ -123,20 +129,20 @@ blogPreview:
   description: A visual collection of our most recent works - each piece crafted
     with intention, emotion, and style.
   ctaLabel: View all galleries
-  ctaHref: /blog/
+  ctaHref: /gallery/#gallery-list
   items:
     - title: How to Become a Graphic Designer in 10 Simple Steps
       category: TECHNOLOGY
       date: may 24 2023
       image: /img/blog/1.jpg
-      href: /blog/creative-portfolio-systems/
+      href: /gallery/creative-portfolio-systems/
       excerpt: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius sequi
         commodi dignissimos optio, beatae, eos necessitatibus nisi.
     - title: 16 Best Graphic Design Online and Offline Courses
       category: TECHNOLOGY
       date: may 24 2023
       image: /img/blog/2.jpg
-      href: /blog/static-sites-for-studios/
+      href: /gallery/static-sites-for-studios/
       excerpt: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius sequi
         commodi dignissimos optio, beatae, eos necessitatibus nisi.
 callToAction:
@@ -144,4 +150,4 @@ callToAction:
     success story.
   title: Ready to bring your ideas to life? We're here to help.
   ctaLabel: Contact us
-  ctaHref: /contact.html
+  ctaHref: /contact/

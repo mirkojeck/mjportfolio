@@ -1,0 +1,83 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getGalleryCover, getGalleryImages } from '@lib/galleryContent';
+import { getSiteSettings, sortByOrder } from '@lib/siteContent';
+
+export async function getStaticPaths() {
+  const galleries = await getCollection('posts');
+
+  return galleries.map((gallery) => ({
+    params: { slug: gallery.id },
+    props: { gallery },
+  }));
+}
+
+const { gallery } = Astro.props;
+const site = getSiteSettings();
+const galleries = sortByOrder(await getCollection('posts'), 'desc');
+const currentIndex = galleries.findIndex((item) => item.id === gallery.id);
+const previousGallery = currentIndex > 0 ? galleries[currentIndex - 1] : undefined;
+const nextGallery = currentIndex < galleries.length - 1 ? galleries[currentIndex + 1] : undefined;
+const { Content } = await render(gallery);
+const title = gallery.data.seoTitle ?? `${gallery.data.title} | ${site.brand.name}`;
+const description = gallery.data.seoDescription ?? gallery.data.excerpt;
+const images = getGalleryImages(gallery);
+const cover = getGalleryCover(gallery);
+---
+
+<BaseLayout title={title} description={description} image={cover.image}>
+  <div class="mil-inner-banner">
+    <div class="mil-banner-content mil-up">
+      <div class="mil-animation-frame">
+        <div class="mil-animation mil-position-4 mil-dark mil-scale" data-value-1="6" data-value-2="1.4"></div>
+      </div>
+      <div class="container">
+        <ul class="mil-breadcrumbs mil-mb-60">
+          <li><a href="/">Homepage</a></li>
+          <li><a href="/gallery/">Gallery</a></li>
+          <li><a href={`/gallery/${gallery.id}/`}>Case Study</a></li>
+        </ul>
+        <h1 class="mil-mb-60">{gallery.data.title}</h1>
+        <a href="#gallery-detail" class="mil-link mil-dark mil-arrow-place mil-down-arrow">
+          <span>View gallery</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <section id="gallery-detail">
+    <div class="container mil-p-120-90">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="swiper-container mil-2-slider mil-up mil-mb-60">
+            <div class="swiper-wrapper">
+              {images.map((image, index) => (
+                <div class="swiper-slide">
+                  <div class="mil-image-frame mil-horizontal mil-drag">
+                    <img src={image.image} alt={image.alt || `${gallery.data.title} image ${index + 1}`} />
+                    <a data-fancybox="gallery" data-no-swup href={image.image} class="mil-zoom-btn" data-caption={image.caption || image.alt || gallery.data.title}>
+                      <img src="/img/icons/zoom.svg" alt="zoom" />
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="mil-info mil-up mil-mb-60">
+            <div>Gallery: &nbsp;<span class="mil-dark">{images.length} images</span></div>
+            <div>Category: &nbsp;<span class="mil-dark">{gallery.data.tags.join(', ') || 'Gallery'}</span></div>
+            <div>Date: &nbsp;<span class="mil-dark">{gallery.data.date.toLocaleDateString('en', { month: 'long', day: '2-digit', year: 'numeric' })}</span></div>
+          </div>
+          <div class="mil-up mil-mb-60"><Content /></div>
+          <div class="mil-works-nav mil-up">
+            {previousGallery ? <a href={`/gallery/${previousGallery.id}/`} class="mil-link mil-dark mil-arrow-place mil-icon-left"><span>Prev gallery</span></a> : <a href="#." class="mil-link mil-dark mil-arrow-place mil-icon-left mil-disabled"><span>Prev gallery</span></a>}
+            <a href="/gallery/" class="mil-link mil-dark mj-all-galleries-link"><span>All galleries</span></a>
+            {nextGallery ? <a href={`/gallery/${nextGallery.id}/`} class="mil-link mil-dark mil-arrow-place"><span>Next gallery</span></a> : <a href="#." class="mil-link mil-dark mil-arrow-place mil-disabled"><span>Next gallery</span></a>}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+

@@ -1,5 +1,5 @@
 brand:
-  domain: mirko-portfolio.vercel.app
+  domain: mediaandfilm.online
   shortName: M.J.
   name: Mirko Portfolio
   logoText: Mirko.
@@ -22,14 +22,12 @@ seo:
     branding, and digital experiences.
   image: /img/photo/1.jpg
   favicon: /img/icons/zoom.svg
-  canonicalBaseUrl: https://mirko-portfolio.vercel.app
+  canonicalBaseUrl: https://mediaandfilm.online
 projects:
   sortDirection: desc
   featuredLimit: 6
 gallery:
-  listingLayout: grid
-  detailSlider: two
-  defaultHoverEffect: zoom
+  homeLimit: 6
 contact:
   email: hello@example.com
   phone: +971 00 000 0000
@@ -41,12 +39,15 @@ contact:
       address: Available for selected international projects
       phone: hello@example.com
 socials:
-  - label: Instagram
+  - platform: instagram
+    label: Instagram
     href: https://instagram.com/
-  - label: LinkedIn
+  - platform: linkedin
+    label: LinkedIn
     href: https://linkedin.com/
-  - label: Behance
-    href: https://behance.net/
+  - platform: whatsapp
+    label: WhatsApp
+    href: https://wa.me/
 legalLinks:
   - label: Privacy Policy
     href: /privacy/

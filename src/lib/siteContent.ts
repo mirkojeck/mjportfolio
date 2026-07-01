@@ -53,9 +53,7 @@ export type SiteSettings = {
     featuredLimit: number;
   };
   gallery?: {
-    listingLayout?: 'grid' | 'portfolioSlider';
-    detailSlider?: 'one' | 'two';
-    defaultHoverEffect?: 'none' | 'zoom' | 'expand' | 'caption';
+    homeLimit?: number;
   };
   contact: {
     email: string;
@@ -67,6 +65,7 @@ export type SiteSettings = {
     }>;
   };
   socials: Array<{
+    platform: 'instagram' | 'linkedin' | 'facebook' | 'behance' | 'x' | 'whatsapp';
     label: string;
     href: string;
   }>;
@@ -131,7 +130,7 @@ export type HomeSettings = {
     eyebrow: string;
     titlePart1: string;
     titlePart2: string;
-    items: Array<{ name: string; company: string; quote: string }>;
+    items: Array<{ name: string; company: string; image: string; quote: string }>;
   };
   partners: Array<{ image: string; href: string; width: string }>;
   blogPreview: {

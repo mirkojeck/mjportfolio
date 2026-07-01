@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import ProjectCard from '@components/ProjectCard.astro';
+import { getGalleryImages } from '@lib/galleryContent';
 import { getHomeSettings, getSiteSettings, sortByOrder } from '@lib/siteContent';
 
 const site = getSiteSettings();
@@ -13,14 +14,18 @@ const featuredProjects = allProjects
   .slice(0, home.featuredProjects.limit || site.projects.featuredLimit);
 const reviews = home.reviews.items.length > 0 ? home.reviews.items : [];
 const featuredGalleries = allGalleries.filter((gallery) => gallery.data.isFeatured);
-const homeGallerySource = featuredGalleries.length > 0 ? featuredGalleries : allGalleries;
+const nonFeaturedGalleries = allGalleries.filter((gallery) => !gallery.data.isFeatured);
+const homeGallerySource = [...featuredGalleries, ...nonFeaturedGalleries];
+const homeGalleryLimit = site.gallery?.homeLimit || 6;
 const homeGalleryItems = homeGallerySource.length > 0
-  ? homeGallerySource.slice(0, 6).map((gallery) => ({
-      title: gallery.data.title,
-      image: gallery.data.cover,
-      href: `/blog/${gallery.id}/`,
-      excerpt: gallery.data.excerpt,
-    }))
+  ? homeGallerySource
+      .flatMap((gallery) => getGalleryImages(gallery).map((image) => ({
+        title: image.alt || image.caption || gallery.data.title,
+        image: image.image,
+        href: `/gallery/${gallery.id}/`,
+        excerpt: gallery.data.excerpt,
+      })))
+      .slice(0, homeGalleryLimit)
   : home.blogPreview.items;
 ---
 
@@ -219,7 +224,7 @@ const homeGalleryItems = homeGallerySource.length > 0
         </div>
       </div>
       <h2 class="mil-center mil-up mil-mb-60">{home.reviews.titlePart1}: <br /><span class="mil-thin">{home.reviews.titlePart2}</span></h2>
-      <div class="mil-revi-pagination mil-up mil-mb-60"></div>
+      <div class="mil-revi-pagination mil-up mil-mb-60" data-review-images={JSON.stringify(reviews.map((review) => review.image))}></div>
       <div class="row mil-relative justify-content-center">
         <div class="col-lg-8">
           <div class="mil-slider-nav mil-soft mil-reviews-nav mil-up">

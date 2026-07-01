@@ -84,6 +84,22 @@
       : h('div', { className: 'mj-preview__empty' }, 'No image selected');
   }
 
+  function galleryImagePath(item) {
+    if (!item) return '';
+    if (typeof item === 'string') return item;
+    return item.image || item.url || item.path || item.src || '';
+  }
+
+  function galleryImageAlt(item, fallback) {
+    if (!item || typeof item === 'string') return fallback;
+    return item.alt || item.caption || fallback;
+  }
+
+  function galleryCover(gallery) {
+    if (!gallery || !gallery.length) return null;
+    return gallery.find(function (item) { return item && item.useAsCover; }) || gallery[0];
+  }
+
   function logoCard(getAsset, label, value, tone) {
     var src = assetUrl(getAsset, value);
     return h('div', { className: 'mj-preview-logo mj-preview-logo--' + tone },
@@ -97,26 +113,27 @@
     var getAsset = props.getAsset;
     var data = entry.get('data').toJS();
     var gallery = data.gallery || [];
-    var cover = data.cover;
+    var cover = galleryCover(gallery);
     var tags = data.tags || [];
 
     return h('article', { className: 'mj-preview' },
       h('p', { className: 'mj-preview__eyebrow' }, 'Gallery / Case Study Preview'),
       h('h1', { className: 'mj-preview__title' }, data.title || 'Untitled gallery'),
       h('p', { className: 'mj-preview__summary' }, data.excerpt || 'Add a short visual summary for this gallery.'),
-      imageBlock(getAsset, cover, data.title || '', 'mj-preview__hero'),
+      imageBlock(getAsset, galleryImagePath(cover), galleryImageAlt(cover, data.title || ''), 'mj-preview__hero'),
       h('div', { className: 'mj-preview__meta' },
-        h('span', null, 'Layout: ' + (data.galleryLayout || 'slider')),
-        h('span', null, 'Hover: ' + (data.hoverEffect || 'zoom')),
         h('span', null, 'Images: ' + gallery.length),
-        h('span', null, 'Tags: ' + (tags.join(', ') || 'none'))
+        h('span', null, 'Featured: ' + (data.isFeatured ? 'yes' : 'no')),
+        h('span', null, 'Order: ' + (data.order || 999)),
+        h('span', null, 'Tags: ' + (tags.join(', ') || 'none')),
+        h('span', null, 'Detail page: image slider')
       ),
       h('div', { className: 'mj-preview__thumbs' },
         gallery.map(function (image, index) {
-          var src = assetUrl(getAsset, image);
+          var src = assetUrl(getAsset, galleryImagePath(image));
           return src
-            ? h('div', { className: 'mj-preview__thumb', key: image + index },
-              imageElement(src, (data.title || 'Gallery image') + ' ' + (index + 1)),
+            ? h('div', { className: image && image.useAsCover ? 'mj-preview__thumb mj-preview__thumb--cover' : 'mj-preview__thumb', key: src + index },
+              imageElement(src, galleryImageAlt(image, (data.title || 'Gallery image') + ' ' + (index + 1))),
               brokenImagePlaceholder('Preview unavailable')
             )
             : h('div', { className: 'mj-preview__empty', key: 'empty' + index }, 'Image not available');

@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getGalleryCover, getGalleryImages } from '@lib/galleryContent';
+import { getSiteSettings, sortByOrder } from '@lib/siteContent';
+
+const site = getSiteSettings();
+const galleries = sortByOrder(await getCollection('posts'), 'desc');
+---
+
+<BaseLayout title={`Gallery | ${site.brand.name}`} description={site.seo.description}>
+  <div class="mil-inner-banner">
+    <div class="mil-banner-content mil-up">
+      <div class="mil-animation-frame">
+        <div class="mil-animation mil-position-4 mil-dark mil-scale" data-value-1="6" data-value-2="1.4"></div>
+      </div>
+      <div class="container">
+        <ul class="mil-breadcrumbs mil-mb-60">
+          <li><a href="/">Homepage</a></li>
+          <li><a href="/gallery/">Gallery</a></li>
+        </ul>
+        <h1 class="mil-mb-60">Image <span class="mil-thin">gallery</span></h1>
+        <a href="#gallery-list" class="mil-link mil-dark mil-arrow-place mil-down-arrow">
+          <span>View gallery</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <section id="gallery-list">
+    <div class="container mil-p-120-60">
+      <div class="mj-gallery-list">
+        {galleries.map((gallery) => {
+          const cover = getGalleryCover(gallery);
+          const images = getGalleryImages(gallery);
+          return (
+            <a href={`/gallery/${gallery.id}/`} class="mj-gallery-card mj-gallery-card--expand mil-up">
+              <div class="mj-gallery-card__image">
+                <img src={cover.image} alt={cover.alt || gallery.data.title} />
+              </div>
+              <div class="mj-gallery-card__content">
+                <div class="mil-labels mil-mb-30">
+                  <div class="mil-label mil-upper mil-accent">{gallery.data.tags[0] ?? 'Gallery'}</div>
+                  <div class="mil-label mil-upper">{images.length} images</div>
+                </div>
+                <h4 class="mil-mb-20">{gallery.data.title}</h4>
+                <p class="mil-post-text mil-mb-30">{gallery.data.excerpt}</p>
+                <div class="mil-link mil-dark mil-arrow-place"><span>View gallery</span></div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+

@@ -8,16 +8,16 @@ local_backend: true
 
 media_folder: public/img/uploads
 public_folder: /img/uploads
-media_library:
-  config:
-    max_file_size: 5242880
 
 collections:
   - name: settings
     label: Site Settings
+    label_singular: Settings Area
+    description: "Global settings, navigation, home page copy, and contact page content."
     files:
       - name: site
-        label: Site
+        label: Site Settings
+        description: "Brand, SEO, contact details, social links, and global display settings."
         file: src/data/site.yml
         fields:
           - label: Brand
@@ -40,10 +40,10 @@ collections:
                     widget: object
                     summary: "Upload light and dark logo versions"
                     fields:
-                      - { label: Light Logo, name: light, widget: image, required: false, hint: "For dark hero, dark menu, and footer. Use white/light transparent PNG, WebP, or SVG. Recommended canvas: 600x200px." }
-                      - { label: Dark Logo, name: dark, widget: image, required: false, hint: "For white/light sections after scrolling. Use dark/black transparent PNG, WebP, or SVG. Recommended canvas: 600x200px." }
-                      - { label: Footer Logo Override, name: footer, widget: image, required: false, hint: "Usually leave empty. Footer automatically reuses Light Logo because it is dark." }
-                      - { label: Fallback Logo, name: fallback, widget: image, required: false, hint: "Optional backup only if light/dark versions are not ready." }
+                      - { label: Light Logo, name: light, widget: image, allow_multiple: false, required: false, hint: "For dark hero, dark menu, and footer. Use a white/light transparent PNG, WebP, or SVG. Recommended canvas: 600x200px." }
+                      - { label: Dark Logo, name: dark, widget: image, allow_multiple: false, required: false, hint: "For white/light sections after scrolling. Use a dark/black transparent PNG, WebP, or SVG. Recommended canvas: 600x200px." }
+                      - { label: Footer Logo Override, name: footer, widget: image, allow_multiple: false, required: false, hint: "Usually leave empty. Footer automatically reuses Light Logo because it is dark." }
+                      - { label: Fallback Logo, name: fallback, widget: image, allow_multiple: false, required: false, hint: "Optional backup only if light/dark versions are not ready." }
                   - label: Logo Display
                     name: display
                     widget: object
@@ -63,9 +63,9 @@ collections:
             fields:
               - { label: Default Title, name: title, widget: string }
               - { label: Default Description, name: description, widget: text }
-              - { label: Open Graph Image, name: image, widget: image, hint: "Recommended: 1200x630px for social sharing." }
-              - { label: Favicon, name: favicon, widget: image, hint: "Recommended: SVG or 512x512 PNG." }
-              - { label: Canonical Base URL, name: canonicalBaseUrl, widget: string }
+              - { label: Open Graph Image, name: image, widget: image, allow_multiple: false, hint: "Recommended: 1200x630px for social sharing." }
+              - { label: Favicon, name: favicon, widget: image, allow_multiple: false, hint: "Recommended: SVG or 512x512 PNG." }
+              - { label: Fallback Canonical Base URL, name: canonicalBaseUrl, widget: string, hint: "Fallback only. The main public URL is generated from Brand > Domain. Use https://example.com with no trailing slash." }
           - label: Projects Display
             name: projects
             widget: object
@@ -78,19 +78,17 @@ collections:
             name: gallery
             widget: object
             collapsed: true
-            summary: "{{fields.listingLayout}} listing"
+            summary: "Hover-expand gallery"
             fields:
-              - { label: Listing Layout, name: listingLayout, widget: select, options: [grid, portfolioSlider], default: grid }
-              - { label: Detail Slider, name: detailSlider, widget: select, options: [one, two], default: two }
-              - { label: Default Hover Effect, name: defaultHoverEffect, widget: select, options: [none, zoom, expand, caption], default: zoom }
+              - { label: Home Gallery Limit, name: homeLimit, widget: number, default: 6, min: 1, max: 12, hint: "The home page gallery works best with 4 to 6 images." }
           - label: Contact
             name: contact
             widget: object
             collapsed: true
             summary: "{{fields.email}}"
             fields:
-              - { label: Email, name: email, widget: string }
-              - { label: Phone, name: phone, widget: string }
+              - { label: Email, name: email, widget: string, hint: "Public contact email shown on the site." }
+              - { label: Phone, name: phone, widget: string, hint: "Public phone number shown on the site." }
               - label: Locations
                 name: locations
                 widget: list
@@ -101,17 +99,31 @@ collections:
           - label: Social Links
             name: socials
             widget: list
+            collapsed: false
+            summary: "{{fields.platform}}"
+            hint: "Choose the platform, then paste the profile link. The footer icon is selected automatically."
             fields:
-              - { label: Label, name: label, widget: string }
-              - { label: URL, name: href, widget: string }
+              - label: Platform
+                name: platform
+                widget: select
+                options:
+                  - { label: Instagram, value: instagram }
+                  - { label: LinkedIn, value: linkedin }
+                  - { label: Facebook, value: facebook }
+                  - { label: Behance, value: behance }
+                  - { label: X / Twitter, value: x }
+                  - { label: WhatsApp, value: whatsapp }
+              - { label: Accessible Label, name: label, widget: string, hint: "Example: Instagram. Used for screen readers." }
+              - { label: URL, name: href, widget: string, hint: "Use a full URL, for example https://instagram.com/name." }
           - label: Legal Links
             name: legalLinks
             widget: list
             fields:
               - { label: Label, name: label, widget: string }
-              - { label: URL, name: href, widget: string }
+              - { label: URL, name: href, widget: string, hint: "Use a relative URL like /privacy/ or a full external URL." }
       - name: navigation
         label: Navigation
+        description: "Main menu and footer links. Use relative URLs like /portfolio/ for internal pages."
         file: src/data/navigation.yml
         fields:
           - label: Main Menu
@@ -119,15 +131,16 @@ collections:
             widget: list
             fields:
               - { label: Label, name: label, widget: string }
-              - { label: URL, name: href, widget: string }
+              - { label: URL, name: href, widget: string, hint: "Internal links should start and end with slash, for example /portfolio/." }
           - label: Footer Menu
             name: footer
             widget: list
             fields:
               - { label: Label, name: label, widget: string }
-              - { label: URL, name: href, widget: string }
+              - { label: URL, name: href, widget: string, hint: "Internal links should start and end with slash, for example /contact/." }
       - name: home
         label: Home Page
+        description: "Editable home page sections. This controls copy and image choices only, not layout or animation code."
         file: src/data/home.yml
         fields:
           - label: Hero
@@ -144,9 +157,9 @@ collections:
               - { label: Thin Title Part 2, name: titleThin2, widget: string }
               - { label: Description, name: description, widget: text }
               - { label: CTA Label, name: ctaLabel, widget: string }
-              - { label: CTA URL, name: ctaHref, widget: string }
+              - { label: CTA URL, name: ctaHref, widget: string, hint: "Use a relative URL like /portfolio/ or a full external URL." }
               - { label: Secondary CTA Label, name: secondaryCtaLabel, widget: string }
-              - { label: Secondary CTA URL, name: secondaryCtaHref, widget: string }
+              - { label: Secondary CTA URL, name: secondaryCtaHref, widget: string, hint: "Use a relative URL like /contact/ or a full external URL." }
           - label: About
             name: about
             widget: object
@@ -158,8 +171,8 @@ collections:
               - { label: Thin Title, name: titleThin, widget: string }
               - { label: Paragraphs, name: paragraphs, widget: list, field: { label: Paragraph, name: paragraph, widget: text } }
               - { label: Quote, name: quote, widget: text }
-              - { label: Quote Image, name: quoteImage, widget: image }
-              - { label: Main Image, name: image, widget: image }
+              - { label: Quote Image, name: quoteImage, widget: image, allow_multiple: false, hint: "Small portrait or detail image. Recommended: square 800x800px." }
+              - { label: Main Image, name: image, widget: image, allow_multiple: false, hint: "Large about section image. Recommended: 1400px wide or larger." }
           - label: Services Preview
             name: servicesPreview
             widget: object
@@ -169,16 +182,16 @@ collections:
               - { label: Eyebrow, name: eyebrow, widget: text }
               - { label: Title Line 1, name: titleLine1, widget: string }
               - { label: Title Line 2, name: titleLine2, widget: string }
-              - { label: Image, name: image, widget: image }
+              - { label: Image, name: image, widget: image, allow_multiple: false, hint: "Recommended: portrait or vertical image, 1200px tall or larger." }
               - { label: CTA Label, name: ctaLabel, widget: string }
-              - { label: CTA URL, name: ctaHref, widget: string }
+              - { label: CTA URL, name: ctaHref, widget: string, hint: "Use a relative URL like /services/." }
               - label: Items
                 name: items
                 widget: list
                 fields:
                   - { label: Title, name: title, widget: string }
                   - { label: Summary, name: summary, widget: text }
-                  - { label: URL, name: href, widget: string }
+                  - { label: URL, name: href, widget: string, hint: "Use a relative URL like /services/brand-strategy/." }
           - label: Featured Projects
             name: featuredProjects
             widget: object
@@ -186,8 +199,8 @@ collections:
             summary: "{{fields.heading}}"
             fields:
               - { label: Heading, name: heading, widget: string }
-              - { label: Source, name: source, widget: select, options: [isFeatured], default: isFeatured }
-              - { label: Limit, name: limit, widget: number, default: 6, min: 1 }
+              - { label: Source, name: source, widget: select, options: [{ label: Projects marked Featured, value: isFeatured }], default: isFeatured }
+              - { label: Limit, name: limit, widget: number, default: 6, min: 1, max: 12, hint: "Homepage design works best with 4 to 6 featured projects." }
           - label: Team Preview
             name: teamPreview
             widget: object
@@ -198,7 +211,7 @@ collections:
               - { label: Title Part 2, name: titlePart2, widget: string }
               - { label: Paragraphs, name: paragraphs, widget: list, field: { label: Paragraph, name: paragraph, widget: text } }
               - { label: CTA Label, name: ctaLabel, widget: string }
-              - { label: CTA URL, name: ctaHref, widget: string }
+              - { label: CTA URL, name: ctaHref, widget: string, hint: "Use a relative URL like /team/." }
               - { label: Closing Line 1, name: closingLine1, widget: string }
               - { label: Closing Line 2, name: closingLine2, widget: string }
               - { label: Note, name: note, widget: string }
@@ -208,8 +221,8 @@ collections:
                 fields:
                   - { label: Name, name: name, widget: string }
                   - { label: Role, name: role, widget: string }
-                  - { label: Image, name: image, widget: image }
-                  - { label: URL, name: href, widget: string }
+                  - { label: Image, name: image, widget: image, allow_multiple: false, hint: "Recommended: square portrait 900x900px." }
+                  - { label: URL, name: href, widget: string, hint: "Use a relative URL like /team/." }
           - label: Reviews
             name: reviews
             widget: object
@@ -222,9 +235,13 @@ collections:
               - label: Items
                 name: items
                 widget: list
+                collapsed: false
+                summary: "{{fields.name}} - {{fields.company}}"
+                hint: "Customer Voices section. Each review needs a client image because the original design uses circular customer photos as pagination buttons."
                 fields:
                   - { label: Name, name: name, widget: string }
                   - { label: Company, name: company, widget: string }
+                  - { label: Customer Photo, name: image, widget: image, allow_multiple: false, hint: "Required for the circular review selector. Recommended: square portrait 400x400px." }
                   - { label: Quote, name: quote, widget: text }
           - label: Partners
             name: partners
@@ -232,8 +249,8 @@ collections:
             collapsed: true
             summary: "{{fields.image}}"
             fields:
-              - { label: Image, name: image, widget: image }
-              - { label: URL, name: href, widget: string }
+              - { label: Image, name: image, widget: image, allow_multiple: false, hint: "Partner logo, preferably transparent PNG/SVG." }
+              - { label: URL, name: href, widget: string, hint: "Use # if the logo should not link anywhere." }
               - { label: Width, name: width, widget: string }
           - label: Home Gallery Preview
             name: blogPreview
@@ -252,8 +269,8 @@ collections:
                   - { label: Title, name: title, widget: string }
                   - { label: Category, name: category, widget: string }
                   - { label: Date Label, name: date, widget: string }
-                  - { label: Image, name: image, widget: image }
-                  - { label: URL, name: href, widget: string }
+                  - { label: Image, name: image, widget: image, allow_multiple: false, hint: "Recommended: landscape 1600x1000px." }
+                  - { label: URL, name: href, widget: string, hint: "Use a relative URL like /gallery/case-study-slug/." }
                   - { label: Excerpt, name: excerpt, widget: text }
           - label: Call To Action
             name: callToAction
@@ -264,9 +281,10 @@ collections:
               - { label: Eyebrow, name: eyebrow, widget: text }
               - { label: Title, name: title, widget: string }
               - { label: CTA Label, name: ctaLabel, widget: string }
-              - { label: CTA URL, name: ctaHref, widget: string }
+              - { label: CTA URL, name: ctaHref, widget: string, hint: "Use a relative URL like /contact/." }
       - name: contact
         label: Contact Page
+        description: "Contact page headline, form labels, and map embed."
         file: src/data/contact-page.yml
         fields:
           - { label: Heading, name: heading, widget: string }
@@ -279,87 +297,122 @@ collections:
               - { label: Email Label, name: emailLabel, widget: string }
               - { label: Message Label, name: messageLabel, widget: string }
               - { label: Submit Label, name: submitLabel, widget: string }
-          - { label: Map Embed URL, name: mapEmbedUrl, widget: string, required: false }
+          - { label: Map Embed URL, name: mapEmbedUrl, widget: string, required: false, hint: "Paste a Google Maps embed URL only. Leave empty to hide or keep the default map area." }
   - name: projects
     label: Projects
+    label_singular: Project
+    description: "Portfolio projects shown on the portfolio page and optionally featured on the home page."
     folder: src/content/projects
     create: true
     slug: "{{slug}}"
     summary: "{{title}}"
+    preview_path: "projects/{{slug}}/"
+    sortable_fields: [title, year, date, order]
+    view_filters:
+      - label: Featured Projects
+        field: isFeatured
+        pattern: true
+    view_groups:
+      - label: Year
+        field: year
     fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Summary, name: summary, widget: text }
-      - { label: Cover, name: cover, widget: image }
-      - { label: Gallery, name: gallery, widget: list, field: { label: Image, name: image, widget: image }, required: false }
-      - { label: Client, name: client, widget: string }
-      - { label: Year, name: year, widget: number }
-      - { label: Date, name: date, widget: datetime, required: false }
-      - { label: Services, name: services, widget: list, required: false }
-      - { label: External URL, name: externalUrl, widget: string, required: false }
-      - { label: Order, name: order, widget: number, default: 999 }
-      - { label: Featured, name: isFeatured, widget: boolean, default: false }
-      - { label: SEO Title, name: seoTitle, widget: string, required: false }
-      - { label: SEO Description, name: seoDescription, widget: text, required: false }
-      - { label: Body, name: body, widget: markdown }
-  - name: services
-    label: Services
-    folder: src/content/services
-    create: true
-    slug: "{{slug}}"
-    summary: "{{title}}"
-    fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Summary, name: summary, widget: text }
-      - { label: Features, name: features, widget: list, required: false }
-      - { label: Order, name: order, widget: number, default: 999 }
-      - { label: SEO Title, name: seoTitle, widget: string, required: false }
-      - { label: SEO Description, name: seoDescription, widget: text, required: false }
-  - name: team
-    label: Team
-    folder: src/content/team
-    create: true
-    slug: "{{slug}}"
-    summary: "{{name}} - {{role}}"
-    fields:
-      - { label: Name, name: name, widget: string }
-      - { label: Role, name: role, widget: string }
-      - { label: Image, name: image, widget: image }
-      - label: Socials
-        name: socials
-        widget: list
-        required: false
-        fields:
-          - { label: Label, name: label, widget: string }
-          - { label: URL, name: href, widget: string }
-      - { label: Order, name: order, widget: number, default: 999 }
-      - { label: SEO Title, name: seoTitle, widget: string, required: false }
-      - { label: SEO Description, name: seoDescription, widget: text, required: false }
-  - name: posts
-    label: Gallery / Case Studies
-    folder: src/content/posts
-    create: true
-    slug: "{{slug}}"
-    summary: "{{title}}"
-    preview_path: "blog/{{slug}}/"
-    fields:
-      - { label: Case Study Title, name: title, widget: string }
-      - { label: Publish Date, name: date, widget: datetime }
-      - { label: Short Summary, name: excerpt, widget: text, hint: "One or two short sentences used in listing cards and previews." }
-      - { label: Cover Image, name: cover, widget: image, allow_multiple: false, hint: "Recommended: landscape 1600x1000px, JPG/PNG/WebP under 5MB. Appears in Gallery listing and Home latest creations." }
-      - label: Gallery Images
+      - { label: Project Title, name: title, widget: string }
+      - { label: Short Summary, name: summary, widget: text, hint: "One short paragraph used on cards and detail pages." }
+      - { label: Cover Image, name: cover, widget: image, allow_multiple: false, hint: "Recommended: landscape 1600x1000px, JPG/PNG/WebP under 5MB." }
+      - label: Project Gallery Images
         name: gallery
         widget: list
         collapsed: false
         required: false
-        hint: "Upload the images used by the detail page slider and Fancybox gallery. Recommended: 1600px wide or larger, JPG/PNG/WebP under 5MB."
+        hint: "Images used on the project detail page and lightbox gallery. Recommended: 1600px wide or larger."
         field:
-          label: Slider Image
+          label: Gallery Image
           name: image
           widget: image
           allow_multiple: false
-          hint: "One image per row. Use Add another image for extra slides."
-      - { label: Detail Layout, name: galleryLayout, widget: select, options: [{ label: Image Slider - recommended, value: slider }, { label: Clean Grid, value: grid }, { label: Marquee Row, value: marquee }, { label: Hover Expand Grid, value: hoverExpand }], default: slider }
-      - { label: Hover Effect, name: hoverEffect, widget: select, options: [{ label: None, value: none }, { label: Zoom Image, value: zoom }, { label: Expand Image, value: expand }, { label: Show Caption, value: caption }], default: zoom }
+      - { label: Client, name: client, widget: string }
+      - { label: Year, name: year, widget: number }
+      - { label: Project Date, name: date, widget: datetime, required: false, hint: "Optional. Used as fallback sorting when Display Order is the same." }
+      - { label: Services Used, name: services, widget: list, required: false, hint: "Add short service labels, for example Brand direction or Web experience." }
+      - { label: External URL, name: externalUrl, widget: string, required: false, hint: "Optional full URL to a live project or external case study." }
+      - { label: Display Order, name: order, widget: number, default: 999, hint: "Lower numbers appear first. Use 1, 2, 3 for priority items." }
+      - { label: Show on Home Page, name: isFeatured, widget: boolean, default: false, hint: "Featured projects can appear on the home page." }
+      - { label: SEO Title, name: seoTitle, widget: string, required: false, hint: "Optional. Leave empty to use the project title." }
+      - { label: SEO Description, name: seoDescription, widget: text, required: false, hint: "Optional. Leave empty to use the short summary." }
+      - { label: Optional Detail Text, name: body, widget: markdown, required: false, hint: "Optional text shown on the project detail page." }
+  - name: services
+    label: Services
+    label_singular: Service
+    description: "Service cards and service detail pages."
+    folder: src/content/services
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    preview_path: "services/{{slug}}/"
+    sortable_fields: [title, order]
+    fields:
+      - { label: Service Title, name: title, widget: string }
+      - { label: Short Summary, name: summary, widget: text, hint: "One short paragraph used on service cards and detail pages." }
+      - { label: Feature List, name: features, widget: list, required: false, hint: "Add short bullet points. Keep each item concise." }
+      - { label: Display Order, name: order, widget: number, default: 999, hint: "Lower numbers appear first." }
+      - { label: SEO Title, name: seoTitle, widget: string, required: false, hint: "Optional. Leave empty to use the service title." }
+      - { label: SEO Description, name: seoDescription, widget: text, required: false, hint: "Optional. Leave empty to use the short summary." }
+  - name: team
+    label: Team
+    label_singular: Team Member
+    description: "Team member cards shown on the team page."
+    folder: src/content/team
+    create: true
+    identifier_field: name
+    slug: "{{slug}}"
+    summary: "{{name}} - {{role}}"
+    preview_path: "team/"
+    sortable_fields: [name, role, order]
+    fields:
+      - { label: Member Name, name: name, widget: string }
+      - { label: Role / Title, name: role, widget: string }
+      - { label: Portrait Image, name: image, widget: image, allow_multiple: false, hint: "Recommended: square portrait 900x900px, JPG/PNG/WebP." }
+      - label: Socials
+        name: socials
+        widget: list
+        required: false
+        hint: "Optional social links for this team member."
+        fields:
+          - { label: Label, name: label, widget: string }
+          - { label: URL, name: href, widget: string, hint: "Use a full URL, for example https://instagram.com/name." }
+      - { label: Display Order, name: order, widget: number, default: 999, hint: "Lower numbers appear first." }
+      - { label: SEO Title, name: seoTitle, widget: string, required: false, hint: "Optional. Usually not needed unless team pages become individual pages later." }
+      - { label: SEO Description, name: seoDescription, widget: text, required: false, hint: "Optional. Usually not needed unless team pages become individual pages later." }
+  - name: posts
+    label: Gallery / Case Studies
+    label_singular: Gallery / Case Study
+    description: "Visual case studies, latest creations, and image galleries."
+    folder: src/content/posts
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    preview_path: "gallery/{{slug}}/"
+    sortable_fields: [title, date, order]
+    view_filters:
+      - label: Featured on Home
+        field: isFeatured
+        pattern: true
+    fields:
+      - { label: Case Study Title, name: title, widget: string }
+      - { label: Publish Date, name: date, widget: datetime }
+      - { label: Short Summary, name: excerpt, widget: text, hint: "One or two short sentences used in listing cards and previews." }
+      - label: Gallery Images
+        name: gallery
+        widget: list
+        collapsed: false
+        required: true
+        summary: "{{fields.image}}"
+        hint: "Upload all images for this Gallery. Mark one image as Cover; if none is marked, the first image becomes the cover automatically. Recommended: 1600px wide or larger, JPG/PNG/WebP under 5MB."
+        fields:
+          - { label: Image, name: image, widget: image, allow_multiple: false, hint: "One image per row. Use Add another image for extra slides." }
+          - { label: Use as Cover, name: useAsCover, widget: boolean, default: false, required: false, hint: "Turn on for the image used in Home and Gallery listing. If multiple are selected, the first one wins." }
+          - { label: Alt Text, name: alt, widget: string, required: false, hint: "Short description for accessibility and image fallback." }
+          - { label: Caption, name: caption, widget: string, required: false, hint: "Optional caption shown in lightbox." }
       - { label: Show on Home Gallery, name: isFeatured, widget: boolean, default: false, hint: "Featured items appear in the Home Latest Creations section first." }
       - { label: Tags, name: tags, widget: list, required: false, hint: "Optional labels for organization." }
       - { label: Display Order, name: order, widget: number, default: 999, hint: "Lower numbers appear first. Use 1, 2, 3 for priority items." }

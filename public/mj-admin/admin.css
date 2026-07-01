@@ -4,29 +4,45 @@ body {
 
 .nc-entryEditor-container,
 [class*="EntryEditorContainer"] {
-  gap: 18px !important;
+  gap: 14px !important;
 }
 
 .nc-entryEditor-editor,
 [class*="EditorContainer"] {
   min-width: 0 !important;
+  max-width: none !important;
 }
 
 .nc-entryEditor-preview,
 [class*="PreviewContainer"] {
-  min-width: 420px !important;
+  min-width: 460px !important;
   background: #f6f4ef !important;
+  border-left: 1px solid #e7dfd3 !important;
 }
 
 .nc-controlPane-widget,
 [class*="ControlContainer"] {
-  margin-bottom: 14px !important;
+  margin-bottom: 12px !important;
+}
+
+.nc-controlPane-widget label,
+[class*="ControlContainer"] label {
+  letter-spacing: .04em !important;
+}
+
+[class*="ObjectControl"] > div,
+[class*="NestedObjectControl"] > div {
+  gap: 12px !important;
+}
+
+[class*="ListControl"] {
+  margin-top: 8px !important;
 }
 
 @media (min-width: 1280px) {
   .nc-entryEditor-container,
   [class*="EntryEditorContainer"] {
-    grid-template-columns: minmax(480px, 0.95fr) minmax(520px, 1.05fr) !important;
+    grid-template-columns: minmax(560px, 1fr) minmax(520px, 0.9fr) !important;
   }
 }
 
