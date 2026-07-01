@@ -51,6 +51,36 @@
   object-fit: cover;
 }
 
+.mj-preview__broken {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 120px;
+  color: #6f665b;
+  background: repeating-linear-gradient(
+    45deg,
+    #f6f4ef,
+    #f6f4ef 12px,
+    #ede8df 12px,
+    #ede8df 24px
+  );
+}
+
+.mj-preview__broken-label {
+  display: none;
+  padding: 10px 12px;
+  border: 1px solid #ded7ca;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, .86);
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.mj-preview__broken .mj-preview__broken-label {
+  display: inline-flex;
+}
+
 .mj-preview__meta {
   display: flex;
   flex-wrap: wrap;

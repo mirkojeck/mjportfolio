@@ -25,7 +25,7 @@ Primary editable files:
 - `src/content/projects/*.md` for portfolio projects.
 - `src/content/services/*.md` for services.
 - `src/content/team/*.md` for team members.
-- `src/content/posts/*.md` for blog posts.
+- `src/content/posts/*.md` for Gallery / Case Studies.
 
 ## Visual CMS
 
@@ -49,6 +49,16 @@ with the real repository name, then add the editor as a GitHub collaborator.
 Password reset and account recovery are handled by GitHub, not by Decap.
 For production, configure a Decap-compatible GitHub OAuth app/proxy and keep
 OAuth client secrets outside this repository and outside `public/`.
+
+### Editor Notes
+
+- Use `Gallery / Case Studies` for visual work, case studies, and image galleries.
+- `Cover Image` appears in gallery listings and the home latest creations section.
+- `Gallery Images` appear in the detail page slider and lightbox gallery.
+- Recommended gallery images: JPG, PNG, or WebP, 1600px wide or larger, under 5MB.
+- Turn on `Show on Home Gallery` to make an item appear in the home gallery section.
+- Use lower `Display Order` numbers for priority items.
+- For logos, upload a light logo for dark hero/menu/footer and a dark logo for light sections.
 
 ## Forms
 

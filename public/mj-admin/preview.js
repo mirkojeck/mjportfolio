@@ -6,19 +6,35 @@
   var h = window.React && window.React.createElement;
   if (!h) return;
 
-  function assetUrl(getAsset, value) {
+  function unwrapValue(value) {
     if (!value) return '';
     if (value && typeof value.toJS === 'function') value = value.toJS();
+
     if (value && typeof value === 'object') {
-      if (value.url) return value.url;
-      if (value.path) return value.path;
-      if (value.src) return value.src;
-      if (value.image) return assetUrl(getAsset, value.image);
+      if (value.image) return unwrapValue(value.image);
+      if (value.url) return unwrapValue(value.url);
+      if (value.path) return unwrapValue(value.path);
+      if (value.src) return unwrapValue(value.src);
+      if (value.file) return unwrapValue(value.file);
+      if (value.value) return unwrapValue(value.value);
     }
-    if (typeof value !== 'string') return '';
+
+    return typeof value === 'string' ? value : '';
+  }
+
+  function normalizeAssetPath(value) {
+    if (!value) return '';
     if (value.indexOf('public/') === 0) return value.replace(/^public/, '');
     if (value.indexOf('img/') === 0) return '/' + value;
+    if (value.indexOf('./public/') === 0) return value.replace(/^\.\/public/, '');
     if (value.indexOf('http://') === 0 || value.indexOf('https://') === 0 || value.indexOf('/') === 0) return value;
+    return value;
+  }
+
+  function assetUrl(getAsset, rawValue) {
+    var value = unwrapValue(rawValue);
+    if (!value) return '';
+
     var asset = getAsset(value);
     if (asset && typeof asset.toJS === 'function') asset = asset.toJS();
     if (asset && asset.url) return asset.url;
@@ -28,13 +44,43 @@
       var output = asset.toString();
       if (output && output !== '[object Object]') return output;
     }
-    return value;
+
+    var normalized = normalizeAssetPath(value);
+    if (normalized !== value) {
+      asset = getAsset(normalized);
+      if (asset && asset.toString) {
+        var normalizedOutput = asset.toString();
+        if (normalizedOutput && normalizedOutput !== '[object Object]') return normalizedOutput;
+      }
+    }
+
+    return normalized;
+  }
+
+  function brokenImagePlaceholder(label) {
+    return h('span', { className: 'mj-preview__broken-label' }, label || 'Image preview unavailable');
+  }
+
+  function imageElement(src, alt) {
+    return h('img', {
+      src: src,
+      alt: alt || '',
+      onError: function (event) {
+        var image = event.currentTarget;
+        if (!image || image.dataset.previewBroken) return;
+        image.dataset.previewBroken = 'true';
+        image.style.display = 'none';
+        if (image.parentNode) {
+          image.parentNode.classList.add('mj-preview__broken');
+        }
+      },
+    });
   }
 
   function imageBlock(getAsset, value, alt, className) {
     var src = assetUrl(getAsset, value);
     return src
-      ? h('div', { className: className || 'mj-preview__hero' }, h('img', { src: src, alt: alt || '' }))
+      ? h('div', { className: className || 'mj-preview__hero' }, imageElement(src, alt), brokenImagePlaceholder())
       : h('div', { className: 'mj-preview__empty' }, 'No image selected');
   }
 
@@ -70,7 +116,8 @@
           var src = assetUrl(getAsset, image);
           return src
             ? h('div', { className: 'mj-preview__thumb', key: image + index },
-              h('img', { src: src, alt: (data.title || 'Gallery image') + ' ' + (index + 1) })
+              imageElement(src, (data.title || 'Gallery image') + ' ' + (index + 1)),
+              brokenImagePlaceholder('Preview unavailable')
             )
             : h('div', { className: 'mj-preview__empty', key: 'empty' + index }, 'Image not available');
         })

@@ -83,7 +83,7 @@ const hoverEffect = post.data.hoverEffect ?? site.gallery?.defaultHoverEffect ??
           <div class="mil-up mil-mb-60"><Content /></div>
           <div class="mil-works-nav mil-up">
             {previousPost ? <a href={`/blog/${previousPost.id}/`} class="mil-link mil-dark mil-arrow-place mil-icon-left"><span>Prev gallery</span></a> : <a href="#." class="mil-link mil-dark mil-arrow-place mil-icon-left mil-disabled"><span>Prev gallery</span></a>}
-            <a href="/blog/" class="mil-link mil-dark"><span>All galleries</span></a>
+            <a href="/blog/" class="mil-link mil-dark mj-all-galleries-link"><span>All galleries</span></a>
             {nextPost ? <a href={`/blog/${nextPost.id}/`} class="mil-link mil-dark mil-arrow-place"><span>Next gallery</span></a> : <a href="#." class="mil-link mil-dark mil-arrow-place mil-disabled"><span>Next gallery</span></a>}
           </div>
         </div>

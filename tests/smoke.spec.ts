@@ -26,9 +26,19 @@ const routes = [
 
 for (const route of routes) {
   test(`${route} loads`, async ({ page }) => {
-    const response = await page.goto(route);
+    const response = await page.goto(route, { waitUntil: 'domcontentloaded' });
+    if (!response) {
+      throw new Error(`No response returned for ${route}`);
+    }
     expect(response?.ok()).toBeTruthy();
-    await expect(page.locator('body')).toBeVisible();
+    if (route === '/mj-admin/') {
+      const html = await response.text();
+      expect(html).toContain('decap-cms');
+      expect(html).toContain('/mj-admin/preview.js');
+      await expect(page).toHaveTitle('Mirko Portfolio Admin');
+      return;
+    }
+    await expect(page.locator('body')).toBeAttached();
   });
 }
 

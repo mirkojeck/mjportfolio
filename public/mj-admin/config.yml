@@ -8,6 +8,9 @@ local_backend: true
 
 media_folder: public/img/uploads
 public_folder: /img/uploads
+media_library:
+  config:
+    max_file_size: 5242880
 
 collections:
   - name: settings
@@ -337,17 +340,29 @@ collections:
     create: true
     slug: "{{slug}}"
     summary: "{{title}}"
+    preview_path: "blog/{{slug}}/"
     fields:
       - { label: Case Study Title, name: title, widget: string }
       - { label: Publish Date, name: date, widget: datetime }
       - { label: Short Summary, name: excerpt, widget: text, hint: "One or two short sentences used in listing cards and previews." }
-      - { label: Cover Image, name: cover, widget: image, hint: "Recommended: landscape 1600x1000px. Appears in Gallery listing and Home latest creations." }
-      - { label: Gallery Images, name: gallery, widget: list, collapsed: false, field: { label: Image, name: image, widget: image, hint: "Recommended: 1600px wide or larger, PNG/JPG/WebP." }, required: false, hint: "Add all images for the case study slider and Fancybox gallery." }
+      - { label: Cover Image, name: cover, widget: image, allow_multiple: false, hint: "Recommended: landscape 1600x1000px, JPG/PNG/WebP under 5MB. Appears in Gallery listing and Home latest creations." }
+      - label: Gallery Images
+        name: gallery
+        widget: list
+        collapsed: false
+        required: false
+        hint: "Upload the images used by the detail page slider and Fancybox gallery. Recommended: 1600px wide or larger, JPG/PNG/WebP under 5MB."
+        field:
+          label: Slider Image
+          name: image
+          widget: image
+          allow_multiple: false
+          hint: "One image per row. Use Add another image for extra slides."
       - { label: Detail Layout, name: galleryLayout, widget: select, options: [{ label: Image Slider - recommended, value: slider }, { label: Clean Grid, value: grid }, { label: Marquee Row, value: marquee }, { label: Hover Expand Grid, value: hoverExpand }], default: slider }
       - { label: Hover Effect, name: hoverEffect, widget: select, options: [{ label: None, value: none }, { label: Zoom Image, value: zoom }, { label: Expand Image, value: expand }, { label: Show Caption, value: caption }], default: zoom }
       - { label: Show on Home Gallery, name: isFeatured, widget: boolean, default: false, hint: "Featured items appear in the Home Latest Creations section first." }
       - { label: Tags, name: tags, widget: list, required: false, hint: "Optional labels for organization." }
-      - { label: Display Order, name: order, widget: number, default: 999, hint: "Lower numbers appear first." }
-      - { label: SEO Title, name: seoTitle, widget: string, required: false }
-      - { label: SEO Description, name: seoDescription, widget: text, required: false }
+      - { label: Display Order, name: order, widget: number, default: 999, hint: "Lower numbers appear first. Use 1, 2, 3 for priority items." }
+      - { label: SEO Title, name: seoTitle, widget: string, required: false, hint: "Optional. Leave empty to use the case study title automatically." }
+      - { label: SEO Description, name: seoDescription, widget: text, required: false, hint: "Optional. Leave empty to use the short summary automatically." }
       - { label: Optional Description Body, name: body, widget: markdown, required: false, hint: "Optional text shown on the detail page. Images remain the main content." }
