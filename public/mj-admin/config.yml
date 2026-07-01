@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: REPLACE_WITH_OWNER/REPLACE_WITH_REPO
+  repo: mirkojeck/mjportfolio
   branch: main
 
 publish_mode: editorial_workflow
@@ -20,31 +20,71 @@ collections:
           - label: Brand
             name: brand
             widget: object
+            summary: "{{fields.name}}"
             fields:
-              - { label: Site Name, name: name, widget: string }
-              - { label: Short Logo Text, name: shortName, widget: string }
-              - { label: Domain, name: domain, widget: string }
-              - { label: Footer Logo Text, name: logoText, widget: string }
-              - { label: Logo Image, name: logoImage, widget: image, required: false }
-              - { label: Logo Alt Text, name: logoAlt, widget: string }
+              - { label: Site Name, name: name, widget: string, hint: "Main public site name." }
+              - { label: Short Header Text, name: shortName, widget: string, hint: "Used only when no image logo is uploaded." }
+              - { label: Footer Text Logo, name: logoText, widget: string, hint: "Used only when no footer/light logo is uploaded." }
+              - { label: Domain, name: domain, widget: string, hint: "Production domain without https://." }
+              - label: Logo
+                name: logo
+                widget: object
+                summary: "Light/Dark logos and display controls"
+                fields:
+                  - { label: Alt Text, name: alt, widget: string, hint: "Example: Mirko Jeck logo." }
+                  - label: Logo Images
+                    name: images
+                    widget: object
+                    summary: "Upload light and dark logo versions"
+                    fields:
+                      - { label: Light Logo, name: light, widget: image, required: false, hint: "For dark hero, dark menu, and footer. Use white/light transparent PNG, WebP, or SVG. Recommended canvas: 600x200px." }
+                      - { label: Dark Logo, name: dark, widget: image, required: false, hint: "For white/light sections after scrolling. Use dark/black transparent PNG, WebP, or SVG. Recommended canvas: 600x200px." }
+                      - { label: Footer Logo Override, name: footer, widget: image, required: false, hint: "Usually leave empty. Footer automatically reuses Light Logo because it is dark." }
+                      - { label: Fallback Logo, name: fallback, widget: image, required: false, hint: "Optional backup only if light/dark versions are not ready." }
+                  - label: Logo Display
+                    name: display
+                    widget: object
+                    collapsed: true
+                    summary: "Size, zoom, and simple crop controls"
+                    fields:
+                      - { label: Height, name: height, widget: number, default: 44, min: 16, max: 140, hint: "Recommended: 36-56. Increase only for tall logos." }
+                      - { label: Zoom, name: scale, widget: number, default: 1, value_type: float, min: 0.5, max: 3, step: 0.05, hint: "1 means normal. Use 1.1 or 1.2 if the image has too much empty space." }
+                      - { label: Move Left/Right, name: positionX, widget: number, default: 50, min: 0, max: 100, hint: "50 is centered. Only matters when Fit Mode is Crop." }
+                      - { label: Move Up/Down, name: positionY, widget: number, default: 50, min: 0, max: 100, hint: "50 is centered. Only matters when Fit Mode is Crop." }
+                      - { label: Fit Mode, name: objectFit, widget: select, options: [{ label: Show full logo - recommended, value: contain }, { label: Crop inside logo box, value: cover }], default: contain, hint: "Decap has no visual crop editor. Use Crop with Move/Zoom only when needed." }
           - label: SEO
             name: seo
             widget: object
+            collapsed: true
+            summary: "{{fields.title}}"
             fields:
               - { label: Default Title, name: title, widget: string }
               - { label: Default Description, name: description, widget: text }
-              - { label: Open Graph Image, name: image, widget: image }
-              - { label: Favicon, name: favicon, widget: image }
+              - { label: Open Graph Image, name: image, widget: image, hint: "Recommended: 1200x630px for social sharing." }
+              - { label: Favicon, name: favicon, widget: image, hint: "Recommended: SVG or 512x512 PNG." }
               - { label: Canonical Base URL, name: canonicalBaseUrl, widget: string }
           - label: Projects Display
             name: projects
             widget: object
+            collapsed: true
+            summary: "Sort {{fields.sortDirection}}, featured limit {{fields.featuredLimit}}"
             fields:
               - { label: Sort Direction, name: sortDirection, widget: select, options: [asc, desc], default: desc }
               - { label: Featured Limit, name: featuredLimit, widget: number, default: 6, min: 1 }
+          - label: Gallery Display
+            name: gallery
+            widget: object
+            collapsed: true
+            summary: "{{fields.listingLayout}} listing"
+            fields:
+              - { label: Listing Layout, name: listingLayout, widget: select, options: [grid, portfolioSlider], default: grid }
+              - { label: Detail Slider, name: detailSlider, widget: select, options: [one, two], default: two }
+              - { label: Default Hover Effect, name: defaultHoverEffect, widget: select, options: [none, zoom, expand, caption], default: zoom }
           - label: Contact
             name: contact
             widget: object
+            collapsed: true
+            summary: "{{fields.email}}"
             fields:
               - { label: Email, name: email, widget: string }
               - { label: Phone, name: phone, widget: string }
@@ -90,6 +130,7 @@ collections:
           - label: Hero
             name: hero
             widget: object
+            summary: "{{fields.titlePart1}} {{fields.titleThin1}}"
             fields:
               - { label: Preloader Line 1, name: preloaderLine1, widget: string }
               - { label: Preloader Line 2, name: preloaderLine2, widget: string }
@@ -106,6 +147,8 @@ collections:
           - label: About
             name: about
             widget: object
+            collapsed: true
+            summary: "{{fields.titlePart1}} {{fields.titlePart2}}"
             fields:
               - { label: Title Part 1, name: titlePart1, widget: string }
               - { label: Title Part 2, name: titlePart2, widget: string }
@@ -117,6 +160,8 @@ collections:
           - label: Services Preview
             name: servicesPreview
             widget: object
+            collapsed: true
+            summary: "{{fields.titleLine1}} {{fields.titleLine2}}"
             fields:
               - { label: Eyebrow, name: eyebrow, widget: text }
               - { label: Title Line 1, name: titleLine1, widget: string }
@@ -134,6 +179,8 @@ collections:
           - label: Featured Projects
             name: featuredProjects
             widget: object
+            collapsed: true
+            summary: "{{fields.heading}}"
             fields:
               - { label: Heading, name: heading, widget: string }
               - { label: Source, name: source, widget: select, options: [isFeatured], default: isFeatured }
@@ -141,6 +188,8 @@ collections:
           - label: Team Preview
             name: teamPreview
             widget: object
+            collapsed: true
+            summary: "{{fields.titlePart1}} {{fields.titlePart2}}"
             fields:
               - { label: Title Part 1, name: titlePart1, widget: string }
               - { label: Title Part 2, name: titlePart2, widget: string }
@@ -161,6 +210,8 @@ collections:
           - label: Reviews
             name: reviews
             widget: object
+            collapsed: true
+            summary: "{{fields.titlePart1}}"
             fields:
               - { label: Eyebrow, name: eyebrow, widget: text }
               - { label: Title Part 1, name: titlePart1, widget: string }
@@ -175,15 +226,20 @@ collections:
           - label: Partners
             name: partners
             widget: list
+            collapsed: true
+            summary: "{{fields.image}}"
             fields:
               - { label: Image, name: image, widget: image }
               - { label: URL, name: href, widget: string }
               - { label: Width, name: width, widget: string }
-          - label: Blog Preview
+          - label: Home Gallery Preview
             name: blogPreview
             widget: object
+            collapsed: true
+            summary: "{{fields.heading}}"
             fields:
-              - { label: Heading, name: heading, widget: string }
+              - { label: Heading, name: heading, widget: string, hint: "Example: Our Latest Creations." }
+              - { label: Short Description, name: description, widget: text, required: false, hint: "Appears under the Gallery heading on the home page." }
               - { label: CTA Label, name: ctaLabel, widget: string }
               - { label: CTA URL, name: ctaHref, widget: string }
               - label: Items
@@ -199,6 +255,8 @@ collections:
           - label: Call To Action
             name: callToAction
             widget: object
+            collapsed: true
+            summary: "{{fields.title}}"
             fields:
               - { label: Eyebrow, name: eyebrow, widget: text }
               - { label: Title, name: title, widget: string }
@@ -224,6 +282,7 @@ collections:
     folder: src/content/projects
     create: true
     slug: "{{slug}}"
+    summary: "{{title}}"
     fields:
       - { label: Title, name: title, widget: string }
       - { label: Summary, name: summary, widget: text }
@@ -244,16 +303,20 @@ collections:
     folder: src/content/services
     create: true
     slug: "{{slug}}"
+    summary: "{{title}}"
     fields:
       - { label: Title, name: title, widget: string }
       - { label: Summary, name: summary, widget: text }
       - { label: Features, name: features, widget: list, required: false }
       - { label: Order, name: order, widget: number, default: 999 }
+      - { label: SEO Title, name: seoTitle, widget: string, required: false }
+      - { label: SEO Description, name: seoDescription, widget: text, required: false }
   - name: team
     label: Team
     folder: src/content/team
     create: true
     slug: "{{slug}}"
+    summary: "{{name}} - {{role}}"
     fields:
       - { label: Name, name: name, widget: string }
       - { label: Role, name: role, widget: string }
@@ -266,18 +329,25 @@ collections:
           - { label: Label, name: label, widget: string }
           - { label: URL, name: href, widget: string }
       - { label: Order, name: order, widget: number, default: 999 }
+      - { label: SEO Title, name: seoTitle, widget: string, required: false }
+      - { label: SEO Description, name: seoDescription, widget: text, required: false }
   - name: posts
-    label: Blog Posts
+    label: Gallery / Case Studies
     folder: src/content/posts
     create: true
     slug: "{{slug}}"
+    summary: "{{title}}"
     fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Date, name: date, widget: datetime }
-      - { label: Excerpt, name: excerpt, widget: text }
-      - { label: Cover, name: cover, widget: image }
-      - { label: Tags, name: tags, widget: list, required: false }
-      - { label: Order, name: order, widget: number, default: 999 }
+      - { label: Case Study Title, name: title, widget: string }
+      - { label: Publish Date, name: date, widget: datetime }
+      - { label: Short Summary, name: excerpt, widget: text, hint: "One or two short sentences used in listing cards and previews." }
+      - { label: Cover Image, name: cover, widget: image, hint: "Recommended: landscape 1600x1000px. Appears in Gallery listing and Home latest creations." }
+      - { label: Gallery Images, name: gallery, widget: list, collapsed: false, field: { label: Image, name: image, widget: image, hint: "Recommended: 1600px wide or larger, PNG/JPG/WebP." }, required: false, hint: "Add all images for the case study slider and Fancybox gallery." }
+      - { label: Detail Layout, name: galleryLayout, widget: select, options: [{ label: Image Slider - recommended, value: slider }, { label: Clean Grid, value: grid }, { label: Marquee Row, value: marquee }, { label: Hover Expand Grid, value: hoverExpand }], default: slider }
+      - { label: Hover Effect, name: hoverEffect, widget: select, options: [{ label: None, value: none }, { label: Zoom Image, value: zoom }, { label: Expand Image, value: expand }, { label: Show Caption, value: caption }], default: zoom }
+      - { label: Show on Home Gallery, name: isFeatured, widget: boolean, default: false, hint: "Featured items appear in the Home Latest Creations section first." }
+      - { label: Tags, name: tags, widget: list, required: false, hint: "Optional labels for organization." }
+      - { label: Display Order, name: order, widget: number, default: 999, hint: "Lower numbers appear first." }
       - { label: SEO Title, name: seoTitle, widget: string, required: false }
       - { label: SEO Description, name: seoDescription, widget: text, required: false }
-      - { label: Body, name: body, widget: markdown }
+      - { label: Optional Description Body, name: body, widget: markdown, required: false, hint: "Optional text shown on the detail page. Images remain the main content." }

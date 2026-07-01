@@ -1,0 +1,75 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getSiteSettings } from '@lib/siteContent';
+import YAML from 'yaml';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+type ContactPage = {
+  heading: string;
+  description: string;
+  form: {
+    nameLabel: string;
+    emailLabel: string;
+    messageLabel: string;
+    submitLabel: string;
+  };
+  mapEmbedUrl?: string;
+};
+
+const site = getSiteSettings();
+const contact = YAML.parse(readFileSync(resolve(process.cwd(), 'src/data/contact-page.yml'), 'utf8')) as ContactPage;
+---
+
+<BaseLayout title={`Contact | ${site.brand.name}`} description={contact.description}>
+  <div class="mil-inner-banner">
+    <div class="mil-banner-content mil-up">
+      <div class="mil-animation-frame">
+        <div class="mil-animation mil-position-4 mil-dark mil-scale" data-value-1="6" data-value-2="1.4"></div>
+      </div>
+      <div class="container">
+        <ul class="mil-breadcrumbs mil-mb-60">
+          <li><a href="/">Homepage</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+        <h1 class="mil-mb-60">{contact.heading}</h1>
+        <a href="#contact" class="mil-link mil-dark mil-arrow-place mil-down-arrow">
+          <span>Tell us more</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <section id="contact">
+    <div class="container mil-p-120-90">
+      <div class="row justify-content-between">
+        <div class="col-lg-5">
+          <h3 class="mil-up mil-mb-60">{contact.description}</h3>
+          <p class="mil-up mil-mb-30">{site.contact.email}</p>
+          <p class="mil-up mil-mb-60">{site.contact.phone}</p>
+        </div>
+        <div class="col-lg-6">
+          <form class="row align-items-center" data-editable-form>
+            <div class="col-lg-6 mil-up mil-mb-30">
+              <input type="text" placeholder={contact.form.nameLabel} name="name" />
+            </div>
+            <div class="col-lg-6 mil-up mil-mb-30">
+              <input type="email" placeholder={contact.form.emailLabel} name="email" />
+            </div>
+            <div class="col-lg-12 mil-up mil-mb-30">
+              <textarea placeholder={contact.form.messageLabel} name="message"></textarea>
+            </div>
+            <div class="col-lg-12 mil-up">
+              <button type="submit" class="mil-button mil-arrow-place"><span>{contact.form.submitLabel}</span></button>
+            </div>
+          </form>
+        </div>
+      </div>
+      {contact.mapEmbedUrl && (
+        <div class="mil-map-frame mil-up mil-mt-60">
+          <iframe src={contact.mapEmbedUrl} style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

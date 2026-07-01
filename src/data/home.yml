@@ -1,26 +1,35 @@
 hero:
+  titleThin1: a Better
+  titleThin2: Today
+  ctaLabel: What I Do
+  titlePart1: Designing
+  secondaryCtaHref: /portfolio/
+  titlePart2: World
   preloaderLine1: Pioneering
   preloaderLine2: Creative
   preloaderLine3: Excellence
-  titlePart1: Designing
-  titleThin1: a Better
-  titlePart2: World
-  titleThin2: Today
-  description: Welcome to our world of endless imagination and boundless creativity. Together, let's embark on a remarkable journey where dreams become tangible realities.
-  ctaLabel: What we do
-  ctaHref: /services.html
   secondaryCtaLabel: View works
-  secondaryCtaHref: /portfolio/
+  ctaHref: /services.html
+  description: Welcome to our world of endless imagination and boundless
+    creativity. Together, let's embark on a remarkable journey where dreams
+    become tangible realities.
 about:
   titlePart1: Discover
   titlePart2: Our
   titleThin: Studio
   paragraphs:
-    - At our design studio, we are a collective of talented individuals ignited by our unwavering passion for transforming ideas into reality. With a harmonious blend of diverse backgrounds and a vast array of skill sets, we join forces to create compelling solutions for our esteemed clients.
-    - Collaboration is at the heart of what we do. Our team thrives on the synergy that arises when unique perspectives converge, fostering an environment of boundless creativity. By harnessing our collective expertise, we produce extraordinary results that consistently surpass expectations.
-  quote: 'Passionately Creating Design Wonders: Unleashing Boundless Creativity'
+    - At our design studio, we are a collective of talented individuals ignited
+      by our unwavering passion for transforming ideas into reality. With a
+      harmonious blend of diverse backgrounds and a vast array of skill sets, we
+      join forces to create compelling solutions for our esteemed clients.
+    - Collaboration is at the heart of what we do. Our team thrives on the
+      synergy that arises when unique perspectives converge, fostering an
+      environment of boundless creativity. By harnessing our collective
+      expertise, we produce extraordinary results that consistently surpass
+      expectations.
+  quote: "Passionately Creating Design Wonders: Unleashing Boundless Creativity"
   quoteImage: /img/faces/2.jpg
-  image: /img/photo/1.jpg
+  image: https://img.magnific.com/free-vector/cartoon-sound-recording-studio-with-equipment-silhouette-singer-playing-guitar-glass-vector-illustration-professional-music-mixer-with-buttons-wires-loudspeaker-microphone_107791-22929.jpg?semt=ais_hybrid&w=740&q=80
 servicesPreview:
   eyebrow: Professionals focused on helping your brand grow and move forward.
   titleLine1: Unique Ideas
@@ -30,29 +39,35 @@ servicesPreview:
   ctaHref: /services.html
   items:
     - title: Branding and Identity Design
-      summary: Our creative agency is a team of professionals focused on helping your brand grow.
+      summary: Our creative agency is a team of professionals focused on helping your
+        brand grow.
       href: /service.html
     - title: Website Design and Development
-      summary: Our creative agency is a team of professionals focused on helping your brand grow.
+      summary: Our creative agency is a team of professionals focused on helping your
+        brand grow.
       href: /service.html
     - title: Advertising and Marketing Campaigns
-      summary: Our creative agency is a team of professionals focused on helping your brand grow.
+      summary: Our creative agency is a team of professionals focused on helping your
+        brand grow.
       href: /service.html
     - title: Creative Consulting and Development
-      summary: Our creative agency is a team of professionals focused on helping your brand grow.
+      summary: Our creative agency is a team of professionals focused on helping your
+        brand grow.
       href: /service.html
 featuredProjects:
   heading: Featured Projects
   source: isFeatured
   limit: 6
 teamPreview:
+  ctaLabel: Read more
+  paragraphs:
+    - We are talented individuals who are passionate about bringing ideas to
+      life. With a diverse range of backgrounds and skill sets, we collaborate
+      to produce effective solutions for our clients.
+    - Together, our creative team is committed to delivering impactful work that
+      exceeds expectations.
   titlePart1: Meet
   titlePart2: Our Team
-  paragraphs:
-    - We are talented individuals who are passionate about bringing ideas to life. With a diverse range of backgrounds and skill sets, we collaborate to produce effective solutions for our clients.
-    - Together, our creative team is committed to delivering impactful work that exceeds expectations.
-  ctaLabel: Read more
-  ctaHref: /team.html
   closingLine1: We delivering
   closingLine2: exceptional results.
   note: The founders of our agency
@@ -73,49 +88,60 @@ teamPreview:
       role: UI/UX Designer
       image: /img/faces/4.jpg
       href: /team.html
+  ctaHref: /team.html
 reviews:
-  eyebrow: Customer reviews are a valuable source of information for both businesses and consumers.
-  titlePart1: 'Customer Voices'
-  titlePart2: 'Hear What They Say!'
+  eyebrow: Customer reviews are a valuable source of information for both
+    businesses and consumers.
+  titlePart1: Customer Voices
+  titlePart2: Hear What They Say!
   items:
     - name: Sarah Newman
       company: Envato market
-      quote: 'This creative agency stands out with their exceptional talent and expertise. Their ability to think outside the box and bring unique ideas to life is truly impressive.'
+      quote: This creative agency stands out with their exceptional talent and
+        expertise. Their ability to think outside the box and bring unique ideas
+        to life is truly impressive.
     - name: Emma Trueman
       company: Envato market
-      quote: 'I had the pleasure of working with this creative agency, and I must say, they truly impressed me. I highly recommend this agency for their consistent delivery of exceptional creative solutions.'
+      quote: I had the pleasure of working with this creative agency, and I must say,
+        they truly impressed me. I highly recommend this agency for their
+        consistent delivery of exceptional creative solutions.
 partners:
   - image: /img/partners/1.svg
-    href: '#.'
+    href: "#."
     width: 60px
   - image: /img/partners/2.svg
-    href: '#.'
+    href: "#."
     width: 100px
   - image: /img/partners/1.svg
-    href: '#.'
+    href: "#."
     width: 60px
   - image: /img/partners/2.svg
-    href: '#.'
+    href: "#."
     width: 100px
 blogPreview:
-  heading: 'Popular Publications:'
-  ctaLabel: View all
-  ctaHref: /blog.html
+  heading: Our Latest Creations
+  description: A visual collection of our most recent works - each piece crafted
+    with intention, emotion, and style.
+  ctaLabel: View all galleries
+  ctaHref: /blog/
   items:
     - title: How to Become a Graphic Designer in 10 Simple Steps
       category: TECHNOLOGY
       date: may 24 2023
       image: /img/blog/1.jpg
-      href: /publication.html
-      excerpt: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius sequi commodi dignissimos optio, beatae, eos necessitatibus nisi.
+      href: /blog/creative-portfolio-systems/
+      excerpt: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius sequi
+        commodi dignissimos optio, beatae, eos necessitatibus nisi.
     - title: 16 Best Graphic Design Online and Offline Courses
       category: TECHNOLOGY
       date: may 24 2023
       image: /img/blog/2.jpg
-      href: /publication.html
-      excerpt: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius sequi commodi dignissimos optio, beatae, eos necessitatibus nisi.
+      href: /blog/static-sites-for-studios/
+      excerpt: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius sequi
+        commodi dignissimos optio, beatae, eos necessitatibus nisi.
 callToAction:
-  eyebrow: Looking to make your mark? We'll help you turn your project into a success story.
+  eyebrow: Looking to make your mark? We'll help you turn your project into a
+    success story.
   title: Ready to bring your ideas to life? We're here to help.
   ctaLabel: Contact us
   ctaHref: /contact.html

@@ -1,5 +1,6 @@
 ---
 import type { SiteSettings } from '@lib/siteContent';
+import Logo from './Logo.astro';
 
 const { site } = Astro.props as { site: SiteSettings };
 ---
@@ -7,7 +8,7 @@ const { site } = Astro.props as { site: SiteSettings };
 <div class="mil-frame">
   <div class="mil-frame-top">
     <a href="/" class="mil-logo">
-      {site.brand.logoImage ? <img src={site.brand.logoImage} alt={site.brand.logoAlt} /> : site.brand.shortName}
+      <Logo site={site} variant="frame" />
     </a>
     <div class="mil-menu-btn">
       <span></span>

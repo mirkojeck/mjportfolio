@@ -14,8 +14,32 @@ export type SiteSettings = {
     shortName: string;
     domain: string;
     logoText: string;
+    logo?: {
+      alt: string;
+      images?: {
+        light?: string;
+        dark?: string;
+        footer?: string;
+        fallback?: string;
+      };
+      display?: {
+        height?: number;
+        scale?: number;
+        positionX?: number;
+        positionY?: number;
+        objectFit?: 'contain' | 'cover';
+      };
+    };
     logoImage?: string;
+    logoLight?: string;
+    logoDark?: string;
+    logoFooter?: string;
     logoAlt: string;
+    logoHeight?: number;
+    logoScale?: number;
+    logoPositionX?: number;
+    logoPositionY?: number;
+    logoObjectFit?: 'contain' | 'cover';
   };
   seo: {
     title: string;
@@ -27,6 +51,11 @@ export type SiteSettings = {
   projects: {
     sortDirection: 'asc' | 'desc';
     featuredLimit: number;
+  };
+  gallery?: {
+    listingLayout?: 'grid' | 'portfolioSlider';
+    detailSlider?: 'one' | 'two';
+    defaultHoverEffect?: 'none' | 'zoom' | 'expand' | 'caption';
   };
   contact: {
     email: string;
@@ -107,6 +136,7 @@ export type HomeSettings = {
   partners: Array<{ image: string; href: string; width: string }>;
   blogPreview: {
     heading: string;
+    description?: string;
     ctaLabel: string;
     ctaHref: string;
     items: Array<{ title: string; category: string; date: string; image: string; href: string; excerpt: string }>;

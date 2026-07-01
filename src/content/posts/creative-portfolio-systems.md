@@ -3,6 +3,14 @@ title: Building A Portfolio That Stays Editable
 date: 2026-06-20
 excerpt: A practical look at turning visual portfolio templates into sustainable content systems.
 cover: /img/blog/1.jpg
+gallery:
+  - /img/blog/1.jpg
+  - /img/blog/4.jpg
+  - /img/works/1/1.jpg
+  - /img/works/1/2.jpg
+galleryLayout: slider
+hoverEffect: zoom
+isFeatured: true
 tags:
   - Portfolio
   - CMS

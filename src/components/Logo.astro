@@ -1,0 +1,42 @@
+---
+import type { SiteSettings } from '@lib/siteContent';
+
+type Variant = 'frame' | 'light' | 'dark' | 'footer';
+
+const { site, variant = 'dark', class: className = '' } = Astro.props as {
+  site: SiteSettings;
+  variant?: Variant;
+  class?: string;
+};
+
+const brand = site.brand;
+const logo = brand.logo;
+const images = logo?.images;
+const display = logo?.display;
+const logoAlt = logo?.alt || brand.logoAlt || brand.name;
+const fallbackImage = images?.fallback || brand.logoImage || images?.dark || brand.logoDark || images?.light || brand.logoLight || images?.footer || brand.logoFooter;
+const darkLogo = images?.dark || brand.logoDark || fallbackImage;
+const lightLogo = images?.light || brand.logoLight || fallbackImage;
+const footerLogo = images?.footer || brand.logoFooter || lightLogo || darkLogo;
+const singleLogo = variant === 'light' ? lightLogo : variant === 'footer' ? footerLogo : darkLogo;
+const logoStyle = [
+  `--mj-logo-height:${display?.height ?? brand.logoHeight ?? 42}px`,
+  `--mj-logo-scale:${display?.scale ?? brand.logoScale ?? 1}`,
+  `--mj-logo-position-x:${display?.positionX ?? brand.logoPositionX ?? 50}%`,
+  `--mj-logo-position-y:${display?.positionY ?? brand.logoPositionY ?? 50}%`,
+  `--mj-logo-fit:${display?.objectFit ?? brand.logoObjectFit ?? 'contain'}`,
+].join(';');
+---
+
+<span class={`mj-logo-mark mj-logo-mark--${variant} ${className}`} style={logoStyle}>
+  {variant === 'frame' && (lightLogo || darkLogo) ? (
+    <>
+      {lightLogo && <img class="mj-logo-mark__img mj-logo-mark__img--light" src={lightLogo} alt={logoAlt} />}
+      {darkLogo && <img class="mj-logo-mark__img mj-logo-mark__img--dark" src={darkLogo} alt={logoAlt} />}
+    </>
+  ) : singleLogo ? (
+    <img class="mj-logo-mark__img" src={singleLogo} alt={logoAlt} />
+  ) : (
+    <span>{variant === 'footer' ? brand.logoText : brand.shortName}</span>
+  )}
+</span>

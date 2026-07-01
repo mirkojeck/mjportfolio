@@ -1,8 +1,17 @@
 ---
 title: Writing Better Creative Case Studies
 date: 2026-06-24
-excerpt: Strong case studies focus on the problem, the decision, and the business value of the final work.
+excerpt: Strong case studies focus on the problem, the decision, and the
+  business value of the final work.
 cover: /img/blog/3.jpg
+gallery:
+  - /img/blog/3.jpg
+  - /img/blog/6.jpg
+  - /img/works/6/1.jpg
+  - /img/works/6/6.jpg
+galleryLayout: marquee
+hoverEffect: caption
+isFeatured: true
 tags:
   - Case studies
   - Content

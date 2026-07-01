@@ -29,6 +29,10 @@ const posts = defineCollection({
     date: z.date(),
     excerpt: z.string(),
     cover: imagePath,
+    gallery: z.array(imagePath).default([]),
+    galleryLayout: z.enum(['grid', 'marquee', 'hoverExpand', 'slider']).default('slider'),
+    hoverEffect: z.enum(['none', 'zoom', 'expand', 'caption']).default('zoom'),
+    isFeatured: z.boolean().default(false),
     tags: z.array(z.string()).default([]),
     order: z.number().default(999),
     seoTitle: z.string().optional(),
@@ -43,6 +47,8 @@ const services = defineCollection({
     summary: z.string(),
     features: z.array(z.string()).default([]),
     order: z.number().default(999),
+    seoTitle: z.string().optional(),
+    seoDescription: z.string().optional(),
   }),
 });
 
@@ -54,6 +60,8 @@ const team = defineCollection({
     image: imagePath,
     socials: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
     order: z.number().default(999),
+    seoTitle: z.string().optional(),
+    seoDescription: z.string().optional(),
   }),
 });
 

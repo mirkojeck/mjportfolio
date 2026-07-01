@@ -12,15 +12,20 @@
     "test:e2e": "npm run build && playwright test"
   },
   "dependencies": {
-    "@astrojs/sitemap": "latest",
-    "astro": "latest",
-    "sass": "latest",
-    "yaml": "latest"
+    "@astrojs/sitemap": "3.7.3",
+    "astro": "7.0.3",
+    "sass": "1.101.0",
+    "yaml": "2.9.0"
   },
   "devDependencies": {
-    "@astrojs/check": "latest",
-    "@playwright/test": "latest",
-    "decap-server": "^3.9.1",
-    "typescript": "latest"
+    "@astrojs/check": "0.9.9",
+    "@playwright/test": "1.61.1",
+    "decap-server": "3.9.1",
+    "typescript": "6.0.3"
+  },
+  "overrides": {
+    "yaml-language-server": {
+      "yaml": "2.9.0"
+    }
   }
 }

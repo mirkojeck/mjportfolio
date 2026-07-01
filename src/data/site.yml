@@ -1,12 +1,23 @@
 brand:
-  name: Mirko Portfolio
-  shortName: MJ.
   domain: mirko-portfolio.vercel.app
+  shortName: M.J.
+  name: Mirko Portfolio
   logoText: Mirko.
-  logoImage: ""
-  logoAlt: Mirko Portfolio
+  logo:
+    alt: Mirko Portfolio
+    images:
+      light: ""
+      dark: ""
+      footer: ""
+      fallback: ""
+    display:
+      height: 88
+      scale: 1
+      positionX: 50
+      positionY: 50
+      objectFit: contain
 seo:
-  title: Mirko Portfolio | Creative Digital Studio
+  title: Mirko Jeck Portfolio | Creative Digital Studio
   description: A refined portfolio for creative direction, product design,
     branding, and digital experiences.
   image: /img/photo/1.jpg
@@ -15,6 +26,10 @@ seo:
 projects:
   sortDirection: desc
   featuredLimit: 6
+gallery:
+  listingLayout: grid
+  detailSlider: two
+  defaultHoverEffect: zoom
 contact:
   email: hello@example.com
   phone: +971 00 000 0000

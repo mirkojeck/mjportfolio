@@ -53,5 +53,19 @@ const projects = sortByOrder(await getCollection('projects'));
       </div>
     </div>
     <ScriptLoader />
+    <script is:inline>
+      (() => {
+        const frame = document.querySelector('.mil-frame');
+        const firstSection = document.querySelector('.mil-wrapper .mil-content section');
+        if (!frame || !firstSection?.classList.contains('mil-dark-bg')) return;
+
+        const updateFrameLogo = () => {
+          frame.classList.toggle('mil-frame--over-dark', window.scrollY < window.innerHeight * 0.72);
+        };
+
+        updateFrameLogo();
+        window.addEventListener('scroll', updateFrameLogo, { passive: true });
+      })();
+    </script>
   </body>
 </html>

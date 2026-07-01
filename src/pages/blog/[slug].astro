@@ -1,0 +1,93 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getSiteSettings, sortByOrder } from '@lib/siteContent';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const site = getSiteSettings();
+const posts = sortByOrder(await getCollection('posts'), 'desc');
+const currentIndex = posts.findIndex((item) => item.id === post.id);
+const previousPost = currentIndex > 0 ? posts[currentIndex - 1] : undefined;
+const nextPost = currentIndex < posts.length - 1 ? posts[currentIndex + 1] : undefined;
+const { Content } = await render(post);
+const title = post.data.seoTitle ?? `${post.data.title} | ${site.brand.name}`;
+const description = post.data.seoDescription ?? post.data.excerpt;
+const gallery = post.data.gallery.length > 0 ? post.data.gallery : [post.data.cover];
+const sliderClass = site.gallery?.detailSlider === 'one' ? 'mil-1-slider' : 'mil-2-slider';
+const layout = post.data.galleryLayout ?? 'slider';
+const hoverEffect = post.data.hoverEffect ?? site.gallery?.defaultHoverEffect ?? 'zoom';
+---
+
+<BaseLayout title={title} description={description} image={post.data.cover}>
+  <div class="mil-inner-banner">
+    <div class="mil-banner-content mil-up">
+      <div class="mil-animation-frame">
+        <div class="mil-animation mil-position-4 mil-dark mil-scale" data-value-1="6" data-value-2="1.4"></div>
+      </div>
+      <div class="container">
+        <ul class="mil-breadcrumbs mil-mb-60">
+          <li><a href="/">Homepage</a></li>
+          <li><a href="/blog/">Gallery</a></li>
+          <li><a href={`/blog/${post.id}/`}>Case Study</a></li>
+        </ul>
+        <h1 class="mil-mb-60">{post.data.title}</h1>
+        <a href="#publication" class="mil-link mil-dark mil-arrow-place mil-down-arrow">
+          <span>View gallery</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <section id="publication">
+    <div class="container mil-p-120-90">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class={`swiper-container ${sliderClass} mil-up mil-mb-60`}>
+            <div class="swiper-wrapper">
+              {gallery.map((image) => (
+                <div class="swiper-slide">
+                  <div class="mil-image-frame mil-horizontal mil-drag">
+                    <img src={image} alt={post.data.title} />
+                    <a data-fancybox="gallery" data-no-swup href={image} class="mil-zoom-btn">
+                      <img src="/img/icons/zoom.svg" alt="zoom" />
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div class="mil-info mil-up mil-mb-60">
+            <div>Gallery: &nbsp;<span class="mil-dark">{gallery.length} images</span></div>
+            <div>Category: &nbsp;<span class="mil-dark">{post.data.tags.join(', ')}</span></div>
+            <div>Date: &nbsp;<span class="mil-dark">{post.data.date.toLocaleDateString('en', { month: 'long', day: '2-digit', year: 'numeric' })}</span></div>
+          </div>
+          {layout !== 'slider' && (
+            <div class={`mj-gallery-detail mj-gallery-detail--${layout} mj-gallery-detail--${hoverEffect} mil-mb-60`}>
+              {gallery.map((image) => (
+                <a data-fancybox="gallery" data-no-swup href={image} class="mj-gallery-detail__item">
+                  <img src={image} alt={post.data.title} />
+                  {hoverEffect === 'caption' && <span>{post.data.title}</span>}
+                </a>
+              ))}
+            </div>
+          )}
+          <div class="mil-up mil-mb-60"><Content /></div>
+          <div class="mil-works-nav mil-up">
+            {previousPost ? <a href={`/blog/${previousPost.id}/`} class="mil-link mil-dark mil-arrow-place mil-icon-left"><span>Prev gallery</span></a> : <a href="#." class="mil-link mil-dark mil-arrow-place mil-icon-left mil-disabled"><span>Prev gallery</span></a>}
+            <a href="/blog/" class="mil-link mil-dark"><span>All galleries</span></a>
+            {nextPost ? <a href={`/blog/${nextPost.id}/`} class="mil-link mil-dark mil-arrow-place"><span>Next gallery</span></a> : <a href="#." class="mil-link mil-dark mil-arrow-place mil-disabled"><span>Next gallery</span></a>}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

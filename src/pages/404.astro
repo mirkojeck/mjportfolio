@@ -1,0 +1,26 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getSiteSettings } from '@lib/siteContent';
+
+const site = getSiteSettings();
+---
+
+<BaseLayout title={`404 | ${site.brand.name}`} description="Page not found.">
+  <div class="mil-inner-banner">
+    <div class="mil-banner-content mil-up">
+      <div class="mil-animation-frame">
+        <div class="mil-animation mil-position-4 mil-dark mil-scale" data-value-1="9" data-value-2="1.4" style="right: 40%;"></div>
+      </div>
+      <div class="container">
+        <ul class="mil-breadcrumbs mil-mb-60">
+          <li><a href="/">Homepage</a></li>
+          <li><a href="/404.html">404</a></li>
+        </ul>
+        <h1 class="mil-mb-60">Page <span class="mil-thin">not</span><br /> found</h1>
+        <a href="/" class="mil-link mil-dark mil-arrow-place">
+          <span>Back home</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

@@ -7,10 +7,21 @@ import { getHomeSettings, getSiteSettings, sortByOrder } from '@lib/siteContent'
 const site = getSiteSettings();
 const home = getHomeSettings();
 const allProjects = sortByOrder(await getCollection('projects'), site.projects.sortDirection);
+const allGalleries = sortByOrder(await getCollection('posts'), 'desc');
 const featuredProjects = allProjects
   .filter((project) => project.data.isFeatured)
   .slice(0, home.featuredProjects.limit || site.projects.featuredLimit);
 const reviews = home.reviews.items.length > 0 ? home.reviews.items : [];
+const featuredGalleries = allGalleries.filter((gallery) => gallery.data.isFeatured);
+const homeGallerySource = featuredGalleries.length > 0 ? featuredGalleries : allGalleries;
+const homeGalleryItems = homeGallerySource.length > 0
+  ? homeGallerySource.slice(0, 6).map((gallery) => ({
+      title: gallery.data.title,
+      image: gallery.data.cover,
+      href: `/blog/${gallery.id}/`,
+      excerpt: gallery.data.excerpt,
+    }))
+  : home.blogPreview.items;
 ---
 
 <BaseLayout title={site.seo.title} description={site.seo.description} image={site.seo.image}>
@@ -251,40 +262,23 @@ const reviews = home.reviews.items.length > 0 ? home.reviews.items : [];
   </div>
 
   <section>
-    <div class="container mil-p-120-60">
-      <div class="row align-items-center mil-mb-30">
-        <div class="col-lg-6 mil-mb-30">
-          <h3 class="mil-up">{home.blogPreview.heading}</h3>
-        </div>
-        <div class="col-lg-6 mil-mb-30">
-          <div class="mil-adaptive-right mil-up">
-            <a href={home.blogPreview.ctaHref} class="mil-link mil-dark mil-arrow-place">
-              <span>{home.blogPreview.ctaLabel}</span>
-            </a>
-          </div>
-        </div>
+    <div class="container mil-p-120-90">
+      <div class="mj-home-gallery-heading mil-center mil-mb-60">
+        <h3 class="mil-up">{home.blogPreview.heading}</h3>
+        <p class="mil-up">{home.blogPreview.description || 'A visual collection of recent works, each piece crafted with intention, emotion, and style.'}</p>
       </div>
-      <div class="row">
-        {home.blogPreview.items.map((post) => (
-          <div class="col-lg-6">
-            <a href={post.href} class="mil-blog-card mil-mb-60">
-              <div class="mil-cover-frame mil-up">
-                <img src={post.image} alt={post.title} />
-              </div>
-              <div class="mil-post-descr">
-                <div class="mil-labels mil-up mil-mb-30">
-                  <div class="mil-label mil-upper mil-accent">{post.category}</div>
-                  <div class="mil-label mil-upper">{post.date}</div>
-                </div>
-                <h4 class="mil-up mil-mb-30">{post.title}</h4>
-                <p class="mil-post-text mil-up mil-mb-30">{post.excerpt}</p>
-                <div class="mil-link mil-dark mil-arrow-place mil-up">
-                  <span>Read more</span>
-                </div>
-              </div>
-            </a>
-          </div>
+      <div class="mj-home-gallery mil-up">
+        {homeGalleryItems.map((item) => (
+          <a href={item.href} class="mj-home-gallery__item" aria-label={item.title}>
+            <img src={item.image} alt={item.title} />
+            <span>{item.title}</span>
+          </a>
         ))}
+      </div>
+      <div class="mj-home-gallery-action mil-center mil-up">
+        <a href={home.blogPreview.ctaHref} class="mil-link mil-dark mil-arrow-place">
+          <span>{home.blogPreview.ctaLabel}</span>
+        </a>
       </div>
     </div>
   </section>

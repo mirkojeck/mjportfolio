@@ -1,0 +1,75 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getSiteSettings, sortByOrder } from '@lib/siteContent';
+
+export async function getStaticPaths() {
+  const services = await getCollection('services');
+
+  return services.map((service) => ({
+    params: { slug: service.id },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const site = getSiteSettings();
+const services = sortByOrder(await getCollection('services'), 'asc');
+const title = service.data.seoTitle ?? `${service.data.title} | ${site.brand.name}`;
+const description = service.data.seoDescription ?? service.data.summary;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="mil-inner-banner">
+    <div class="mil-banner-content mil-up">
+      <div class="mil-animation-frame">
+        <div class="mil-animation mil-position-4 mil-dark mil-scale" data-value-1="6" data-value-2="1.4"></div>
+      </div>
+      <div class="container">
+        <ul class="mil-breadcrumbs mil-mb-60">
+          <li><a href="/">Homepage</a></li>
+          <li><a href="/services/">Services</a></li>
+          <li><a href={`/services/${service.id}/`}>{service.data.title}</a></li>
+        </ul>
+        <h1 class="mil-mb-60">{service.data.title}</h1>
+        <a href="#service" class="mil-link mil-dark mil-arrow-place mil-down-arrow">
+          <span>Read more</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <section id="service">
+    <div class="container mil-p-120-90">
+      <div class="row justify-content-between">
+        <div class="col-lg-5">
+          <h3 class="mil-up mil-mb-60">{service.data.summary}</h3>
+        </div>
+        <div class="col-lg-6">
+          <ul class="mil-service-list mil-up mil-mb-60">
+            {service.data.features.map((feature) => (
+              <li>{feature}</li>
+            ))}
+          </ul>
+          <a href="/contact/" class="mil-button mil-arrow-place mil-up"><span>Start a project</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mil-soft-bg">
+    <div class="container mil-p-120-60">
+      <div class="row">
+        {services.map((item) => (
+          <div class="col-md-6 col-lg-3 mil-mb-60">
+            <a href={`/services/${item.id}/`} class="mil-service-card-sm mil-up">
+              <h5 class="mil-mb-30">{item.data.title}</h5>
+              <p class="mil-mb-30">{item.data.summary}</p>
+              <div class="mil-button mil-icon-button-sm mil-arrow-place"></div>
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

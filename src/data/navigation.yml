@@ -4,19 +4,19 @@ main:
   - label: Portfolio
     href: /portfolio/
   - label: Services
-    href: /services.html
-  - label: Blog
-    href: /blog.html
+    href: /services/
+  - label: Gallery
+    href: /blog/
   - label: Contact
-    href: /contact.html
+    href: /contact/
 footer:
   - label: Home
     href: /
   - label: Portfolio
     href: /portfolio/
   - label: Services
-    href: /services.html
+    href: /services/
   - label: Contact
-    href: /contact.html
-  - label: Blog
-    href: /blog.html
+    href: /contact/
+  - label: Gallery
+    href: /blog/

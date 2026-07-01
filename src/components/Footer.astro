@@ -1,5 +1,6 @@
 ---
 import type { Navigation, SiteSettings } from '@lib/siteContent';
+import Logo from './Logo.astro';
 
 const { site, navigation } = Astro.props as { site: SiteSettings; navigation: Navigation };
 ---
@@ -10,7 +11,7 @@ const { site, navigation } = Astro.props as { site: SiteSettings; navigation: Na
       <div class="row justify-content-between">
         <div class="col-md-4 col-lg-4 mil-mb-60">
           <div class="mil-muted mil-logo mil-up mil-mb-30">
-            {site.brand.logoImage ? <img src={site.brand.logoImage} alt={site.brand.logoAlt} /> : site.brand.logoText}
+            <Logo site={site} variant="footer" />
           </div>
           <p class="mil-light-soft mil-up mil-mb-30">Subscribe for selected studio updates:</p>
           <form class="mil-subscribe-form mil-up" data-editable-form>

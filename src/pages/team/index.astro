@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getSiteSettings, sortByOrder } from '@lib/siteContent';
+
+const site = getSiteSettings();
+const members = sortByOrder(await getCollection('team'), 'asc');
+---
+
+<BaseLayout title={`Team | ${site.brand.name}`} description={site.seo.description}>
+  <div class="mil-inner-banner">
+    <div class="mil-banner-content mil-up">
+      <div class="mil-animation-frame">
+        <div class="mil-animation mil-position-4 mil-dark mil-scale" data-value-1="6" data-value-2="1.4"></div>
+      </div>
+      <div class="container">
+        <ul class="mil-breadcrumbs mil-mb-60">
+          <li><a href="/">Homepage</a></li>
+          <li><a href="/team/">Team</a></li>
+        </ul>
+        <h1 class="mil-mb-60">Meet <span class="mil-thin">our</span><br /> creative <span class="mil-thin">team</span></h1>
+        <a href="#team" class="mil-link mil-dark mil-arrow-place mil-down-arrow">
+          <span>Our team</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <section id="team">
+    <div class="container mil-p-120-60">
+      <div class="mil-team-list">
+        <div class="mil-lines-place"></div>
+        <div class="row">
+          {members.map((member) => (
+            <div class="col-sm-6 col-lg-4">
+              <div class="mil-team-card mil-up mil-mb-60">
+                <img src={member.data.image} alt={member.data.name} />
+                <div class="mil-description">
+                  <div class="mil-secrc-text">
+                    <h5 class="mil-muted mil-mb-5">{member.data.name}</h5>
+                    <p class="mil-link mil-light-soft mil-mb-10">{member.data.role}</p>
+                    <ul class="mil-social-icons mil-center">
+                      {member.data.socials.map((social) => (
+                        <li><a href={social.href} target="_blank" rel="noreferrer" class="social-icon"><i class="far fa-circle"></i><span class="sr-only">{social.label}</span></a></li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
