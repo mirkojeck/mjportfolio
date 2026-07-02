@@ -67,7 +67,12 @@ const { site, navigation } = Astro.props as { site: SiteSettings; navigation: Na
                 ))}
               </ul>
             </div>
-            <p class="mil-light-soft mil-up">Copyright © {new Date().getFullYear()} {site.brand.name}. All rights reserved.</p>
+            <div class="mil-footer-meta mil-up">
+              <p class="mil-light-soft">Copyright © {new Date().getFullYear()} {site.brand.name}. All rights reserved.</p>
+              <p class="mil-footer-credit">
+                Made with <span aria-label="love">&hearts;</span> by <a href="https://www.dxbmark.com" target="_blank" rel="noreferrer" data-no-swup>DXBMARK LLC</a>
+              </p>
+            </div>
           </div>
         </div>
       </div>

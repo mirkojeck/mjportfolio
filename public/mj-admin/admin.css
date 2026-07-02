@@ -5,6 +5,44 @@ body {
   color: #1f1b16;
 }
 
+.mj-admin-credit {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  z-index: 2147483000;
+  transform: translateX(-50%);
+  padding: 7px 12px;
+  border: 1px solid rgba(95, 76, 51, .12);
+  border-radius: 999px;
+  background: rgba(255, 252, 246, .92);
+  box-shadow: 0 8px 26px rgba(31, 27, 22, .08);
+  color: rgba(31, 27, 22, .62);
+  font: 500 12px/1.4 Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  pointer-events: auto;
+}
+
+.mj-admin-credit span {
+  color: #c78f3e;
+}
+
+.mj-admin-credit a {
+  color: rgba(31, 27, 22, .74);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.mj-admin-credit a:hover {
+  color: #c78f3e;
+}
+
+@media (max-width: 640px) {
+  .mj-admin-credit {
+    bottom: 10px;
+    width: calc(100% - 32px);
+    text-align: center;
+  }
+}
+
 .nc-entryEditor-container,
 [class*="EntryEditorContainer"] {
   gap: 12px !important;

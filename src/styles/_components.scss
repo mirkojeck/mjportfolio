@@ -323,6 +323,22 @@ frame
     }
 }
 
+.mil-frame.mil-frame--over-dark .mil-frame-bottom {
+    & .mil-current-page,
+    & .mil-current-page a,
+    & .mil-back-to-top .mil-link {
+        color: $light;
+    }
+
+    & .mil-back-to-top .mil-link svg {
+        background-color: $lt-10;
+
+        & path {
+            fill: $light;
+        }
+    }
+}
+
 .mj-home-gallery-heading {
     & p {
         max-width: 560px;
@@ -2402,6 +2418,32 @@ footer
             height: 100%;
             width: 100%;
             background-color: $dt-10;
+        }
+    }
+}
+
+.mil-footer-meta {
+    & p {
+        margin: 0;
+    }
+}
+
+.mil-footer-credit {
+    margin-top: 8px !important;
+    font-size: 12px;
+    line-height: 1.5;
+    color: $lt-40;
+
+    & span {
+        color: $accent;
+    }
+
+    & a {
+        color: $lt-60;
+        transition: $t-md;
+
+        &:hover {
+            color: $accent;
         }
     }
 }

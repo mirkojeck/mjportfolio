@@ -153,31 +153,16 @@ reviews:
       quote: This creative agency stands out with their exceptional talent and
         expertise. Their ability to think outside the box and bring unique ideas
         to life is truly impressive.
+    - name: Tariq.S
+      company: DXBMARK LLC
+      image: /img/uploads/favicon.webp
+      quote: One of the amazing things is to have a Client like Mr. Jeck.
     - name: Emma Trueman
       company: Envato market
       image: /img/faces/2.jpg
       quote: I had the pleasure of working with this creative agency, and I must say,
         they truly impressed me. I highly recommend this agency for their
         consistent delivery of exceptional creative solutions.
-    - name: Tariq.S
-      company: DXBMARK LLC
-      image: /img/uploads/favicon.webp
-      quote: One of the amazing things is to have a Client like Mr. Jeck.
-    - name: Anna Oldman
-      company: Ashley Studio
-      image: /img/faces/3.jpg
-      quote: Their creative process feels focused, generous, and deeply reliable from
-        the first workshop to the final delivery.
-    - name: Oscar Freeman
-      company: Product Lab
-      image: /img/faces/4.jpg
-      quote: The team translated a complex brief into a clear visual system that our
-        whole team could use confidently.
-    - name: Lisa Trueman
-      company: Creative Market
-      image: /img/faces/5.jpg
-      quote: Every detail was considered, and the final experience felt polished,
-        expressive, and easy for our audience to understand.
 partners:
   - image: /img/partners/1.svg
     href: "#."

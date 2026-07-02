@@ -82,5 +82,22 @@
         document.body.appendChild(preview);
       })();
     </script>
+    <script is:inline>
+      (function () {
+        function ensureCredit() {
+          if (document.querySelector('.mj-admin-credit')) return;
+          var credit = document.createElement('div');
+          credit.className = 'mj-admin-credit';
+          credit.innerHTML = 'Made with <span aria-label="love">&hearts;</span> by <a href="https://www.dxbmark.com" target="_blank" rel="noreferrer">DXBMARK LLC</a>';
+          document.body.appendChild(credit);
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', ensureCredit, { once: true });
+        } else {
+          ensureCredit();
+        }
+      })();
+    </script>
   </body>
 </html>
