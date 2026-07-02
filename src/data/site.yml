@@ -24,7 +24,7 @@ seo:
   description: A refined portfolio for creative direction, product design,
     branding, and digital experiences.
   image: /img/photo/1.jpg
-  favicon: /img/icons/zoom.svg
+  favicon: /img/mj-favicon.svg
   canonicalBaseUrl: https://mediaandfilm.online
 projects:
   sortDirection: desc
