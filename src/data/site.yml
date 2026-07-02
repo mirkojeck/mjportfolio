@@ -1,5 +1,5 @@
 brand:
-  domain: mediaandfilm.online
+  domain: www.mediaandfilm.online
   shortName: M.J.
   name: Mirko Portfolio
   logoText: Mirko.
@@ -25,7 +25,7 @@ seo:
     branding, and digital experiences.
   image: /img/photo/1.jpg
   favicon: /img/mj-favicon.svg
-  canonicalBaseUrl: https://mediaandfilm.online
+  canonicalBaseUrl: https://www.mediaandfilm.online
 projects:
   sortDirection: desc
   featuredLimit: 6

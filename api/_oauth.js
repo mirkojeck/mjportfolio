@@ -10,9 +10,27 @@ export const getRequiredEnv = (name) => {
 };
 
 export const getOAuthRedirectUri = (req) => {
-  const host = req.headers['x-forwarded-host'] || req.headers.host;
-  const proto = req.headers['x-forwarded-proto'] || 'https';
-  return process.env.OAUTH_REDIRECT_URI || `${proto}://${host}/api/callback`;
+  const requestOrigin = getRequestOrigin(req);
+  const configuredRedirectUri = process.env.OAUTH_REDIRECT_URI;
+
+  if (!configuredRedirectUri) {
+    return `${requestOrigin}/api/callback`;
+  }
+
+  try {
+    const configured = new URL(configuredRedirectUri);
+    const current = new URL(requestOrigin);
+    const configuredHost = configured.host.replace(/^www\./, '');
+    const currentHost = current.host.replace(/^www\./, '');
+
+    if (configured.host !== current.host && configuredHost === currentHost) {
+      return `${requestOrigin}/api/callback`;
+    }
+  } catch {
+    return `${requestOrigin}/api/callback`;
+  }
+
+  return configuredRedirectUri;
 };
 
 export const getRequestOrigin = (req) => {
@@ -78,8 +96,8 @@ export const exchangeGithubCode = async (req, code) => {
 export const decapCallbackHtml = (status, payload, targetOrigin = '*') => {
   const message =
     status === 'success'
-      ? `authorization:github:${payload.token}`
-      : `authorization:github:error:${payload.error || 'Authentication failed'}`;
+      ? `authorization:github:success:${JSON.stringify({ token: payload.token })}`
+      : `authorization:github:error:${JSON.stringify({ error: payload.error || 'Authentication failed' })}`;
   const safeTargetOrigin = targetOrigin || '*';
 
   return `<!doctype html>
@@ -88,11 +106,30 @@ export const decapCallbackHtml = (status, payload, targetOrigin = '*') => {
   <body>
     <script>
       (function () {
+        var provider = 'github';
+        var handshake = 'authorizing:' + provider;
         var message = ${JSON.stringify(message)};
         var targetOrigin = ${JSON.stringify(safeTargetOrigin)};
-        if (window.opener) {
+        var sent = false;
+
+        function sendAuthorization() {
+          if (sent || !window.opener) return;
+          sent = true;
           window.opener.postMessage(message, targetOrigin);
-          window.close();
+          window.setTimeout(function () {
+            window.close();
+          }, 500);
+        }
+
+        if (window.opener) {
+          window.addEventListener('message', function (event) {
+            if (targetOrigin !== '*' && event.origin !== targetOrigin) return;
+            if (event.data === handshake) {
+              sendAuthorization();
+            }
+          });
+          window.opener.postMessage(handshake, targetOrigin);
+          window.setTimeout(sendAuthorization, 3000);
         } else {
           document.body.textContent = ${JSON.stringify(status === 'success' ? 'Authentication complete. You can close this window.' : 'Authentication failed.')};
         }
