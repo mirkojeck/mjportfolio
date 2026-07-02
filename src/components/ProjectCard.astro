@@ -2,13 +2,21 @@
 import { formatProjectDate } from '@lib/siteContent';
 
 const { project } = Astro.props;
+const { index = project.data.order - 1 } = Astro.props;
+const { frame = undefined } = Astro.props;
 const label = project.data.services?.[0] ?? project.data.client;
 const displayDate = formatProjectDate(project.data.date, project.data.year);
-const frameClass = project.data.order % 3 === 1 ? 'mil-vert' : 'mil-hori';
+const portfolioPattern = ['mil-vert', 'mil-hori', 'mil-hori', 'mil-vert', 'mil-vert', 'mil-hori'];
+const frameClass = frame ?? portfolioPattern[index % portfolioPattern.length] ?? 'mil-hori';
 const parallaxClass = frameClass === 'mil-hori' ? ' mil-parallax' : '';
 ---
 
-<a href={`/projects/${project.id}/`} class={`mil-portfolio-item mil-more${parallaxClass} mil-mb-60`} data-value-1="60" data-value-2="-60">
+<a
+  href={`/projects/${project.id}/`}
+  class={`mil-portfolio-item mil-more${parallaxClass} mil-mb-60`}
+  data-value-1={frameClass === 'mil-hori' ? '60' : undefined}
+  data-value-2={frameClass === 'mil-hori' ? '-60' : undefined}
+>
   <div class={`mil-cover-frame ${frameClass} mil-up`}>
     <div class="mil-cover">
       <img src={project.data.cover} alt={project.data.title} />

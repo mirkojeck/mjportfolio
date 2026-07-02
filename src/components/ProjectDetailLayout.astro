@@ -1,0 +1,159 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatProjectDate } from '@lib/siteContent';
+import ProjectImageFrame from '@components/ProjectImageFrame.astro';
+
+type ProjectEntry = CollectionEntry<'projects'>;
+
+const { project, Content, previousProject, nextProject } = Astro.props as {
+  project: ProjectEntry;
+  Content: any;
+  previousProject?: ProjectEntry;
+  nextProject?: ProjectEntry;
+};
+const gallery = project.data.gallery.length > 0 ? project.data.gallery : [project.data.cover];
+const layout = project.data.detailLayout ?? 'project1Grid';
+const projectDate = formatProjectDate(project.data.date, project.data.year);
+const imageAlt = (index: number) => `${project.data.title} image ${index + 1}`;
+---
+
+<section class={layout === 'project5FullWidthSquareSlider' || layout === 'project6FullWidthMixedSliders' ? '' : 'mil-p-120-0'}>
+  {(layout === 'project5FullWidthSquareSlider' || layout === 'project6FullWidthMixedSliders') && (
+    <ProjectImageFrame image={gallery[0]} alt={imageAlt(0)} frame="mil-fw" extraClass="mil-up" />
+  )}
+
+  <div class="container mil-p-0-120" id="project">
+    {layout === 'project1Grid' && (
+      <>
+        <ProjectImageFrame image={gallery[0]} alt={imageAlt(0)} frame="mil-horizontal" extraClass="mil-up" />
+        <div class="mil-info mil-up">
+          <div>Client: &nbsp;<span class="mil-dark">{project.data.client}</span></div>
+          <div>Date: &nbsp;<span class="mil-dark">{projectDate}</span></div>
+          <div>Services: &nbsp;<span class="mil-dark">{project.data.services.join(', ')}</span></div>
+        </div>
+        <div class="mil-p-120-0">
+          <div class="row">
+            {gallery.slice(1, 5).map((image: string, index: number) => (
+              <div class="col-lg-6"><ProjectImageFrame image={image} alt={imageAlt(index + 1)} frame="mil-square" extraClass="mil-up mil-mb-30" /></div>
+            ))}
+          </div>
+        </div>
+      </>
+    )}
+
+    {layout === 'project2Stacked' && (
+      <>
+        <div class="row justify-content-center mil-p-120-90">
+          <div class="col-lg-10">
+            <div class="mil-info mil-up mil-mb-60">
+              <div>Client: &nbsp;<span class="mil-dark">{project.data.client}</span></div>
+              <div>Date: &nbsp;<span class="mil-dark">{projectDate}</span></div>
+              <div>Services: &nbsp;<span class="mil-dark">{project.data.services.join(', ')}</span></div>
+            </div>
+            {gallery.map((image: string, index: number) => (
+              <ProjectImageFrame image={image} alt={imageAlt(index)} frame="mil-horizontal" extraClass={index === gallery.length - 1 ? 'mil-up' : 'mil-up mil-mb-30'} />
+            ))}
+          </div>
+        </div>
+      </>
+    )}
+
+    {layout === 'project3HorizontalSlider' && (
+      <div class="mil-p-120-0">
+        <div class="swiper-container mil-1-slider mil-up">
+          <div class="swiper-wrapper">
+            {gallery.map((image: string, index: number) => (
+              <div class="swiper-slide"><ProjectImageFrame image={image} alt={imageAlt(index)} frame="mil-horizontal" extraClass="mil-drag" /></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )}
+
+    {layout === 'project4VerticalSlider' && (
+      <div class="mil-p-120-0">
+        <div class="swiper-container mil-2-slider mil-up">
+          <div class="swiper-wrapper">
+            {gallery.map((image: string, index: number) => (
+              <div class="swiper-slide"><ProjectImageFrame image={image} alt={imageAlt(index)} frame="mil-vertical" extraClass="mil-drag" /></div>
+            ))}
+          </div>
+        </div>
+        {gallery[0] && <ProjectImageFrame image={gallery[0]} alt={imageAlt(0)} frame="mil-horizontal" extraClass="mil-up mil-mb-120" />}
+      </div>
+    )}
+
+    {layout === 'project5FullWidthSquareSlider' && (
+      <div class="mil-p-120-0">
+        <div class="swiper-container mil-2-slider mil-up">
+          <div class="swiper-wrapper">
+            {gallery.slice(1).map((image: string, index: number) => (
+              <div class="swiper-slide"><ProjectImageFrame image={image} alt={imageAlt(index + 1)} frame="mil-square" extraClass="mil-drag" /></div>
+            ))}
+          </div>
+        </div>
+        {gallery[1] && <ProjectImageFrame image={gallery[1]} alt={imageAlt(1)} frame="mil-horizontal" extraClass="mil-up mil-mb-120" />}
+      </div>
+    )}
+
+    {layout === 'project6FullWidthMixedSliders' && (
+      <div class="mil-p-120-0">
+        <div class="swiper-container mil-2-slider mil-up mil-mb-120">
+          <div class="swiper-wrapper">
+            {gallery.slice(1, 5).map((image: string, index: number) => (
+              <div class="swiper-slide"><ProjectImageFrame image={image} alt={imageAlt(index + 1)} frame="mil-vertical" extraClass="mil-drag" /></div>
+            ))}
+          </div>
+        </div>
+        <div class="swiper-container mil-2-slider mil-up mil-mb-120">
+          <div class="swiper-wrapper">
+            {gallery.slice(5).map((image: string, index: number) => (
+              <div class="swiper-slide"><ProjectImageFrame image={image} alt={imageAlt(index + 5)} frame="mil-horizontal" extraClass="mil-drag" /></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    )}
+
+    <div class="row justify-content-between mil-p-90-120">
+      <div class="col-lg-5">
+        <h3 class="mil-up mil-mb-60">{project.data.summary}</h3>
+      </div>
+      <div class="col-lg-6 mil-up">
+        <Content />
+      </div>
+    </div>
+
+    {layout === 'project1Grid' && gallery.length > 5 && (
+      <div class="row mil-p-0-90">
+        {gallery.slice(5).map((image: string, index: number) => (
+          <div class="col-lg-6"><ProjectImageFrame image={image} alt={imageAlt(index + 5)} frame="mil-vertical" extraClass="mil-up mil-mb-30" /></div>
+        ))}
+      </div>
+    )}
+
+    <div class="mil-works-nav mil-up">
+      {previousProject ? (
+        <a href={`/projects/${previousProject.id}/`} class="mil-link mil-dark mil-arrow-place mil-icon-left">
+          <span>Prev project</span>
+        </a>
+      ) : (
+        <a href="#." class="mil-link mil-dark mil-arrow-place mil-icon-left mil-disabled">
+          <span>Prev project</span>
+        </a>
+      )}
+      <a href="/portfolio/" class="mil-link mil-dark">
+        <span>All projects</span>
+      </a>
+      {nextProject ? (
+        <a href={`/projects/${nextProject.id}/`} class="mil-link mil-dark mil-arrow-place">
+          <span>Next project</span>
+        </a>
+      ) : (
+        <a href="#." class="mil-link mil-dark mil-arrow-place mil-disabled">
+          <span>Next project</span>
+        </a>
+      )}
+    </div>
+  </div>
+</section>

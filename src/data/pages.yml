@@ -1,0 +1,65 @@
+portfolio:
+  hero:
+    titleLine1: Designing a
+    titleLine2: Better
+    titleLine3: World Today
+    downArrowLabel: Our works
+  cta:
+    eyebrow: Looking to make your mark? We'll help you turn your project into a success story.
+    titleLine1: Ready to bring your
+    titleLine2: ideas to
+    titleLine3: life?
+    titleLine4: We're
+    titleLine5: here to help
+    buttonLabel: Contact us
+
+services:
+  hero:
+    titleLine1: This is
+    titleLine2: what
+    titleLine3: we do
+    titleLine4: best
+    downArrowLabel: Our services
+  cta:
+    eyebrow: Looking to make your mark? We'll help you turn your project into a success story.
+    titleLine1: Ready to bring your
+    titleLine2: ideas to
+    titleLine3: life?
+    titleLine4: We're
+    titleLine5: here to help
+    buttonLabel: Contact us
+  detail:
+    downArrowLabel: Read more
+    startProjectLabel: Start a project
+
+team:
+  hero:
+    titleLine1: Meet
+    titleLine2: our
+    titleLine3: creative
+    titleLine4: team
+    downArrowLabel: Our team
+
+gallery:
+  hero:
+    titleLine1: Image
+    titleLine2: gallery
+    downArrowLabel: View gallery
+  card:
+    viewLabel: View gallery
+
+publications:
+  hero:
+    titleLine1: Studio
+    titleLine2: Publications
+    downArrowLabel: Read notes
+  listing:
+    readMoreLabel: Read more
+  detail:
+    prevLabel: Prev publication
+    allLabel: All publications
+    nextLabel: Next publication
+
+contact:
+  hero:
+    downArrowLabel: Tell us more

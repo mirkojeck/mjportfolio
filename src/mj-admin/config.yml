@@ -3,7 +3,6 @@ backend:
   repo: mirkojeck/mjportfolio
   branch: main
 
-publish_mode: editorial_workflow
 local_backend: true
 
 media_folder: public/img/uploads
@@ -55,6 +54,28 @@ collections:
                       - { label: Move Left/Right, name: positionX, widget: number, default: 50, min: 0, max: 100, hint: "50 is centered. Only matters when Fit Mode is Crop." }
                       - { label: Move Up/Down, name: positionY, widget: number, default: 50, min: 0, max: 100, hint: "50 is centered. Only matters when Fit Mode is Crop." }
                       - { label: Fit Mode, name: objectFit, widget: select, options: [{ label: Show full logo - recommended, value: contain }, { label: Crop inside logo box, value: cover }], default: contain, hint: "Decap has no visual crop editor. Use Crop with Move/Zoom only when needed." }
+          - label: Layout Selection
+            name: display
+            widget: object
+            collapsed: false
+            summary: "Home {{fields.homeVariant}}, Portfolio {{fields.portfolioLayout}}"
+            hint: "Choose the active public layout. The other variants stay available at their direct URLs for review."
+            fields:
+              - label: Active Home Variant
+                name: homeVariant
+                widget: select
+                default: home1
+                options:
+                  - { label: Home 1 - main animated portfolio, value: home1 }
+                  - { label: Home 2 - alternate intro layout, value: home2 }
+              - label: Active Portfolio Layout
+                name: portfolioLayout
+                widget: select
+                default: mixedGrid
+                options:
+                  - { label: Mixed Grid - original portfolio-1 pattern, value: mixedGrid }
+                  - { label: Wide Grid - original portfolio-2 pattern, value: wideGrid }
+                  - { label: Slider - original portfolio-3 pattern, value: slider }
           - label: SEO
             name: seo
             widget: object
@@ -223,6 +244,28 @@ collections:
                   - { label: Role, name: role, widget: string }
                   - { label: Image, name: image, widget: image, allow_multiple: false, hint: "Recommended: square portrait 900x900px." }
                   - { label: URL, name: href, widget: string, hint: "Use a relative URL like /team/." }
+                  - label: Social Links
+                    name: socials
+                    widget: list
+                    required: false
+                    collapsed: true
+                    summary: "{{fields.platform}} - {{fields.href}}"
+                    hint: "Optional. These appear inside the team card hover overlay, matching the original template."
+                    fields:
+                      - label: Platform
+                        name: platform
+                        widget: select
+                        options:
+                          - { label: Instagram, value: instagram }
+                          - { label: LinkedIn, value: linkedin }
+                          - { label: Facebook, value: facebook }
+                          - { label: Behance, value: behance }
+                          - { label: Dribbble, value: dribbble }
+                          - { label: X / Twitter, value: twitter }
+                          - { label: GitHub, value: github }
+                          - { label: WhatsApp, value: whatsapp }
+                      - { label: Accessible Label, name: label, widget: string, hint: "Example: Behance." }
+                      - { label: URL, name: href, widget: string, hint: "Use a full URL, for example https://behance.net/name." }
           - label: Reviews
             name: reviews
             widget: object
@@ -298,6 +341,125 @@ collections:
               - { label: Message Label, name: messageLabel, widget: string }
               - { label: Submit Label, name: submitLabel, widget: string }
           - { label: Map Embed URL, name: mapEmbedUrl, widget: string, required: false, hint: "Paste a Google Maps embed URL only. Leave empty to hide or keep the default map area." }
+      - name: pages
+        label: Page Copy
+        description: "Page-level headings and CTA text for portfolio, services, team, gallery, publications, and contact hero labels."
+        file: src/data/pages.yml
+        fields:
+          - label: Portfolio Page
+            name: portfolio
+            widget: object
+            fields:
+              - label: Hero
+                name: hero
+                widget: object
+                fields:
+                  - { label: Title Line 1, name: titleLine1, widget: string }
+                  - { label: Title Line 2, name: titleLine2, widget: string }
+                  - { label: Title Line 3, name: titleLine3, widget: string }
+                  - { label: Down Arrow Label, name: downArrowLabel, widget: string }
+              - label: Bottom CTA
+                name: cta
+                widget: object
+                fields:
+                  - { label: Eyebrow, name: eyebrow, widget: text }
+                  - { label: Title Line 1, name: titleLine1, widget: string }
+                  - { label: Title Line 2, name: titleLine2, widget: string }
+                  - { label: Title Line 3, name: titleLine3, widget: string }
+                  - { label: Title Line 4, name: titleLine4, widget: string }
+                  - { label: Title Line 5, name: titleLine5, widget: string }
+                  - { label: Button Label, name: buttonLabel, widget: string }
+          - label: Services Page
+            name: services
+            widget: object
+            fields:
+              - label: Hero
+                name: hero
+                widget: object
+                fields:
+                  - { label: Title Line 1, name: titleLine1, widget: string }
+                  - { label: Title Line 2, name: titleLine2, widget: string }
+                  - { label: Title Line 3, name: titleLine3, widget: string }
+                  - { label: Title Line 4, name: titleLine4, widget: string }
+                  - { label: Down Arrow Label, name: downArrowLabel, widget: string }
+              - label: Bottom CTA
+                name: cta
+                widget: object
+                fields:
+                  - { label: Eyebrow, name: eyebrow, widget: text }
+                  - { label: Title Line 1, name: titleLine1, widget: string }
+                  - { label: Title Line 2, name: titleLine2, widget: string }
+                  - { label: Title Line 3, name: titleLine3, widget: string }
+                  - { label: Title Line 4, name: titleLine4, widget: string }
+                  - { label: Title Line 5, name: titleLine5, widget: string }
+                  - { label: Button Label, name: buttonLabel, widget: string }
+              - label: Service Detail
+                name: detail
+                widget: object
+                fields:
+                  - { label: Down Arrow Label, name: downArrowLabel, widget: string }
+                  - { label: Start Project Button Label, name: startProjectLabel, widget: string }
+          - label: Team Page
+            name: team
+            widget: object
+            fields:
+              - label: Hero
+                name: hero
+                widget: object
+                fields:
+                  - { label: Title Line 1, name: titleLine1, widget: string }
+                  - { label: Title Line 2, name: titleLine2, widget: string }
+                  - { label: Title Line 3, name: titleLine3, widget: string }
+                  - { label: Title Line 4, name: titleLine4, widget: string }
+                  - { label: Down Arrow Label, name: downArrowLabel, widget: string }
+          - label: Gallery Page
+            name: gallery
+            widget: object
+            fields:
+              - label: Hero
+                name: hero
+                widget: object
+                fields:
+                  - { label: Title Line 1, name: titleLine1, widget: string }
+                  - { label: Title Line 2, name: titleLine2, widget: string }
+                  - { label: Down Arrow Label, name: downArrowLabel, widget: string }
+              - label: Card Labels
+                name: card
+                widget: object
+                fields:
+                  - { label: View Label, name: viewLabel, widget: string }
+          - label: Publications Page
+            name: publications
+            widget: object
+            fields:
+              - label: Hero
+                name: hero
+                widget: object
+                fields:
+                  - { label: Title Line 1, name: titleLine1, widget: string }
+                  - { label: Title Line 2, name: titleLine2, widget: string }
+                  - { label: Down Arrow Label, name: downArrowLabel, widget: string }
+              - label: Listing Labels
+                name: listing
+                widget: object
+                fields:
+                  - { label: Read More Label, name: readMoreLabel, widget: string }
+              - label: Detail Navigation Labels
+                name: detail
+                widget: object
+                fields:
+                  - { label: Previous Label, name: prevLabel, widget: string }
+                  - { label: All Label, name: allLabel, widget: string }
+                  - { label: Next Label, name: nextLabel, widget: string }
+          - label: Contact Page
+            name: contact
+            widget: object
+            fields:
+              - label: Hero
+                name: hero
+                widget: object
+                fields:
+                  - { label: Down Arrow Label, name: downArrowLabel, widget: string }
   - name: projects
     label: Projects
     label_singular: Project
@@ -319,6 +481,18 @@ collections:
       - { label: Project Title, name: title, widget: string }
       - { label: Short Summary, name: summary, widget: text, hint: "One short paragraph used on cards and detail pages." }
       - { label: Cover Image, name: cover, widget: image, allow_multiple: false, hint: "Recommended: landscape 1600x1000px, JPG/PNG/WebP under 5MB." }
+      - label: Detail Page Layout
+        name: detailLayout
+        widget: select
+        default: project1Grid
+        hint: "Controls the project detail page visual pattern. Images are reused from Project Gallery Images in their current order."
+        options:
+          - { label: Project 1 - hero plus square grid, value: project1Grid }
+          - { label: Project 2 - stacked horizontal images, value: project2Stacked }
+          - { label: Project 3 - horizontal image slider, value: project3HorizontalSlider }
+          - { label: Project 4 - vertical image slider, value: project4VerticalSlider }
+          - { label: Project 5 - full-width hero plus square slider, value: project5FullWidthSquareSlider }
+          - { label: Project 6 - full-width hero plus mixed sliders, value: project6FullWidthMixedSliders }
       - label: Project Gallery Images
         name: gallery
         widget: list
@@ -354,6 +528,16 @@ collections:
       - { label: Service Title, name: title, widget: string }
       - { label: Short Summary, name: summary, widget: text, hint: "One short paragraph used on service cards and detail pages." }
       - { label: Feature List, name: features, widget: list, required: false, hint: "Add short bullet points. Keep each item concise." }
+      - label: Accordion Process
+        name: process
+        widget: list
+        required: false
+        collapsed: true
+        summary: "{{fields.title}}"
+        hint: "Optional accordion rows for the service detail page, matching the original service.html interaction."
+        fields:
+          - { label: Step Title, name: title, widget: string }
+          - { label: Step Description, name: description, widget: text }
       - { label: Display Order, name: order, widget: number, default: 999, hint: "Lower numbers appear first." }
       - { label: SEO Title, name: seoTitle, widget: string, required: false, hint: "Optional. Leave empty to use the service title." }
       - { label: SEO Description, name: seoDescription, widget: text, required: false, hint: "Optional. Leave empty to use the short summary." }
@@ -378,6 +562,19 @@ collections:
         required: false
         hint: "Optional social links for this team member."
         fields:
+          - label: Platform
+            name: platform
+            widget: select
+            required: false
+            options:
+              - { label: Instagram, value: instagram }
+              - { label: LinkedIn, value: linkedin }
+              - { label: Facebook, value: facebook }
+              - { label: Behance, value: behance }
+              - { label: Dribbble, value: dribbble }
+              - { label: X / Twitter, value: twitter }
+              - { label: GitHub, value: github }
+              - { label: WhatsApp, value: whatsapp }
           - { label: Label, name: label, widget: string }
           - { label: URL, name: href, widget: string, hint: "Use a full URL, for example https://instagram.com/name." }
       - { label: Display Order, name: order, widget: number, default: 999, hint: "Lower numbers appear first." }
@@ -419,3 +616,32 @@ collections:
       - { label: SEO Title, name: seoTitle, widget: string, required: false, hint: "Optional. Leave empty to use the case study title automatically." }
       - { label: SEO Description, name: seoDescription, widget: text, required: false, hint: "Optional. Leave empty to use the short summary automatically." }
       - { label: Optional Description Body, name: body, widget: markdown, required: false, hint: "Optional text shown on the detail page. Images remain the main content." }
+  - name: publications
+    label: Publications
+    label_singular: Publication
+    description: "Long-form editorial or publication pages. Use Gallery for visual case studies."
+    folder: src/content/publications
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    preview_path: "publications/{{slug}}/"
+    sortable_fields: [title, date, order]
+    fields:
+      - { label: Publication Title, name: title, widget: string }
+      - { label: Publish Date, name: date, widget: datetime }
+      - { label: Intro Summary, name: excerpt, widget: text }
+      - { label: Cover Image, name: cover, widget: image, allow_multiple: false, hint: "Recommended: landscape 1600x1000px." }
+      - label: Inline Gallery Images
+        name: gallery
+        widget: list
+        required: false
+        field:
+          label: Image
+          name: image
+          widget: image
+          allow_multiple: false
+      - { label: Tags, name: tags, widget: list, required: false }
+      - { label: Display Order, name: order, widget: number, default: 999 }
+      - { label: SEO Title, name: seoTitle, widget: string, required: false }
+      - { label: SEO Description, name: seoDescription, widget: text, required: false }
+      - { label: Body, name: body, widget: markdown, required: false }

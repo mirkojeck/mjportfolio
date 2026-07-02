@@ -26,6 +26,7 @@ Primary editable files:
 - `src/content/services/*.md` for services.
 - `src/content/team/*.md` for team members.
 - `src/content/posts/*.md` for Gallery / Case Studies.
+- `src/content/publications/*.md` for editorial/publication pages.
 
 ## Visual CMS
 
@@ -47,9 +48,20 @@ Production CMS login uses GitHub OAuth. After this project is pushed to GitHub,
 confirm `repo: mirkojeck/mjportfolio` in `src/mj-admin/config.yml`, then add
 the editor as a GitHub collaborator with write access.
 Password reset and account recovery are handled by GitHub, not by Decap.
-For production on Vercel, configure a Decap-compatible GitHub OAuth proxy and
-keep OAuth client secrets in Vercel Environment Variables only. Do not place
-OAuth secrets in this repository, `public/`, or `dist/`.
+For production on Vercel, this project includes native Vercel OAuth functions:
+
+- `/api/auth`
+- `/api/callback`
+
+Create a GitHub OAuth App, then add these environment variables in Vercel only:
+
+```text
+GITHUB_CLIENT_ID=...
+GITHUB_CLIENT_SECRET=...
+OAUTH_REDIRECT_URI=https://your-domain.com/api/callback
+```
+
+Do not place OAuth secrets in this repository, `public/`, or `dist/`.
 
 The CMS currently uses Decap's default local media handling:
 
@@ -71,6 +83,9 @@ The CMS currently uses Decap's default local media handling:
 - Use lower `Display Order` numbers for priority items.
 - For logos, upload a light logo for dark hero/menu/footer and a dark logo for light sections.
 - Projects, Services, Team, and Gallery collections include descriptions, preview paths, sorting, and filters for easier editing.
+- Site Settings controls the active Home variant and Portfolio layout.
+- Each Project controls its own detail-page layout using the `Detail Page Layout` select.
+- Services can use `Accordion Process` rows to match the original service detail interaction.
 
 ## Forms
 
@@ -98,23 +113,24 @@ npm run test:e2e
 4. Use `dist` as the output directory.
 5. Add `PUBLIC_CONTACT_FORM_ENDPOINT` in Vercel project environment variables if forms should submit.
 6. Connect Vercel to the GitHub repository so Decap commits trigger automatic deployments.
-7. Keep the project as static output; `@astrojs/vercel` is not required unless server endpoints or middleware are added later.
-8. Add the future GitHub OAuth proxy environment variables in Vercel only after the proxy is selected and configured.
+7. Keep the Astro build as static output. The GitHub OAuth proxy is handled by native Vercel functions in `/api`, so `@astrojs/vercel` is not required.
+8. Add `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, and `OAUTH_REDIRECT_URI` in Vercel Environment Variables before enabling production Decap login.
 
 ## QA Checklist
 
 - Homepage loads on desktop and mobile.
 - Menu opens and closes.
 - Portfolio listing loads.
+- Portfolio variants load: `/portfolio/grid/`, `/portfolio/wide/`, and `/portfolio/slider/`.
 - Every project detail page loads.
+- Project detail layout variants render sliders, grids, lightbox links, and project navigation.
 - Services page loads from editable content.
+- Service detail accordions open through the original JS hooks.
 - Gallery listing and gallery details load.
+- Publications listing and detail routes load.
 - Legacy `/blog/` routes redirect to the official `/gallery/` routes.
 - Contact form is either connected or clearly disabled.
 - `/mj-admin/` loads.
 - `/admin/` returns 404.
 - No missing images or console errors on primary pages.
-- Site title, SEO description, favicon, Open Graph image, project order, and featured projects are editable through Decap-managed files.
-# mjportfolio
-# mjportfolio
-# mjportfolio
+- Site title, SEO description, favicon, Open Graph image, project order, layout variants, and featured projects are editable through Decap-managed files.

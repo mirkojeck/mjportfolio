@@ -13,8 +13,13 @@ export const GET = () => {
   const source = readFileSync(resolve(process.cwd(), 'src/mj-admin/config.yml'), 'utf8');
   const siteUrl = normalizeSiteUrl(site.brand.domain || site.seo.canonicalBaseUrl);
   const dynamicSiteConfig = siteUrl ? `site_url: ${siteUrl}\ndisplay_url: ${siteUrl}\n` : '';
+  const dynamicBackendConfig = siteUrl ? `  auth_endpoint: api/auth\n  base_url: ${siteUrl}\n` : '';
 
-  return new Response(source.replace('local_backend: true\n', `local_backend: true\n${dynamicSiteConfig}`), {
+  const config = source
+    .replace('  branch: main\n', `  branch: main\n${dynamicBackendConfig}`)
+    .replace('local_backend: true\n', `local_backend: true\n${dynamicSiteConfig}`);
+
+  return new Response(config, {
     headers: {
       'Content-Type': 'text/yaml; charset=utf-8',
     },

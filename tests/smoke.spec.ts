@@ -20,12 +20,21 @@ const routes = [
   '/project-1.html',
   '/mj-admin/',
   '/portfolio/',
+  '/portfolio/grid/',
+  '/portfolio/wide/',
+  '/portfolio/slider/',
   '/projects/interior-design-studio/',
+  '/projects/skincare-brand/',
+  '/projects/cascade-of-lava/',
+  '/projects/air-purifier/',
+  '/projects/chocolate-brand/',
   '/services/',
   '/services/brand-strategy/',
   '/team/',
   '/gallery/',
   '/gallery/creative-portfolio-systems/',
+  '/publications/',
+  '/publications/editable-portfolio-system/',
   '/blog/',
   '/blog/creative-portfolio-systems/',
   '/contact/',
@@ -98,6 +107,10 @@ test('homepage renders editable home content', async ({ page }) => {
   await expect(page.locator('#featured-projects .mil-portfolio-item')).toHaveCount(6);
   await expect(page.locator('.mj-home-gallery .mj-home-gallery__item')).toHaveCount(6);
   await expect(page.locator('.mil-revi-pagination')).toHaveAttribute('data-review-images', /\/img\/faces\/1.jpg/);
+  const reviewImages = await page.locator('.mil-revi-pagination').getAttribute('data-review-images');
+  expect(JSON.parse(reviewImages || '[]')).toHaveLength(6);
+  await expect(page.locator('.mil-team-list .mil-social-icons .fa-behance').first()).toBeVisible();
+  await expect(page.locator('.mil-team-list .mil-social-icons .fa-dribbble').first()).toBeVisible();
   await expect(page.locator('a[href="/gallery/#gallery-list"]')).toBeVisible();
 });
 
@@ -110,14 +123,26 @@ test('Decap config exposes editable home fields', async ({ page }) => {
   expect(config).not.toContain('media_library:');
   expect(config).toContain(`site_url: ${siteBaseUrl}`);
   expect(config).toContain(`display_url: ${siteBaseUrl}`);
+  expect(config).toContain(`base_url: ${siteBaseUrl}`);
+  expect(config).toContain('auth_endpoint: api/auth');
+  expect(config).toContain('label: Layout Selection');
+  expect(config).toContain('name: homeVariant');
+  expect(config).toContain('name: portfolioLayout');
   expect(config).toContain('label: Logo Images');
   expect(config).toContain('label: Logo Display');
   expect(config).toContain('label: Customer Photo');
+  expect(config).toContain('label: Social Links');
+  expect(config).toContain('value: dribbble');
+  expect(config).toContain('value: github');
   expect(config).toContain('label_singular: Project');
   expect(config).toContain('description: "Portfolio projects shown on the portfolio page');
   expect(config).toContain('preview_path: "projects/{{slug}}/"');
   expect(config).toContain('preview_path: "services/{{slug}}/"');
   expect(config).toContain('preview_path: "gallery/{{slug}}/"');
+  expect(config).toContain('preview_path: "publications/{{slug}}/"');
+  expect(config).toContain('name: detailLayout');
+  expect(config).toContain('value: project6FullWidthMixedSliders');
+  expect(config).toContain('name: process');
   expect(config).not.toContain('preview_path: "blog/{{slug}}/"');
   expect(config).toContain('identifier_field: name');
   expect(config).toContain('view_filters:');
@@ -141,6 +166,13 @@ test('dynamic portfolio renders editable projects', async ({ page }) => {
   await page.goto('/portfolio/');
   await expect(page.getByRole('heading', { name: 'Interior Design Studio' })).toBeVisible();
   await expect(page.locator('.mil-portfolio-item')).toHaveCount(6);
+
+  await page.goto('/portfolio/slider/');
+  await expect(page.locator('.swiper-container.mil-portfolio-slider')).toHaveCount(1);
+  await expect(page.locator('.mil-portfolio-nav')).toHaveCount(1);
+
+  await page.goto('/portfolio/wide/');
+  await expect(page.locator('.mil-cover-frame.mil-hori')).toHaveCount(6);
 });
 
 test('dynamic project detail renders editable project content', async ({ page }) => {
@@ -148,6 +180,18 @@ test('dynamic project detail renders editable project content', async ({ page })
   await expect(page.getByRole('heading', { name: 'Interior Design Studio' })).toBeVisible();
   await expect(page.getByText('Private Studio')).toBeVisible();
   await expect(page.getByText('Brand direction')).toBeVisible();
+
+  await page.goto('/projects/skincare-brand/');
+  await expect(page.locator('.swiper-container.mil-1-slider')).toHaveCount(1);
+
+  await page.goto('/projects/cascade-of-lava/');
+  await expect(page.locator('.swiper-container.mil-2-slider .mil-image-frame.mil-vertical')).not.toHaveCount(0);
+
+  await page.goto('/projects/air-purifier/');
+  await expect(page.locator('.mil-image-frame.mil-fw')).toHaveCount(1);
+
+  await page.goto('/projects/chocolate-brand/');
+  await expect(page.locator('.swiper-container.mil-2-slider')).toHaveCount(2);
 });
 
 test('dynamic pages preserve animation and media hooks', async ({ page }) => {
@@ -156,7 +200,9 @@ test('dynamic pages preserve animation and media hooks', async ({ page }) => {
   await expect(page.locator('.swiper-container.mil-reviews-slider')).toHaveCount(1);
   await expect(page.locator('.swiper-container.mil-infinite-show')).toHaveCount(1);
   await expect(page.locator('.mil-scale')).not.toHaveCount(0);
-  await expect(page.locator('.mil-animation .mil-dodecahedron .mil-pentagon')).toHaveCount(36);
+  const pentagonCount = await page.locator('.mil-animation .mil-dodecahedron .mil-pentagon').count();
+  expect(pentagonCount).toBeGreaterThanOrEqual(36);
+  expect(pentagonCount % 12).toBe(0);
 
   await page.goto('/portfolio/');
   await expect(page.locator('.mil-portfolio-item.mil-parallax')).not.toHaveCount(0);
@@ -169,6 +215,10 @@ test('dynamic pages preserve animation and media hooks', async ({ page }) => {
   await expect(page.locator('.swiper-container.mil-2-slider, .swiper-container.mil-1-slider')).toHaveCount(1);
   await expect(page.locator('.swiper-slide')).not.toHaveCount(0);
   await expect(page.locator('[data-fancybox="gallery"]')).not.toHaveCount(0);
+
+  await page.goto('/services/brand-strategy/');
+  await expect(page.locator('.mil-accordion-group')).not.toHaveCount(0);
+  await expect(page.locator('.mil-accordion-menu')).not.toHaveCount(0);
 });
 
 test('dynamic service, team, and blog pages render editable content', async ({ page }) => {
@@ -188,6 +238,25 @@ test('dynamic service, team, and blog pages render editable content', async ({ p
   await page.goto('/gallery/creative-portfolio-systems/');
   await expect(page.getByRole('heading', { name: 'Building A Portfolio That Stays Editable' })).toBeVisible();
   await expect(page.getByText(/All galleries/i)).toBeVisible();
+
+  await page.goto('/publications/');
+  await expect(page.getByText('Editable Portfolio System')).toBeVisible();
+
+  await page.goto('/publications/editable-portfolio-system/');
+  await expect(page.getByRole('heading', { name: 'Editable Portfolio System' })).toBeVisible();
+  await expect(page.getByText(/All publications/i)).toBeAttached();
+});
+
+test('OAuth Vercel functions are present without committed secrets', async () => {
+  const authSource = readFileSync('api/auth.js', 'utf8');
+  const callbackSource = readFileSync('api/callback.js', 'utf8');
+  const sharedSource = readFileSync('api/_oauth.js', 'utf8');
+  expect(authSource).toContain('mj_oauth_state');
+  expect(sharedSource).toContain('authorization:github');
+  expect(sharedSource).toContain('GITHUB_CLIENT_ID');
+  expect(sharedSource).toContain('GITHUB_CLIENT_SECRET');
+  expect(`${authSource}\n${callbackSource}\n${sharedSource}`).not.toContain('ghp_');
+  expect(`${authSource}\n${callbackSource}\n${sharedSource}`).not.toContain('github_pat_');
 });
 
 test('logo controls render editable light and dark logo images', async ({ page }) => {

@@ -6,6 +6,8 @@ gallery:
   - /img/works/2/1.gif
   - /img/works/2/2.jpg
   - /img/works/2/3.jpg
+  - /img/works/2/4.jpg
+detailLayout: project2Stacked
 client: Product Concept
 year: 2026
 date: 2026-02-15

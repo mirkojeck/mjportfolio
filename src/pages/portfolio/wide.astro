@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PortfolioLayout from '@components/PortfolioLayout.astro';
+import { getSiteSettings, sortByOrder } from '@lib/siteContent';
+
+const site = getSiteSettings();
+const projects = sortByOrder(await getCollection('projects'), site.projects.sortDirection);
+---
+
+<BaseLayout title={`Portfolio Wide | ${site.brand.name}`} description={site.seo.description}>
+  <div class="mil-inner-banner">
+    <div class="mil-banner-content mil-up">
+      <div class="mil-animation-frame">
+        <div class="mil-animation mil-position-4 mil-dark mil-scale" data-value-1="6" data-value-2="1.4"></div>
+      </div>
+      <div class="container">
+        <ul class="mil-breadcrumbs mil-mb-60"><li><a href="/">Homepage</a></li><li><a href="/portfolio/wide/">Portfolio Wide</a></li></ul>
+        <h1 class="mil-mb-60">Designing a <br /> Better <span class="mil-thin">World Today</span></h1>
+        <a href="#portfolio" class="mil-link mil-dark mil-arrow-place mil-down-arrow"><span>Our works</span></a>
+      </div>
+    </div>
+  </div>
+  <PortfolioLayout projects={projects} layout="wideGrid" />
+</BaseLayout>

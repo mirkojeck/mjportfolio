@@ -1,0 +1,76 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjectCard from '@components/ProjectCard.astro';
+
+type PortfolioProject = CollectionEntry<'projects'>;
+
+const { projects, layout = 'mixedGrid' } = Astro.props as {
+  projects: PortfolioProject[];
+  layout?: 'mixedGrid' | 'wideGrid' | 'slider';
+};
+const pattern = ['mil-vert', 'mil-hori', 'mil-hori', 'mil-vert', 'mil-vert', 'mil-hori'];
+---
+
+{layout === 'slider' ? (
+  <section class="mil-portfolio-slider-frame">
+    <div class="mil-animation-frame">
+      <div class="mil-animation mil-position-4 mil-dark mil-scale" data-value-1="1" data-value-2="2"></div>
+    </div>
+    <div class="container">
+      <div class="row align-items-end">
+        <div class="col-lg-9">
+          <div class="swiper-container mil-portfolio-slider mil-up">
+            <div class="swiper-wrapper">
+              {projects.map((project: PortfolioProject) => (
+                <div class="swiper-slide">
+                  <a href={`/projects/${project.id}/`} class="mil-portfolio-item mil-slider-item mil-more">
+                    <div class="mil-cover-frame mil-horizontal mil-drag">
+                      <div class="mil-cover">
+                        <img src={project.data.cover} alt={project.data.title} />
+                      </div>
+                    </div>
+                    <div class="mil-descr">
+                      <div class="mil-labels mil-up mil-mb-15">
+                        <div class="mil-label mil-upper mil-accent">{project.data.services?.[0] ?? project.data.client}</div>
+                        <div class="mil-label mil-upper">{project.data.year}</div>
+                      </div>
+                      <h4 class="mil-up">{project.data.title}</h4>
+                    </div>
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="mil-portfolio-nav">
+            <div class="mil-portfolio-btns-frame">
+              <div class="swiper-portfolio-pagination"></div>
+              <div class="mil-slider-nav">
+                <div class="mil-slider-arrow mil-portfolio-prev mil-arrow-place mil-icon-left"></div>
+                <div class="mil-slider-arrow mil-portfolio-next mil-arrow-place"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+) : (
+  <section id="portfolio">
+    <div class="container mil-portfolio mil-p-120-60">
+      <div class="mil-lines-place"></div>
+      <div class="mil-lines-place mil-lines-long"></div>
+      <div class="row justify-content-between align-items-center">
+        {projects.map((project: PortfolioProject, index: number) => {
+          const frame = layout === 'wideGrid' ? 'mil-hori' : pattern[index % pattern.length];
+          return (
+            <div class={frame === 'mil-vert' ? 'col-lg-5' : 'col-lg-6'}>
+              <ProjectCard project={project} index={index} frame={frame} />
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+)}

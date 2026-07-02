@@ -6,6 +6,10 @@ gallery:
   - /img/works/1/1.jpg
   - /img/works/1/2.jpg
   - /img/works/1/3.jpg
+  - /img/works/1/4.jpg
+  - /img/works/1/5.jpg
+  - /img/works/1/6.jpg
+detailLayout: project1Grid
 client: Private Studio
 year: 2026
 date: 2026-01-15

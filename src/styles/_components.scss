@@ -195,6 +195,7 @@ frame
     filter: none !important;
     mix-blend-mode: normal;
     isolation: isolate;
+    color: $dark;
 
     &__img {
         display: block;
@@ -229,6 +230,8 @@ frame
 }
 
 .mil-frame--over-dark .mj-logo-mark--frame {
+    color: $light;
+
     & .mj-logo-mark__img--light {
         opacity: 1;
     }
@@ -328,6 +331,32 @@ frame
     }
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.mj-latest-creations,
+.mj-latest-creations *,
+.mj-home-gallery,
+.mj-home-gallery * {
+    font-family: 'Poppins', sans-serif;
+}
+
+.mj-latest-creations {
+    & .text-3xl {
+        font-size: 30px;
+        font-weight: 600;
+        line-height: 1.2;
+        margin: 0;
+    }
+
+    & .text-sm {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #64748b;
+        margin: 8px auto 0;
+        max-width: 32rem;
+    }
+}
+
 .mj-home-gallery {
     display: flex;
     align-items: stretch;
@@ -337,20 +366,29 @@ frame
     min-height: 400px;
     margin: 0 auto;
 
+    &.max-w-4xl {
+        max-width: 56rem;
+    }
+
+    &.mt-10 {
+        margin-top: 40px;
+    }
+
     &__item {
         position: relative;
-        flex: 1 1 9rem;
-        width: 9rem;
-        min-width: 80px;
+        flex: 1 1 0;
+        width: 14rem;
+        min-width: 0;
         height: 400px;
         overflow: hidden;
         border-radius: 8px;
         background-color: $gs-5;
         color: $light;
-        transition: $t-md;
+        transition: all .5s ease;
 
         &:hover {
-            flex-grow: 3;
+            flex: 6 1 0;
+            width: auto;
         }
 
         & img {
@@ -405,6 +443,12 @@ frame
 }
 
 @media screen and (max-width: 768px) {
+    .mj-latest-creations {
+        & .text-3xl {
+            font-size: 26px;
+        }
+    }
+
     .mj-home-gallery {
         min-height: auto;
         flex-direction: column;
@@ -428,9 +472,8 @@ frame
 }
 
 @media screen and (min-width: 769px) {
-    .mj-home-gallery__item:first-child,
     .mj-home-gallery__item:hover {
-        flex-grow: 2.6;
+        flex: 6 1 0;
     }
 }
 

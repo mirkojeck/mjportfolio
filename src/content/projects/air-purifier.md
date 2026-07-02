@@ -6,6 +6,10 @@ gallery:
   - /img/works/5/1.jpg
   - /img/works/5/2.jpg
   - /img/works/5/3.gif
+  - /img/works/5/4.jpg
+  - /img/works/5/5.jpg
+  - /img/works/5/6.jpg
+detailLayout: project5FullWidthSquareSlider
 client: Product Brand
 year: 2026
 date: 2026-05-15

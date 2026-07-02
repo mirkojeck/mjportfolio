@@ -1,33 +1,69 @@
 body {
-  background: #f6f4ef;
+  background:
+    radial-gradient(circle at 0 0, rgba(201, 165, 111, .08), transparent 36%),
+    #f6f4ef;
+  color: #1f1b16;
 }
 
 .nc-entryEditor-container,
 [class*="EntryEditorContainer"] {
-  gap: 14px !important;
+  gap: 12px !important;
 }
 
 .nc-entryEditor-editor,
 [class*="EditorContainer"] {
   min-width: 0 !important;
   max-width: none !important;
+  border-right: 1px solid #e6dfd2 !important;
 }
 
 .nc-entryEditor-preview,
 [class*="PreviewContainer"] {
-  min-width: 460px !important;
+  min-width: 500px !important;
   background: #f6f4ef !important;
   border-left: 1px solid #e7dfd3 !important;
+  position: sticky !important;
+  top: 0 !important;
+  max-height: 100vh !important;
+  overflow: auto !important;
 }
 
 .nc-controlPane-widget,
 [class*="ControlContainer"] {
   margin-bottom: 12px !important;
+  padding: 12px !important;
+  border: 1px solid #e6e0d5 !important;
+  border-radius: 10px !important;
+  background: #fff !important;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .02) !important;
 }
 
 .nc-controlPane-widget label,
 [class*="ControlContainer"] label {
-  letter-spacing: .04em !important;
+  letter-spacing: .035em !important;
+  font-weight: 700 !important;
+  color: #3b342c !important;
+}
+
+.nc-controlPane-widget input,
+.nc-controlPane-widget textarea,
+.nc-controlPane-widget select,
+[class*="ControlContainer"] input,
+[class*="ControlContainer"] textarea,
+[class*="ControlContainer"] select {
+  border: 1px solid #ddd5c8 !important;
+  border-radius: 8px !important;
+  background: #fffefc !important;
+}
+
+.nc-controlPane-widget input:focus,
+.nc-controlPane-widget textarea:focus,
+.nc-controlPane-widget select:focus,
+[class*="ControlContainer"] input:focus,
+[class*="ControlContainer"] textarea:focus,
+[class*="ControlContainer"] select:focus {
+  outline: 2px solid rgba(211, 156, 74, .32) !important;
+  border-color: #c78f3e !important;
 }
 
 [class*="ObjectControl"] > div,
@@ -39,10 +75,21 @@ body {
   margin-top: 8px !important;
 }
 
+button[class*="Button"],
+.nc-appHeader-button {
+  border-radius: 8px !important;
+}
+
+[class*="ToolbarContainer"],
+[class*="AppHeader"] {
+  background: #f8f3ea !important;
+  border-bottom: 1px solid #e6dfd2 !important;
+}
+
 @media (min-width: 1280px) {
   .nc-entryEditor-container,
   [class*="EntryEditorContainer"] {
-    grid-template-columns: minmax(560px, 1fr) minmax(520px, 0.9fr) !important;
+    grid-template-columns: minmax(560px, 1fr) minmax(560px, .92fr) !important;
   }
 }
 
@@ -50,5 +97,12 @@ body {
   .nc-entryEditor-preview,
   [class*="PreviewContainer"] {
     min-width: 0 !important;
+    position: static !important;
+    max-height: none !important;
+  }
+
+  .nc-entryEditor-editor,
+  [class*="EditorContainer"] {
+    border-right: 0 !important;
   }
 }

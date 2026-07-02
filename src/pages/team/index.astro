@@ -1,9 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { getSiteSettings, sortByOrder } from '@lib/siteContent';
+import { getPageCopy, getSiteSettings, sortByOrder } from '@lib/siteContent';
+import SocialIcon from '@components/SocialIcon.astro';
 
 const site = getSiteSettings();
+const pageCopy = getPageCopy();
 const members = sortByOrder(await getCollection('team'), 'asc');
 ---
 
@@ -18,9 +20,9 @@ const members = sortByOrder(await getCollection('team'), 'asc');
           <li><a href="/">Homepage</a></li>
           <li><a href="/team/">Team</a></li>
         </ul>
-        <h1 class="mil-mb-60">Meet <span class="mil-thin">our</span><br /> creative <span class="mil-thin">team</span></h1>
+        <h1 class="mil-mb-60">{pageCopy.team.hero.titleLine1} <span class="mil-thin">{pageCopy.team.hero.titleLine2}</span><br /> {pageCopy.team.hero.titleLine3} <span class="mil-thin">{pageCopy.team.hero.titleLine4}</span></h1>
         <a href="#team" class="mil-link mil-dark mil-arrow-place mil-down-arrow">
-          <span>Our team</span>
+          <span>{pageCopy.team.hero.downArrowLabel}</span>
         </a>
       </div>
     </div>
@@ -41,7 +43,7 @@ const members = sortByOrder(await getCollection('team'), 'asc');
                     <p class="mil-link mil-light-soft mil-mb-10">{member.data.role}</p>
                     <ul class="mil-social-icons mil-center">
                       {member.data.socials.map((social) => (
-                        <li><a href={social.href} target="_blank" rel="noreferrer" class="social-icon"><i class="far fa-circle"></i><span class="sr-only">{social.label}</span></a></li>
+                        <li><a href={social.href} target="_blank" rel="noreferrer" class="social-icon"><SocialIcon platform={social.platform} label={social.label} /><span class="sr-only">{social.label}</span></a></li>
                       ))}
                     </ul>
                   </div>

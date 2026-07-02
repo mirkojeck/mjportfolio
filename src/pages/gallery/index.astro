@@ -2,9 +2,10 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { getGalleryCover, getGalleryImages } from '@lib/galleryContent';
-import { getSiteSettings, sortByOrder } from '@lib/siteContent';
+import { getPageCopy, getSiteSettings, sortByOrder } from '@lib/siteContent';
 
 const site = getSiteSettings();
+const pageCopy = getPageCopy();
 const galleries = sortByOrder(await getCollection('posts'), 'desc');
 ---
 
@@ -19,9 +20,9 @@ const galleries = sortByOrder(await getCollection('posts'), 'desc');
           <li><a href="/">Homepage</a></li>
           <li><a href="/gallery/">Gallery</a></li>
         </ul>
-        <h1 class="mil-mb-60">Image <span class="mil-thin">gallery</span></h1>
+        <h1 class="mil-mb-60">{pageCopy.gallery.hero.titleLine1} <span class="mil-thin">{pageCopy.gallery.hero.titleLine2}</span></h1>
         <a href="#gallery-list" class="mil-link mil-dark mil-arrow-place mil-down-arrow">
-          <span>View gallery</span>
+          <span>{pageCopy.gallery.hero.downArrowLabel}</span>
         </a>
       </div>
     </div>
@@ -45,7 +46,7 @@ const galleries = sortByOrder(await getCollection('posts'), 'desc');
                 </div>
                 <h4 class="mil-mb-20">{gallery.data.title}</h4>
                 <p class="mil-post-text mil-mb-30">{gallery.data.excerpt}</p>
-                <div class="mil-link mil-dark mil-arrow-place"><span>View gallery</span></div>
+                <div class="mil-link mil-dark mil-arrow-place"><span>{pageCopy.gallery.card.viewLabel}</span></div>
               </div>
             </a>
           );

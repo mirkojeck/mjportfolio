@@ -6,6 +6,8 @@ gallery:
   - /img/works/3/1.jpg
   - /img/works/3/2.jpg
   - /img/works/3/3.jpg
+  - /img/works/3/4.jpg
+detailLayout: project3HorizontalSlider
 client: Beauty Brand
 year: 2026
 date: 2026-03-15

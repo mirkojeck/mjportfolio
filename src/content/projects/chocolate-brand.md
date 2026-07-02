@@ -6,6 +6,10 @@ gallery:
   - /img/works/6/1.jpg
   - /img/works/6/2.gif
   - /img/works/6/3.jpg
+  - /img/works/6/4.gif
+  - /img/works/6/5.jpg
+  - /img/works/6/6.jpg
+detailLayout: project6FullWidthMixedSliders
 client: Confectionery Brand
 year: 2026
 date: 2026-06-15

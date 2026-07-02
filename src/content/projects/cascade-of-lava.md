@@ -6,6 +6,10 @@ gallery:
   - /img/works/4/1.jpg
   - /img/works/4/2.jpg
   - /img/works/4/3.jpg
+  - /img/works/4/4.jpg
+  - /img/works/4/5.jpg
+  - /img/works/4/6.jpg
+detailLayout: project4VerticalSlider
 client: Exhibition Concept
 year: 2026
 date: 2026-04-15

@@ -11,7 +11,69 @@
     <link rel="stylesheet" href="/mj-admin/admin.css" />
   </head>
   <body>
+    <script is:inline>
+      (function () {
+        var FEATURE = 'unload *';
+
+        function patchIframe(iframe) {
+          if (!iframe) return;
+          var allow = iframe.getAttribute('allow') || '';
+          if (allow.indexOf('unload') !== -1) return;
+          var next = allow ? allow + '; ' + FEATURE : FEATURE;
+          iframe.setAttribute('allow', next);
+        }
+
+        function patchAll() {
+          var frames = document.querySelectorAll('iframe');
+          for (var i = 0; i < frames.length; i += 1) {
+            patchIframe(frames[i]);
+          }
+        }
+
+        var observer = new MutationObserver(function (mutations) {
+          for (var i = 0; i < mutations.length; i += 1) {
+            var mutation = mutations[i];
+            for (var j = 0; j < mutation.addedNodes.length; j += 1) {
+              var node = mutation.addedNodes[j];
+              if (!node || node.nodeType !== 1) continue;
+              if (node.tagName === 'IFRAME') {
+                patchIframe(node);
+              }
+              if (node.querySelectorAll) {
+                var nested = node.querySelectorAll('iframe');
+                for (var k = 0; k < nested.length; k += 1) {
+                  patchIframe(nested[k]);
+                }
+              }
+            }
+          }
+        });
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', patchAll, { once: true });
+        } else {
+          patchAll();
+        }
+
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+      })();
+    </script>
     <script is:inline src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-    <script is:inline src="/mj-admin/preview.js"></script>
+    <script is:inline>
+      console.log('MJ ADMIN INDEX FILE LOADED v999');
+    </script>
+    <script is:inline>
+      (function () {
+        var preview = document.createElement('script');
+        preview.src = '/mj-admin/preview.js?v=999';
+        preview.onload = function () {
+          console.log('MJ ADMIN PREVIEW SCRIPT ONLOAD v999');
+        };
+        preview.onerror = function () {
+          console.error('MJ ADMIN PREVIEW SCRIPT ERROR v999');
+        };
+        document.body.appendChild(preview);
+      })();
+    </script>
   </body>
 </html>

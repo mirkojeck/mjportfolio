@@ -1,0 +1,25 @@
+---
+type Platform = 'instagram' | 'linkedin' | 'facebook' | 'behance' | 'x' | 'twitter' | 'whatsapp' | 'dribbble' | 'github';
+
+const { platform, label } = Astro.props as {
+  platform?: Platform | string;
+  label?: string;
+};
+
+const iconMap: Record<string, string> = {
+  instagram: 'fab fa-instagram',
+  linkedin: 'fab fa-linkedin-in',
+  facebook: 'fab fa-facebook-f',
+  behance: 'fab fa-behance',
+  x: 'fab fa-twitter',
+  twitter: 'fab fa-twitter',
+  whatsapp: 'fab fa-whatsapp',
+  dribbble: 'fab fa-dribbble',
+  github: 'fab fa-github',
+};
+
+const normalized = (platform || label || '').toLowerCase().replace(/[^a-z]/g, '');
+const iconClass = iconMap[normalized] || 'far fa-circle';
+---
+
+<i class={iconClass}></i>

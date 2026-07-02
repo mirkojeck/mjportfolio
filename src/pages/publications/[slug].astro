@@ -1,0 +1,64 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ProjectImageFrame from '@components/ProjectImageFrame.astro';
+import { getPageCopy, getSiteSettings, sortByOrder } from '@lib/siteContent';
+
+export async function getStaticPaths() {
+  const publications = await getCollection('publications');
+
+  return publications.map((publication) => ({
+    params: { slug: publication.id },
+    props: { publication },
+  }));
+}
+
+const { publication } = Astro.props;
+const site = getSiteSettings();
+const pageCopy = getPageCopy();
+const publications = sortByOrder(await getCollection('publications'), 'desc');
+const currentIndex = publications.findIndex((item) => item.id === publication.id);
+const previousPublication = currentIndex > 0 ? publications[currentIndex - 1] : undefined;
+const nextPublication = currentIndex < publications.length - 1 ? publications[currentIndex + 1] : undefined;
+const { Content } = await render(publication);
+const title = publication.data.seoTitle ?? `${publication.data.title} | ${site.brand.name}`;
+const description = publication.data.seoDescription ?? publication.data.excerpt;
+---
+
+<BaseLayout title={title} description={description} image={publication.data.cover}>
+  <div class="mil-inner-banner">
+    <div class="mil-banner-content mil-center mil-up">
+      <div class="container">
+        <ul class="mil-breadcrumbs mil-center mil-mb-60">
+          <li><a href="/">Homepage</a></li>
+          <li><a href="/publications/">Publications</a></li>
+          <li><a href={`/publications/${publication.id}/`}>{publication.data.title}</a></li>
+        </ul>
+        <h1 class="mil-mb-60">{publication.data.title}</h1>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="container mil-p-0-120">
+      <ProjectImageFrame image={publication.data.cover} alt={publication.data.title} frame="mil-horizontal" extraClass="mil-up" />
+      <div class="row justify-content-center mil-p-90-60">
+        <div class="col-lg-8 mil-up">
+          <Content />
+        </div>
+      </div>
+      <div class="row">
+        {publication.data.gallery.map((image, index) => (
+          <div class="col-lg-6">
+            <ProjectImageFrame image={image} alt={`${publication.data.title} image ${index + 1}`} frame="mil-horizontal" extraClass="mil-up mil-mb-30" />
+          </div>
+        ))}
+      </div>
+      <div class="mil-works-nav mil-up">
+        {previousPublication ? <a href={`/publications/${previousPublication.id}/`} class="mil-link mil-dark mil-arrow-place mil-icon-left"><span>{pageCopy.publications.detail.prevLabel}</span></a> : <a href="#." class="mil-link mil-dark mil-arrow-place mil-icon-left mil-disabled"><span>{pageCopy.publications.detail.prevLabel}</span></a>}
+        <a href="/publications/" class="mil-link mil-dark"><span>{pageCopy.publications.detail.allLabel}</span></a>
+        {nextPublication ? <a href={`/publications/${nextPublication.id}/`} class="mil-link mil-dark mil-arrow-place"><span>{pageCopy.publications.detail.nextLabel}</span></a> : <a href="#." class="mil-link mil-dark mil-arrow-place mil-disabled"><span>{pageCopy.publications.detail.nextLabel}</span></a>}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

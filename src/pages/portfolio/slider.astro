@@ -1,0 +1,13 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PortfolioLayout from '@components/PortfolioLayout.astro';
+import { getSiteSettings, sortByOrder } from '@lib/siteContent';
+
+const site = getSiteSettings();
+const projects = sortByOrder(await getCollection('projects'), site.projects.sortDirection);
+---
+
+<BaseLayout title={`Portfolio Slider | ${site.brand.name}`} description={site.seo.description}>
+  <PortfolioLayout projects={projects} layout="slider" />
+</BaseLayout>

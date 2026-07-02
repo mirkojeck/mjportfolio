@@ -1,0 +1,17 @@
+---
+import { getSiteSettings } from '@lib/siteContent';
+
+const site = getSiteSettings();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content="0;url=/" />
+    <title>Home 1 | {site.brand.name}</title>
+    <link rel="canonical" href="/" />
+  </head>
+  <body>
+    <a href="/">Open Home 1</a>
+  </body>
+</html>

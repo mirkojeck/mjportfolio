@@ -522,7 +522,8 @@ $(function () {
             el: '.mil-revi-pagination',
             clickable: true,
             renderBullet: function (index, className) {
-                return '<span class="' + className + '">' + (menu[index]) + '</span>';
+                var bullet = menu.length ? menu[index % menu.length] : '<div class="mil-custom-dot mil-slide-1"></div>';
+                return '<span class="' + className + '">' + bullet + '</span>';
             },
         },
         speed: 800,
@@ -979,7 +980,8 @@ $(function () {
                 el: '.mil-revi-pagination',
                 clickable: true,
                 renderBullet: function (index, className) {
-                    return '<span class="' + className + '">' + (menu[index]) + '</span>';
+                    var bullet = menu.length ? menu[index % menu.length] : '<div class="mil-custom-dot mil-slide-1"></div>';
+                    return '<span class="' + className + '">' + bullet + '</span>';
                 },
             },
             speed: 800,

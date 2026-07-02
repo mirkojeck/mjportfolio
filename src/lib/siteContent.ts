@@ -41,6 +41,10 @@ export type SiteSettings = {
     logoPositionY?: number;
     logoObjectFit?: 'contain' | 'cover';
   };
+  display?: {
+    homeVariant?: 'home1' | 'home2';
+    portfolioLayout?: 'mixedGrid' | 'wideGrid' | 'slider';
+  };
   seo: {
     title: string;
     description: string;
@@ -64,17 +68,19 @@ export type SiteSettings = {
       phone: string;
     }>;
   };
-  socials: Array<{
-    platform: 'instagram' | 'linkedin' | 'facebook' | 'behance' | 'x' | 'whatsapp';
-    label: string;
-    href: string;
-  }>;
+  socials: Array<SocialLink>;
   legalLinks: MenuItem[];
 };
 
 export type Navigation = {
   main: MenuItem[];
   footer: MenuItem[];
+};
+
+export type SocialLink = {
+  platform?: 'instagram' | 'linkedin' | 'facebook' | 'behance' | 'x' | 'twitter' | 'whatsapp' | 'dribbble' | 'github';
+  label: string;
+  href: string;
 };
 
 export type HomeSettings = {
@@ -124,7 +130,7 @@ export type HomeSettings = {
     closingLine1: string;
     closingLine2: string;
     note: string;
-    members: Array<{ name: string; role: string; image: string; href: string }>;
+    members: Array<{ name: string; role: string; image: string; href: string; socials?: SocialLink[] }>;
   };
   reviews: {
     eyebrow: string;
@@ -148,6 +154,87 @@ export type HomeSettings = {
   };
 };
 
+export type PageCopy = {
+  portfolio: {
+    hero: {
+      titleLine1: string;
+      titleLine2: string;
+      titleLine3: string;
+      downArrowLabel: string;
+    };
+    cta: {
+      eyebrow: string;
+      titleLine1: string;
+      titleLine2: string;
+      titleLine3: string;
+      titleLine4: string;
+      titleLine5: string;
+      buttonLabel: string;
+    };
+  };
+  services: {
+    hero: {
+      titleLine1: string;
+      titleLine2: string;
+      titleLine3: string;
+      titleLine4: string;
+      downArrowLabel: string;
+    };
+    cta: {
+      eyebrow: string;
+      titleLine1: string;
+      titleLine2: string;
+      titleLine3: string;
+      titleLine4: string;
+      titleLine5: string;
+      buttonLabel: string;
+    };
+    detail: {
+      downArrowLabel: string;
+      startProjectLabel: string;
+    };
+  };
+  team: {
+    hero: {
+      titleLine1: string;
+      titleLine2: string;
+      titleLine3: string;
+      titleLine4: string;
+      downArrowLabel: string;
+    };
+  };
+  gallery: {
+    hero: {
+      titleLine1: string;
+      titleLine2: string;
+      downArrowLabel: string;
+    };
+    card: {
+      viewLabel: string;
+    };
+  };
+  publications: {
+    hero: {
+      titleLine1: string;
+      titleLine2: string;
+      downArrowLabel: string;
+    };
+    listing: {
+      readMoreLabel: string;
+    };
+    detail: {
+      prevLabel: string;
+      allLabel: string;
+      nextLabel: string;
+    };
+  };
+  contact: {
+    hero: {
+      downArrowLabel: string;
+    };
+  };
+};
+
 const readYaml = <T>(relativePath: string): T => {
   const filePath = resolve(process.cwd(), 'src/data', relativePath);
   return YAML.parse(readFileSync(filePath, 'utf8')) as T;
@@ -158,6 +245,8 @@ export const getSiteSettings = (): SiteSettings => readYaml<SiteSettings>('site.
 export const getNavigation = (): Navigation => readYaml<Navigation>('navigation.yml');
 
 export const getHomeSettings = (): HomeSettings => readYaml<HomeSettings>('home.yml');
+
+export const getPageCopy = (): PageCopy => readYaml<PageCopy>('pages.yml');
 
 type OrderedContent = {
   data: {
@@ -184,3 +273,9 @@ export const formatProjectDate = (date?: Date, year?: number): string => {
 
   return year ? String(year) : '';
 };
+
+export const getDefaultHomeVariant = (site: SiteSettings): 'home1' | 'home2' =>
+  site.display?.homeVariant ?? 'home1';
+
+export const getDefaultPortfolioLayout = (site: SiteSettings): 'mixedGrid' | 'wideGrid' | 'slider' =>
+  site.display?.portfolioLayout ?? 'mixedGrid';

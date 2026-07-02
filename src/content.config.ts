@@ -10,6 +10,14 @@ const projects = defineCollection({
     summary: z.string(),
     cover: imagePath,
     gallery: z.array(imagePath).default([]),
+    detailLayout: z.enum([
+      'project1Grid',
+      'project2Stacked',
+      'project3HorizontalSlider',
+      'project4VerticalSlider',
+      'project5FullWidthSquareSlider',
+      'project6FullWidthMixedSliders',
+    ]).default('project1Grid'),
     client: z.string(),
     year: z.number(),
     date: z.date().optional(),
@@ -48,6 +56,10 @@ const services = defineCollection({
     title: z.string(),
     summary: z.string(),
     features: z.array(z.string()).default([]),
+    process: z.array(z.object({
+      title: z.string(),
+      description: z.string(),
+    })).default([]),
     order: z.number().default(999),
     seoTitle: z.string().optional(),
     seoDescription: z.string().optional(),
@@ -60,11 +72,26 @@ const team = defineCollection({
     name: z.string(),
     role: z.string(),
     image: imagePath,
-    socials: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
+    socials: z.array(z.object({ platform: z.string().optional(), label: z.string(), href: z.string() })).default([]),
     order: z.number().default(999),
     seoTitle: z.string().optional(),
     seoDescription: z.string().optional(),
   }),
 });
 
-export const collections = { projects, posts, services, team };
+const publications = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/publications' }),
+  schema: z.object({
+    title: z.string(),
+    date: z.date(),
+    excerpt: z.string(),
+    cover: imagePath,
+    gallery: z.array(imagePath).default([]),
+    tags: z.array(z.string()).default([]),
+    order: z.number().default(999),
+    seoTitle: z.string().optional(),
+    seoDescription: z.string().optional(),
+  }),
+});
+
+export const collections = { projects, posts, services, team, publications };

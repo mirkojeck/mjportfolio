@@ -1,16 +1,9 @@
 ---
 import type { Navigation, SiteSettings } from '@lib/siteContent';
 import Logo from './Logo.astro';
+import SocialIcon from './SocialIcon.astro';
 
 const { site, navigation } = Astro.props as { site: SiteSettings; navigation: Navigation };
-const socialIcons = {
-  instagram: 'fab fa-instagram',
-  linkedin: 'fab fa-linkedin-in',
-  facebook: 'fab fa-facebook-f',
-  behance: 'fab fa-behance',
-  x: 'fab fa-twitter',
-  whatsapp: 'fab fa-whatsapp',
-};
 ---
 
 <footer class="mil-dark-bg">
@@ -68,7 +61,7 @@ const socialIcons = {
                 {site.socials.map((social) => (
                   <li>
                     <a href={social.href} target="_blank" rel="noreferrer" class="social-icon">
-                      <i class={socialIcons[social.platform] ?? 'far fa-circle'}></i><span class="sr-only">{social.label}</span>
+                      <SocialIcon platform={social.platform} label={social.label} /><span class="sr-only">{social.label}</span>
                     </a>
                   </li>
                 ))}

@@ -29,7 +29,7 @@ about:
       expectations.
   quote: "Passionately Creating Design Wonders: Unleashing Boundless Creativity"
   quoteImage: /img/faces/2.jpg
-  image: https://img.magnific.com/free-vector/cartoon-sound-recording-studio-with-equipment-silhouette-singer-playing-guitar-glass-vector-illustration-professional-music-mixer-with-buttons-wires-loudspeaker-microphone_107791-22929.jpg?semt=ais_hybrid&w=740&q=80
+  image: /img/photo/1.jpg
 servicesPreview:
   eyebrow: Professionals focused on helping your brand grow and move forward.
   titleLine1: Unique Ideas
@@ -76,18 +76,70 @@ teamPreview:
       role: Art Director
       image: /img/faces/1.jpg
       href: /team/
+      socials:
+        - platform: behance
+          label: Behance
+          href: https://behance.net/
+        - platform: dribbble
+          label: Dribbble
+          href: https://dribbble.com/
+        - platform: twitter
+          label: X / Twitter
+          href: https://x.com/
+        - platform: github
+          label: GitHub
+          href: https://github.com/
     - name: Oscar Freeman
       role: Frontend Dev
       image: /img/faces/3.jpg
       href: /team/
+      socials:
+        - platform: behance
+          label: Behance
+          href: https://behance.net/
+        - platform: dribbble
+          label: Dribbble
+          href: https://dribbble.com/
+        - platform: twitter
+          label: X / Twitter
+          href: https://x.com/
+        - platform: github
+          label: GitHub
+          href: https://github.com/
     - name: Emma Newman
       role: Founder
       image: /img/faces/2.jpg
       href: /team/
+      socials:
+        - platform: behance
+          label: Behance
+          href: https://behance.net/
+        - platform: dribbble
+          label: Dribbble
+          href: https://dribbble.com/
+        - platform: twitter
+          label: X / Twitter
+          href: https://x.com/
+        - platform: github
+          label: GitHub
+          href: https://github.com/
     - name: Lisa Trueman
       role: UI/UX Designer
       image: /img/faces/4.jpg
       href: /team/
+      socials:
+        - platform: behance
+          label: Behance
+          href: https://behance.net/
+        - platform: dribbble
+          label: Dribbble
+          href: https://dribbble.com/
+        - platform: twitter
+          label: X / Twitter
+          href: https://x.com/
+        - platform: github
+          label: GitHub
+          href: https://github.com/
   ctaHref: /team/
 reviews:
   eyebrow: Customer reviews are a valuable source of information for both
@@ -111,6 +163,21 @@ reviews:
       company: DXBMARK LLC
       image: /img/uploads/favicon.webp
       quote: One of the amazing things is to have a Client like Mr. Jeck.
+    - name: Anna Oldman
+      company: Ashley Studio
+      image: /img/faces/3.jpg
+      quote: Their creative process feels focused, generous, and deeply reliable from
+        the first workshop to the final delivery.
+    - name: Oscar Freeman
+      company: Product Lab
+      image: /img/faces/4.jpg
+      quote: The team translated a complex brief into a clear visual system that our
+        whole team could use confidently.
+    - name: Lisa Trueman
+      company: Creative Market
+      image: /img/faces/5.jpg
+      quote: Every detail was considered, and the final experience felt polished,
+        expressive, and easy for our audience to understand.
 partners:
   - image: /img/partners/1.svg
     href: "#."

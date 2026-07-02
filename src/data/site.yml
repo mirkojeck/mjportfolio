@@ -16,6 +16,9 @@ brand:
       positionX: 50
       positionY: 50
       objectFit: contain
+display:
+  homeVariant: home1
+  portfolioLayout: mixedGrid
 seo:
   title: Mirko Jeck Portfolio | Creative Digital Studio
   description: A refined portfolio for creative direction, product design,
@@ -45,6 +48,15 @@ socials:
   - platform: linkedin
     label: LinkedIn
     href: https://linkedin.com/
+  - platform: facebook
+    label: Facebook
+    href: https://facebook.com/
+  - platform: behance
+    label: Behance
+    href: https://behance.net/
+  - platform: x
+    label: X
+    href: https://x.com/
   - platform: whatsapp
     label: WhatsApp
     href: https://wa.me/

@@ -1,11 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import ProjectCard from '@components/ProjectCard.astro';
-import { getSiteSettings, sortByOrder } from '@lib/siteContent';
+import PortfolioLayout from '@components/PortfolioLayout.astro';
+import { getDefaultPortfolioLayout, getPageCopy, getSiteSettings, sortByOrder } from '@lib/siteContent';
 
 const site = getSiteSettings();
+const pageCopy = getPageCopy();
 const projects = sortByOrder(await getCollection('projects'), site.projects.sortDirection);
+const portfolioLayout = getDefaultPortfolioLayout(site);
 ---
 
 <BaseLayout title={`Portfolio | ${site.brand.name}`} description={site.seo.description}>
@@ -19,38 +21,26 @@ const projects = sortByOrder(await getCollection('projects'), site.projects.sort
           <li><a href="/">Homepage</a></li>
           <li><a href="/portfolio/">Portfolio</a></li>
         </ul>
-        <h1 class="mil-mb-60">Designing a <br /> Better <span class="mil-thin">World Today</span></h1>
+        <h1 class="mil-mb-60">{pageCopy.portfolio.hero.titleLine1} <br /> {pageCopy.portfolio.hero.titleLine2} <span class="mil-thin">{pageCopy.portfolio.hero.titleLine3}</span></h1>
         <a href="#portfolio" class="mil-link mil-dark mil-arrow-place mil-down-arrow">
-          <span>Our works</span>
+          <span>{pageCopy.portfolio.hero.downArrowLabel}</span>
         </a>
       </div>
     </div>
   </div>
 
-  <section id="portfolio">
-    <div class="container mil-portfolio mil-p-120-60">
-      <div class="mil-lines-place"></div>
-      <div class="mil-lines-place mil-lines-long"></div>
-      <div class="row justify-content-between align-items-center">
-        {projects.map((project) => (
-          <div class={project.data.order % 3 === 1 ? 'col-lg-5' : 'col-lg-6'}>
-            <ProjectCard project={project} />
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <PortfolioLayout projects={projects} layout={portfolioLayout} />
 
   <section class="mil-soft-bg">
     <div class="container mil-p-120-120">
       <div class="row">
         <div class="col-lg-10">
-          <span class="mil-suptitle mil-suptitle-right mil-suptitle-dark mil-up">Looking to make your mark? We'll help you turn <br /> your project into a success story.</span>
+          <span class="mil-suptitle mil-suptitle-right mil-suptitle-dark mil-up">{pageCopy.portfolio.cta.eyebrow}</span>
         </div>
       </div>
       <div class="mil-center">
-        <h2 class="mil-up mil-mb-60">Ready to bring your <span class="mil-thin">ideas to</span> life? <br /> We're <span class="mil-thin">here to help</span></h2>
-        <div class="mil-up"><a href="/contact.html" class="mil-button mil-arrow-place"><span>Contact us</span></a></div>
+        <h2 class="mil-up mil-mb-60">{pageCopy.portfolio.cta.titleLine1} <span class="mil-thin">{pageCopy.portfolio.cta.titleLine2}</span> {pageCopy.portfolio.cta.titleLine3} <br /> {pageCopy.portfolio.cta.titleLine4} <span class="mil-thin">{pageCopy.portfolio.cta.titleLine5}</span></h2>
+        <div class="mil-up"><a href="/contact/" class="mil-button mil-arrow-place"><span>{pageCopy.portfolio.cta.buttonLabel}</span></a></div>
       </div>
     </div>
   </section>

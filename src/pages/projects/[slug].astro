@@ -1,7 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { formatProjectDate, getSiteSettings, sortByOrder } from '@lib/siteContent';
+import ProjectDetailLayout from '@components/ProjectDetailLayout.astro';
+import { getSiteSettings, sortByOrder } from '@lib/siteContent';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -19,10 +20,8 @@ const currentIndex = projects.findIndex((item) => item.id === project.id);
 const previousProject = currentIndex > 0 ? projects[currentIndex - 1] : undefined;
 const nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : undefined;
 const { Content } = await render(project);
-const projectDate = formatProjectDate(project.data.date, project.data.year);
 const title = project.data.seoTitle ?? `${project.data.title} | ${site.brand.name}`;
 const description = project.data.seoDescription ?? project.data.summary;
-const gallery = project.data.gallery.length > 0 ? project.data.gallery : [project.data.cover];
 ---
 
 <BaseLayout title={title} description={description} image={project.data.cover}>
@@ -45,78 +44,7 @@ const gallery = project.data.gallery.length > 0 ? project.data.gallery : [projec
     </div>
   </div>
 
-  <section class="mil-p-120-0">
-    <div class="container mil-p-0-120" id="project">
-      <div class="mil-image-frame mil-horizontal mil-up">
-        <img src={gallery[0]} alt={project.data.title} />
-        <a data-fancybox="gallery" data-no-swup href={gallery[0]} class="mil-zoom-btn">
-          <img src="/img/icons/zoom.svg" alt="zoom" />
-        </a>
-      </div>
-      <div class="mil-info mil-up">
-        <div>Client: &nbsp;<span class="mil-dark">{project.data.client}</span></div>
-        <div>Date: &nbsp;<span class="mil-dark">{projectDate}</span></div>
-        <div>Services: &nbsp;<span class="mil-dark">{project.data.services.join(', ')}</span></div>
-      </div>
-      <div class="mil-p-120-0">
-        <div class="row">
-          {gallery.slice(1, 5).map((image) => (
-            <div class="col-lg-6">
-              <div class="mil-image-frame mil-square mil-up mil-mb-30">
-                <img src={image} alt={project.data.title} />
-                <a data-fancybox="gallery" data-no-swup href={image} class="mil-zoom-btn">
-                  <img src="/img/icons/zoom.svg" alt="zoom" />
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div class="row justify-content-between mil-p-90-120">
-          <div class="col-lg-5">
-            <h3 class="mil-up mil-mb-60">{project.data.summary}</h3>
-          </div>
-          <div class="col-lg-6 mil-up">
-            <Content />
-          </div>
-        </div>
-        <div class="row mil-p-0-90">
-          {gallery.slice(5).map((image) => (
-            <div class="col-lg-6">
-              <div class="mil-image-frame mil-vertical mil-up mil-mb-30">
-                <img src={image} alt={project.data.title} />
-                <a data-fancybox="gallery" data-no-swup href={image} class="mil-zoom-btn">
-                  <img src="/img/icons/zoom.svg" alt="zoom" />
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div class="mil-works-nav mil-up">
-        {previousProject ? (
-          <a href={`/projects/${previousProject.id}/`} class="mil-link mil-dark mil-arrow-place mil-icon-left">
-            <span>Prev project</span>
-          </a>
-        ) : (
-          <a href="#." class="mil-link mil-dark mil-arrow-place mil-icon-left mil-disabled">
-            <span>Prev project</span>
-          </a>
-        )}
-        <a href="/portfolio/" class="mil-link mil-dark">
-          <span>All projects</span>
-        </a>
-        {nextProject ? (
-          <a href={`/projects/${nextProject.id}/`} class="mil-link mil-dark mil-arrow-place">
-            <span>Next project</span>
-          </a>
-        ) : (
-          <a href="#." class="mil-link mil-dark mil-arrow-place mil-disabled">
-            <span>Next project</span>
-          </a>
-        )}
-      </div>
-    </div>
-  </section>
+  <ProjectDetailLayout project={project} Content={Content} previousProject={previousProject} nextProject={nextProject} />
 
   <section class="mil-soft-bg">
     <div class="container mil-p-120-120">
@@ -127,7 +55,7 @@ const gallery = project.data.gallery.length > 0 ? project.data.gallery : [projec
       </div>
       <div class="mil-center">
         <h2 class="mil-up mil-mb-60">Ready to bring your <span class="mil-thin">ideas to</span> life? <br /> We're <span class="mil-thin">here to help</span></h2>
-        <div class="mil-up"><a href="/contact.html" class="mil-button mil-arrow-place"><span>Contact us</span></a></div>
+        <div class="mil-up"><a href="/contact/" class="mil-button mil-arrow-place"><span>Contact us</span></a></div>
       </div>
     </div>
   </section>
