@@ -14,6 +14,9 @@ const normalizeSiteUrl = (value) => {
 export default defineConfig({
   site: normalizeSiteUrl(siteSettings.brand?.domain || siteSettings.seo?.canonicalBaseUrl),
   output: 'static',
-  redirects: LEGACY_HTML_REDIRECTS,
+  redirects: {
+    '/mj-admin': '/mj-admin/',
+    ...LEGACY_HTML_REDIRECTS,
+  },
   integrations: [sitemap()],
 });

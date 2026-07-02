@@ -15,6 +15,34 @@ export const getOAuthRedirectUri = (req) => {
   return process.env.OAUTH_REDIRECT_URI || `${proto}://${host}/api/callback`;
 };
 
+export const getRequestOrigin = (req) => {
+  const host = req.headers['x-forwarded-host'] || req.headers.host;
+  const proto = req.headers['x-forwarded-proto'] || 'https';
+  return `${proto}://${host}`;
+};
+
+export const getAdminOrigin = (req) => {
+  const queryOrigin = req.query?.origin;
+  if (queryOrigin) {
+    try {
+      return new URL(queryOrigin).origin;
+    } catch {
+      return '';
+    }
+  }
+
+  const referer = req.headers.referer;
+  if (referer) {
+    try {
+      return new URL(referer).origin;
+    } catch {
+      return '';
+    }
+  }
+
+  return getRequestOrigin(req);
+};
+
 export const createGithubAuthorizeUrl = (req, state) => {
   const authorizeUrl = new URL(githubAuthorizeUrl);
   authorizeUrl.searchParams.set('client_id', getRequiredEnv('GITHUB_CLIENT_ID'));
@@ -47,8 +75,13 @@ export const exchangeGithubCode = async (req, code) => {
   return payload.access_token;
 };
 
-export const decapCallbackHtml = (status, payload) => {
-  const message = `authorization:github:${status}:${JSON.stringify(payload)}`;
+export const decapCallbackHtml = (status, payload, targetOrigin = '*') => {
+  const message =
+    status === 'success'
+      ? `authorization:github:${payload.token}`
+      : `authorization:github:error:${payload.error || 'Authentication failed'}`;
+  const safeTargetOrigin = targetOrigin || '*';
+
   return `<!doctype html>
 <html lang="en">
   <head><meta charset="utf-8"><title>GitHub OAuth</title></head>
@@ -56,8 +89,9 @@ export const decapCallbackHtml = (status, payload) => {
     <script>
       (function () {
         var message = ${JSON.stringify(message)};
+        var targetOrigin = ${JSON.stringify(safeTargetOrigin)};
         if (window.opener) {
-          window.opener.postMessage(message, window.location.origin);
+          window.opener.postMessage(message, targetOrigin);
           window.close();
         } else {
           document.body.textContent = ${JSON.stringify(status === 'success' ? 'Authentication complete. You can close this window.' : 'Authentication failed.')};

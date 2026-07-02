@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/mj-admin",
+      "destination": "/mj-admin/",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
