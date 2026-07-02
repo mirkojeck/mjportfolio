@@ -13,6 +13,13 @@
   <body>
     <script is:inline>
       (function () {
+        if (window.location.pathname === '/mj-admin') {
+          window.location.replace('/mj-admin/' + window.location.hash);
+        }
+      })();
+    </script>
+    <script is:inline>
+      (function () {
         var FEATURE = 'unload *';
 
         function patchIframe(iframe) {
