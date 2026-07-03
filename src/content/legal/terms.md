@@ -1,9 +1,9 @@
 ---
 title: Terms
 slug: terms
-enabled: true
-showInFooter: true
-showInMenu: true
+enabled: false
+showInFooter: false
+showInMenu: false
 order: 2
 seoTitle: Terms | Mirko Portfolio
 seoDescription: Website terms for Mirko Portfolio.
