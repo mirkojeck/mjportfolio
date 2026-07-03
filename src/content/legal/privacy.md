@@ -1,9 +1,9 @@
 ---
 title: Privacy Policy
 slug: privacy
-enabled: true
-showInFooter: true
-showInMenu: true
+enabled: false
+showInFooter: false
+showInMenu: false
 order: 1
 seoTitle: Privacy Policy | Mirko Portfolio
 seoDescription: Privacy information for Mirko Portfolio.
