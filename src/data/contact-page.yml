@@ -5,4 +5,5 @@ form:
   emailLabel: Email
   messageLabel: Message
   submitLabel: Send message
-mapEmbedUrl: ''
+  visible: true
+mapEmbedUrl: ""
