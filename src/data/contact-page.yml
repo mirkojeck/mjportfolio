@@ -1,7 +1,7 @@
 heading: Tell us about your project
 description: Share the essentials and we will get back to you.
 form:
-  showForm: true
+  showForm: false
   nameLabel: Name
   emailLabel: Email
   messageLabel: Message
