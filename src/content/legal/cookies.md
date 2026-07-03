@@ -1,7 +1,7 @@
 ---
 title: Cookie Policy
 slug: cookies
-enabled: true
+enabled: false
 showInFooter: true
 showInMenu: true
 order: 3
