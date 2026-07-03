@@ -10,7 +10,7 @@ const {
   listClass = '',
 } = Astro.props as {
   socials?: SocialLink[];
-  variant?: 'default' | 'footer' | 'contact';
+  variant?: 'default' | 'footer' | 'contact' | 'contactCards';
   heading?: string;
   listClass?: string;
 };
@@ -32,15 +32,38 @@ if (listClass) {
 
 {enabledSocials.length > 0 && (
   <>
-    {heading && <h6 class="mil-muted mil-up mil-mb-30">{heading}</h6>}
-    <ul class={classes.join(' ')}>
-      {enabledSocials.map((social) => (
-        <li>
-          <a {...getLinkAttrs(social.href)} class="social-icon">
-            <SocialIcon platform={social.platform} label={social.label} /><span class="sr-only">{social.label}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
+    {variant === 'contactCards' ? (
+      <div class="mil-contact-social-cards mil-up">
+        {heading && <h6 class="mil-contact-cards-heading">{heading}</h6>}
+
+        <div class="mil-contact-cards">
+          {enabledSocials.map((social) => (
+            <a class="mil-contact-card" {...getLinkAttrs(social.href)}>
+              <span class="mil-contact-card-icon">
+                <SocialIcon platform={social.platform} label={social.label} />
+              </span>
+              <span>
+                <strong>{social.label}</strong>
+                <small>View profile</small>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    ) : (
+      <>
+        {heading && <h6 class="mil-muted mil-up mil-mb-30">{heading}</h6>}
+        <ul class={classes.join(' ')}>
+          {enabledSocials.map((social) => (
+            <li>
+              <a {...getLinkAttrs(social.href)} class="social-icon">
+                <SocialIcon platform={social.platform} label={social.label} />
+                <span class="sr-only">{social.label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </>
+    )}
   </>
 )}

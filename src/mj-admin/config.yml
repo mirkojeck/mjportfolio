@@ -347,6 +347,7 @@ collections:
             name: form
             widget: object
             fields:
+              - { label: Show Form, name: showForm, widget: boolean } 
               - { label: Name Label, name: nameLabel, widget: string }
               - { label: Email Label, name: emailLabel, widget: string }
               - { label: Message Label, name: messageLabel, widget: string }

@@ -11,6 +11,7 @@ type ContactPage = {
   heading: string;
   description: string;
   form: {
+    showForm?: boolean;
     nameLabel: string;
     emailLabel: string;
     messageLabel: string;
@@ -22,7 +23,7 @@ type ContactPage = {
 const site = getSiteSettings();
 const pageCopy = getPageCopy();
 const contact = YAML.parse(readFileSync(resolve(process.cwd(), 'src/data/contact-page.yml'), 'utf8')) as ContactPage;
-const showContactForm = site.contact.showForm !== false;
+const showContactForm = contact.form?.showForm !== false;
 ---
 
 <BaseLayout title={`Contact | ${site.brand.name}`} description={contact.description}>
@@ -54,7 +55,7 @@ const showContactForm = site.contact.showForm !== false;
           {site.contact.phone && <p class="mil-up mil-mb-30"><a {...getLinkAttrs(`tel:${site.contact.phone}`)}>{site.contact.phone}</a></p>}
           {(site.contact.city || site.contact.region) && <p class="mil-up mil-mb-30">{[site.contact.city, site.contact.region].filter(Boolean).join(', ')}</p>}
           <div class="mil-mb-60">
-            <SocialLinks socials={site.socials} variant="contact" heading="Social media" />
+           <SocialLinks socials={site.socials} variant="contactCards" heading="Connect" />
           </div>
         </div>
         {showContactForm && (
