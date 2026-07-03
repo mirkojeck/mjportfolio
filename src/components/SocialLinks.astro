@@ -1,0 +1,46 @@
+---
+import type { SocialLink } from '@lib/siteContent';
+import { getLinkAttrs } from '@lib/links';
+import SocialIcon from './SocialIcon.astro';
+
+const {
+  socials = [],
+  variant = 'default',
+  heading,
+  listClass = '',
+} = Astro.props as {
+  socials?: SocialLink[];
+  variant?: 'default' | 'footer' | 'contact';
+  heading?: string;
+  listClass?: string;
+};
+
+const enabledSocials = [...socials]
+  .filter((social) => social.enabled !== false && social.href)
+  .sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+
+const classes = ['mil-social-icons', 'mil-up'];
+
+if (variant === 'contact') {
+  classes.push('mil-dark');
+}
+
+if (listClass) {
+  classes.push(listClass);
+}
+---
+
+{enabledSocials.length > 0 && (
+  <>
+    {heading && <h6 class="mil-muted mil-up mil-mb-30">{heading}</h6>}
+    <ul class={classes.join(' ')}>
+      {enabledSocials.map((social) => (
+        <li>
+          <a {...getLinkAttrs(social.href)} class="social-icon">
+            <SocialIcon platform={social.platform} label={social.label} /><span class="sr-only">{social.label}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </>
+)}

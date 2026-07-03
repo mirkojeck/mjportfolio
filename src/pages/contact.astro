@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import SocialIcon from '@components/SocialIcon.astro';
+import SocialLinks from '@components/SocialLinks.astro';
 import { getLinkAttrs } from '@lib/links';
 import { getPageCopy, getSiteSettings } from '@lib/siteContent';
 import YAML from 'yaml';
@@ -23,9 +23,6 @@ const site = getSiteSettings();
 const pageCopy = getPageCopy();
 const contact = YAML.parse(readFileSync(resolve(process.cwd(), 'src/data/contact-page.yml'), 'utf8')) as ContactPage;
 const showContactForm = site.contact.showForm !== false;
-const socials = [...(site.socials ?? [])]
-  .filter((social) => social.enabled !== false && social.href)
-  .sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
 ---
 
 <BaseLayout title={`Contact | ${site.brand.name}`} description={contact.description}>
@@ -56,17 +53,9 @@ const socials = [...(site.socials ?? [])]
           {site.contact.email && <p class="mil-up mil-mb-30"><a {...getLinkAttrs(`mailto:${site.contact.email}`)}>{site.contact.email}</a></p>}
           {site.contact.phone && <p class="mil-up mil-mb-30"><a {...getLinkAttrs(`tel:${site.contact.phone}`)}>{site.contact.phone}</a></p>}
           {(site.contact.city || site.contact.region) && <p class="mil-up mil-mb-30">{[site.contact.city, site.contact.region].filter(Boolean).join(', ')}</p>}
-          {socials.length > 0 && (
-            <ul class="mil-social-icons mil-up mil-mb-60">
-              {socials.map((social) => (
-                <li>
-                  <a {...getLinkAttrs(social.href)} class="social-icon">
-                    <SocialIcon platform={social.platform} label={social.label} /><span class="sr-only">{social.label}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
+          <div class="mil-mb-60">
+            <SocialLinks socials={site.socials} variant="contact" heading="Social media" />
+          </div>
         </div>
         {showContactForm && (
         <div class="col-lg-6">

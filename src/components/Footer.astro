@@ -4,16 +4,13 @@ import type { LegalEntry } from '@lib/legalContent';
 import { getLegalHref } from '@lib/legalContent';
 import { getLinkAttrs } from '@lib/links';
 import Logo from './Logo.astro';
-import SocialIcon from './SocialIcon.astro';
+import SocialLinks from './SocialLinks.astro';
 
 const { site, navigation, legalEntries = [] } = Astro.props as {
   site: SiteSettings;
   navigation: Navigation;
   legalEntries?: LegalEntry[];
 };
-const socials = [...(site.socials ?? [])]
-  .filter((social) => social.enabled !== false && social.href)
-  .sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
 ---
 
 <footer class="mil-dark-bg">
@@ -69,15 +66,7 @@ const socials = [...(site.socials ?? [])]
         <div class="col-md-4 col-lg-6 mil-mb-60">
           <div class="mil-vert-between">
             <div class="mil-mb-30">
-              <ul class="mil-social-icons mil-up">
-                {socials.map((social) => (
-                  <li>
-                    <a {...getLinkAttrs(social.href)} class="social-icon">
-                      <SocialIcon platform={social.platform} label={social.label} /><span class="sr-only">{social.label}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <SocialLinks socials={site.socials} variant="footer" />
             </div>
             <div class="mil-footer-meta mil-up">
               <p class="mil-light-soft">Copyright © {new Date().getFullYear()} {site.brand.name}. All rights reserved.</p>
