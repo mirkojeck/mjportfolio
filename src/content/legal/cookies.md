@@ -2,8 +2,8 @@
 title: Cookie Policy
 slug: cookies
 enabled: false
-showInFooter: true
-showInMenu: true
+showInFooter: false
+showInMenu: false
 order: 3
 seoTitle: Cookie Policy | Mirko Portfolio
 seoDescription: Cookie information for Mirko Portfolio.
