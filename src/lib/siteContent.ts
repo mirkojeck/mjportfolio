@@ -1,11 +1,14 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import YAML from 'yaml';
+import { normalizeImageFields } from './media';
 
 export type MenuItem = {
   label: string;
   href: string;
   children?: MenuItem[];
+  enabled?: boolean;
+  order?: number;
 };
 
 export type SiteSettings = {
@@ -62,6 +65,11 @@ export type SiteSettings = {
   contact: {
     email: string;
     phone: string;
+    city?: string;
+    region?: string;
+    availability?: string;
+    ctaLabel?: string;
+    showForm?: boolean;
     locations: Array<{
       label: string;
       address: string;
@@ -81,6 +89,8 @@ export type SocialLink = {
   platform?: 'instagram' | 'linkedin' | 'facebook' | 'behance' | 'x' | 'twitter' | 'whatsapp' | 'dribbble' | 'github';
   label: string;
   href: string;
+  enabled?: boolean;
+  order?: number;
 };
 
 export type HomeSettings = {
@@ -237,7 +247,7 @@ export type PageCopy = {
 
 const readYaml = <T>(relativePath: string): T => {
   const filePath = resolve(process.cwd(), 'src/data', relativePath);
-  return YAML.parse(readFileSync(filePath, 'utf8')) as T;
+  return normalizeImageFields(YAML.parse(readFileSync(filePath, 'utf8'))) as T;
 };
 
 export const getSiteSettings = (): SiteSettings => readYaml<SiteSettings>('site.yml');

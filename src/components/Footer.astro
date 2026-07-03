@@ -1,9 +1,19 @@
 ---
 import type { Navigation, SiteSettings } from '@lib/siteContent';
+import type { LegalEntry } from '@lib/legalContent';
+import { getLegalHref } from '@lib/legalContent';
+import { getLinkAttrs } from '@lib/links';
 import Logo from './Logo.astro';
 import SocialIcon from './SocialIcon.astro';
 
-const { site, navigation } = Astro.props as { site: SiteSettings; navigation: Navigation };
+const { site, navigation, legalEntries = [] } = Astro.props as {
+  site: SiteSettings;
+  navigation: Navigation;
+  legalEntries?: LegalEntry[];
+};
+const socials = [...(site.socials ?? [])]
+  .filter((social) => social.enabled !== false && social.href)
+  .sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
 ---
 
 <footer class="mil-dark-bg">
@@ -27,19 +37,21 @@ const { site, navigation } = Astro.props as { site: SiteSettings; navigation: Na
                 <ul>
                   {navigation.footer.map((item) => (
                     <li class="mil-up">
-                      <a href={item.href}>{item.label}</a>
+                      <a {...getLinkAttrs(item.href)}>{item.label}</a>
                     </li>
                   ))}
                 </ul>
               </nav>
             </div>
-            <div class="col-md-6 col-lg-5">
-              <ul class="mil-menu-list mil-up mil-mb-60">
-                {site.legalLinks.map((item) => (
-                  <li><a href={item.href} class="mil-light-soft">{item.label}</a></li>
-                ))}
-              </ul>
-            </div>
+            {legalEntries.length > 0 && (
+              <div class="col-md-6 col-lg-5">
+                <ul class="mil-menu-list mil-up mil-mb-60">
+                  {legalEntries.map((entry) => (
+                    <li><a {...getLinkAttrs(getLegalHref(entry))} class="mil-light-soft">{entry.data.title}</a></li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -58,9 +70,9 @@ const { site, navigation } = Astro.props as { site: SiteSettings; navigation: Na
           <div class="mil-vert-between">
             <div class="mil-mb-30">
               <ul class="mil-social-icons mil-up">
-                {site.socials.map((social) => (
+                {socials.map((social) => (
                   <li>
-                    <a href={social.href} target="_blank" rel="noreferrer" class="social-icon">
+                    <a {...getLinkAttrs(social.href)} class="social-icon">
                       <SocialIcon platform={social.platform} label={social.label} /><span class="sr-only">{social.label}</span>
                     </a>
                   </li>
@@ -70,7 +82,7 @@ const { site, navigation } = Astro.props as { site: SiteSettings; navigation: Na
             <div class="mil-footer-meta mil-up">
               <p class="mil-light-soft">Copyright © {new Date().getFullYear()} {site.brand.name}. All rights reserved.</p>
               <p class="mil-footer-credit">
-                Made with <span aria-label="love">&hearts;</span> by <a href="https://www.dxbmark.com" target="_blank" rel="noreferrer" data-no-swup>DXBMARK LLC</a>
+                Made with <span aria-label="love">&hearts;</span> by <a href="https://www.dxbmark.com" target="_blank" rel="noopener noreferrer" data-no-swup>DXBMARK LLC</a>
               </p>
             </div>
           </div>

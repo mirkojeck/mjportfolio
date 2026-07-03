@@ -1,10 +1,13 @@
 ---
+import { normalizeImagePath } from '@lib/media';
+
 const { image, alt, frame = 'mil-horizontal', extraClass = '', caption = '' } = Astro.props;
+const imageSrc = normalizeImagePath(image);
 ---
 
 <div class={`mil-image-frame ${frame} ${extraClass}`.trim()}>
-  <img src={image} alt={alt} />
-  <a data-fancybox="gallery" data-no-swup href={image} class="mil-zoom-btn" data-caption={caption || alt}>
+  <img src={imageSrc} alt={alt} />
+  <a data-fancybox="gallery" data-no-swup href={imageSrc} class="mil-zoom-btn" data-caption={caption || alt}>
     <img src="/img/icons/zoom.svg" alt="zoom" />
   </a>
 </div>

@@ -32,26 +32,29 @@ projects:
 gallery:
   homeLimit: 6
 contact:
-  email: hello@example.com
-  phone: +971 00 000 0000
+  email: contact@mediaandfilm.online
+  phone: ""
+  city: Dubai
+  region: United Arab Emirates
+  availability: Available for selected creative, media, and digital projects.
+  ctaLabel: Start a conversation
+  showForm: true
   locations:
     - label: Dubai
       address: Business Bay, Dubai, United Arab Emirates
-      phone: +971 00 000 0000
+      phone: contact@mediaandfilm.online
     - label: Remote
       address: Available for selected international projects
-      phone: hello@example.com
+      phone: contact@mediaandfilm.online
 socials:
   - platform: instagram
     label: Instagram
     href: https://instagram.com/
+    enabled: true
+    order: 2
   - platform: linkedin
     label: LinkedIn
     href: https://www.linkedin.com/in/mirko-jeck/
-legalLinks:
-  - label: Privacy Policy
-    href: /privacy/
-  - label: Terms
-    href: /terms/
-  - label: Cookie Policy
-    href: /cookies/
+    enabled: true
+    order: 1
+legalLinks: []

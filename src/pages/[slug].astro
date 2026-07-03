@@ -1,0 +1,46 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getEnabledLegalEntries } from '@lib/legalContent';
+import { getSiteSettings } from '@lib/siteContent';
+
+export async function getStaticPaths() {
+  const legalEntries = getEnabledLegalEntries(await getCollection('legal'));
+
+  return legalEntries.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const site = getSiteSettings();
+const { Content } = await render(entry);
+const title = entry.data.seoTitle || `${entry.data.title} | ${site.brand.name}`;
+const description = entry.data.seoDescription || site.seo.description;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="mil-inner-banner">
+    <div class="mil-banner-content mil-up">
+      <div class="mil-animation-frame">
+        <div class="mil-animation mil-position-4 mil-dark mil-scale" data-value-1="6" data-value-2="1.4"></div>
+      </div>
+      <div class="container">
+        <ul class="mil-breadcrumbs mil-mb-60">
+          <li><a href="/">Homepage</a></li>
+          <li><a href={`/${entry.data.slug}/`}>{entry.data.title}</a></li>
+        </ul>
+        <h1 class="mil-mb-60">{entry.data.title}</h1>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="container mil-p-120-90">
+      <article class="mil-up mj-legal-content">
+        <Content />
+      </article>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import SocialIcon from '@components/SocialIcon.astro';
+import { getLinkAttrs } from '@lib/links';
 import { getPageCopy, getSiteSettings } from '@lib/siteContent';
 import YAML from 'yaml';
 import { readFileSync } from 'node:fs';
@@ -9,6 +11,7 @@ type ContactPage = {
   heading: string;
   description: string;
   form: {
+    visible?: boolean;
     nameLabel: string;
     emailLabel: string;
     messageLabel: string;
@@ -20,6 +23,10 @@ type ContactPage = {
 const site = getSiteSettings();
 const pageCopy = getPageCopy();
 const contact = YAML.parse(readFileSync(resolve(process.cwd(), 'src/data/contact-page.yml'), 'utf8')) as ContactPage;
+const showForm = contact.form.visible ?? site.contact.showForm ?? true;
+const socials = [...(site.socials ?? [])]
+  .filter((social) => social.enabled !== false && social.href)
+  .sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
 ---
 
 <BaseLayout title={`Contact | ${site.brand.name}`} description={contact.description}>
@@ -44,13 +51,28 @@ const contact = YAML.parse(readFileSync(resolve(process.cwd(), 'src/data/contact
   <section id="contact">
     <div class="container mil-p-120-90">
       <div class="row justify-content-between">
-        <div class="col-lg-5">
+        <div class={showForm ? 'col-lg-5' : 'col-lg-8'}>
           <h3 class="mil-up mil-mb-60">{contact.description}</h3>
-          <p class="mil-up mil-mb-30">{site.contact.email}</p>
-          <p class="mil-up mil-mb-60">{site.contact.phone}</p>
+          {site.contact.availability && <p class="mil-up mil-mb-30">{site.contact.availability}</p>}
+          {site.contact.email && <p class="mil-up mil-mb-30"><a {...getLinkAttrs(`mailto:${site.contact.email}`)}>{site.contact.email}</a></p>}
+          {site.contact.phone && <p class="mil-up mil-mb-30"><a {...getLinkAttrs(`tel:${site.contact.phone}`)}>{site.contact.phone}</a></p>}
+          {(site.contact.city || site.contact.region) && <p class="mil-up mil-mb-30">{[site.contact.city, site.contact.region].filter(Boolean).join(', ')}</p>}
+          {socials.length > 0 && (
+            <ul class="mil-social-icons mil-up mil-mb-60">
+              {socials.map((social) => (
+                <li>
+                  <a {...getLinkAttrs(social.href)} class="social-icon">
+                    <SocialIcon platform={social.platform} label={social.label} /><span class="sr-only">{social.label}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
+        {showForm && (
         <div class="col-lg-6">
-          <form class="row align-items-center" data-editable-form>
+          {/* Design-only until a backend/form provider is configured; prevent false success states. */}
+          <form class="row align-items-center" data-editable-form data-design-only onsubmit="return false;">
             <div class="col-lg-6 mil-up mil-mb-30">
               <input type="text" placeholder={contact.form.nameLabel} name="name" />
             </div>
@@ -65,6 +87,7 @@ const contact = YAML.parse(readFileSync(resolve(process.cwd(), 'src/data/contact
             </div>
           </form>
         </div>
+        )}
       </div>
       {contact.mapEmbedUrl && (
         <div class="mil-map-frame mil-up mil-mt-60">

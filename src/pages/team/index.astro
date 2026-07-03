@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { getLinkAttrs } from '@lib/links';
 import { getPageCopy, getSiteSettings, sortByOrder } from '@lib/siteContent';
 import SocialIcon from '@components/SocialIcon.astro';
 
@@ -43,7 +44,7 @@ const members = sortByOrder(await getCollection('team'), 'asc');
                     <p class="mil-link mil-light-soft mil-mb-10">{member.data.role}</p>
                     <ul class="mil-social-icons mil-center">
                       {member.data.socials.map((social) => (
-                        <li><a href={social.href} target="_blank" rel="noreferrer" class="social-icon"><SocialIcon platform={social.platform} label={social.label} /><span class="sr-only">{social.label}</span></a></li>
+                        <li><a {...getLinkAttrs(social.href)} class="social-icon"><SocialIcon platform={social.platform} label={social.label} /><span class="sr-only">{social.label}</span></a></li>
                       ))}
                     </ul>
                   </div>

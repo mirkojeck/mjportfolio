@@ -1,5 +1,6 @@
 ---
 import type { SiteSettings } from '@lib/siteContent';
+import { normalizeImagePath } from '@lib/media';
 
 type Variant = 'frame' | 'light' | 'dark' | 'footer';
 
@@ -14,10 +15,10 @@ const logo = brand.logo;
 const images = logo?.images;
 const display = logo?.display;
 const logoAlt = logo?.alt || brand.logoAlt || brand.name;
-const fallbackImage = images?.fallback || brand.logoImage || images?.dark || brand.logoDark || images?.light || brand.logoLight || images?.footer || brand.logoFooter;
-const darkLogo = images?.dark || brand.logoDark || fallbackImage;
-const lightLogo = images?.light || brand.logoLight || fallbackImage;
-const footerLogo = images?.footer || brand.logoFooter || lightLogo || darkLogo;
+const fallbackImage = normalizeImagePath(images?.fallback || brand.logoImage || images?.dark || brand.logoDark || images?.light || brand.logoLight || images?.footer || brand.logoFooter);
+const darkLogo = normalizeImagePath(images?.dark || brand.logoDark || fallbackImage);
+const lightLogo = normalizeImagePath(images?.light || brand.logoLight || fallbackImage);
+const footerLogo = normalizeImagePath(images?.footer || brand.logoFooter || lightLogo || darkLogo);
 const singleLogo = variant === 'light' ? lightLogo : variant === 'footer' ? footerLogo : darkLogo;
 const logoStyle = [
   `--mj-logo-height:${display?.height ?? brand.logoHeight ?? 42}px`,

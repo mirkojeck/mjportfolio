@@ -1,7 +1,8 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { normalizeImagePath } from './lib/media';
 
-const imagePath = z.string().min(1);
+const imagePath = z.preprocess((value) => normalizeImagePath(value as string), z.string().min(1));
 
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
@@ -94,4 +95,18 @@ const publications = defineCollection({
   }),
 });
 
-export const collections = { projects, posts, services, team, publications };
+const legal = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/legal' }),
+  schema: z.object({
+    title: z.string(),
+    slug: z.string().min(1),
+    enabled: z.boolean().default(false),
+    showInFooter: z.boolean().default(false),
+    showInMenu: z.boolean().default(false),
+    order: z.number().default(999),
+    seoTitle: z.string().optional(),
+    seoDescription: z.string().optional(),
+  }),
+});
+
+export const collections = { projects, posts, services, team, publications, legal };

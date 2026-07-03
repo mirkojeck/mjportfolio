@@ -7,6 +7,8 @@ local_backend: true
 
 media_folder: public/img/uploads
 public_folder: /img/uploads
+# Stock Decap Git media uploads do not provide a reliable per-field max file size setting.
+# The admin shell adds a best-effort 2MB file-input guard; each image field also repeats the upload guidance.
 
 collections:
   - name: settings
@@ -39,10 +41,10 @@ collections:
                     widget: object
                     summary: "Upload light and dark logo versions"
                     fields:
-                      - { label: Light Logo, name: light, widget: image, allow_multiple: false, required: false, hint: "For dark hero, dark menu, and footer. Use a white/light transparent PNG, WebP, or SVG. Recommended canvas: 600x200px." }
-                      - { label: Dark Logo, name: dark, widget: image, allow_multiple: false, required: false, hint: "For white/light sections after scrolling. Use a dark/black transparent PNG, WebP, or SVG. Recommended canvas: 600x200px." }
-                      - { label: Footer Logo Override, name: footer, widget: image, allow_multiple: false, required: false, hint: "Usually leave empty. Footer automatically reuses Light Logo because it is dark." }
-                      - { label: Fallback Logo, name: fallback, widget: image, allow_multiple: false, required: false, hint: "Optional backup only if light/dark versions are not ready." }
+                      - { label: Light Logo, name: light, widget: image, allow_multiple: false, required: false, hint: "JPG/JPEG, PNG, WebP, or SVG under 2MB. Recommended transparent logo canvas: 600x200px. You can drag files into the Media Library, then select them here." }
+                      - { label: Dark Logo, name: dark, widget: image, allow_multiple: false, required: false, hint: "JPG/JPEG, PNG, WebP, or SVG under 2MB. Recommended transparent logo canvas: 600x200px. You can drag files into the Media Library, then select them here." }
+                      - { label: Footer Logo Override, name: footer, widget: image, allow_multiple: false, required: false, hint: "JPG/JPEG, PNG, WebP, or SVG under 2MB. Usually leave empty; footer reuses Light Logo." }
+                      - { label: Fallback Logo, name: fallback, widget: image, allow_multiple: false, required: false, hint: "JPG/JPEG, PNG, WebP, or SVG under 2MB. Optional backup if light/dark versions are not ready." }
                   - label: Logo Display
                     name: display
                     widget: object
@@ -84,8 +86,8 @@ collections:
             fields:
               - { label: Default Title, name: title, widget: string }
               - { label: Default Description, name: description, widget: text }
-              - { label: Open Graph Image, name: image, widget: image, allow_multiple: false, hint: "Recommended: 1200x630px for social sharing." }
-              - { label: Favicon, name: favicon, widget: image, allow_multiple: false, hint: "Recommended: SVG or 512x512 PNG." }
+              - { label: Open Graph Image, name: image, widget: image, allow_multiple: false, hint: "JPG/JPEG, PNG, or WebP under 2MB. Recommended: 1200x630px for social sharing." }
+              - { label: Favicon, name: favicon, widget: image, allow_multiple: false, hint: "SVG, PNG, or WebP under 2MB. Recommended: SVG or 512x512 PNG." }
               - { label: Fallback Canonical Base URL, name: canonicalBaseUrl, widget: string, hint: "Fallback only. The main public URL is generated from Brand > Domain. Use https://example.com with no trailing slash." }
           - label: Projects Display
             name: projects
@@ -110,6 +112,11 @@ collections:
             fields:
               - { label: Email, name: email, widget: string, hint: "Public contact email shown on the site." }
               - { label: Phone, name: phone, widget: string, hint: "Public phone number shown on the site." }
+              - { label: City, name: city, widget: string, required: false, hint: "Primary city shown on the contact page." }
+              - { label: Country / Region, name: region, widget: string, required: false, hint: "Country or region shown on the contact page." }
+              - { label: Availability Text, name: availability, widget: text, required: false, hint: "Short line shown above email/phone on the contact page." }
+              - { label: CTA Label, name: ctaLabel, widget: string, required: false, hint: "Optional contact CTA text for future reuse." }
+              - { label: Show Contact Form, name: showForm, widget: boolean, default: true, hint: "Turn off to hide the design-only form without breaking the contact layout." }
               - label: Locations
                 name: locations
                 widget: list
@@ -136,9 +143,13 @@ collections:
                   - { label: WhatsApp, value: whatsapp }
               - { label: Accessible Label, name: label, widget: string, hint: "Example: Instagram. Used for screen readers." }
               - { label: URL, name: href, widget: string, hint: "Use a full URL, for example https://instagram.com/name." }
+              - { label: Enabled, name: enabled, widget: boolean, default: true, hint: "Turn off to hide this social link everywhere." }
+              - { label: Display Order, name: order, widget: number, default: 999, hint: "Lower numbers appear first." }
           - label: Legal Links
             name: legalLinks
             widget: list
+            required: false
+            hint: "Legacy fallback only. Use the Legal Pages collection for footer/menu legal links."
             fields:
               - { label: Label, name: label, widget: string }
               - { label: URL, name: href, widget: string, hint: "Use a relative URL like /privacy/ or a full external URL." }
@@ -192,8 +203,8 @@ collections:
               - { label: Thin Title, name: titleThin, widget: string }
               - { label: Paragraphs, name: paragraphs, widget: list, field: { label: Paragraph, name: paragraph, widget: text } }
               - { label: Quote, name: quote, widget: text }
-              - { label: Quote Image, name: quoteImage, widget: image, allow_multiple: false, hint: "Small portrait or detail image. Recommended: square 800x800px." }
-              - { label: Main Image, name: image, widget: image, allow_multiple: false, hint: "Large about section image. Recommended: 1400px wide or larger." }
+              - { label: Quote Image, name: quoteImage, widget: image, allow_multiple: false, hint: "JPG/JPEG, PNG, or WebP under 2MB. Small portrait/detail image. Recommended: square 800x800px." }
+              - { label: Main Image, name: image, widget: image, allow_multiple: false, hint: "JPG/JPEG, PNG, or WebP under 2MB. Large about image. Recommended: 1400px wide or larger." }
           - label: Services Preview
             name: servicesPreview
             widget: object
@@ -203,7 +214,7 @@ collections:
               - { label: Eyebrow, name: eyebrow, widget: text }
               - { label: Title Line 1, name: titleLine1, widget: string }
               - { label: Title Line 2, name: titleLine2, widget: string }
-              - { label: Image, name: image, widget: image, allow_multiple: false, hint: "Recommended: portrait or vertical image, 1200px tall or larger." }
+              - { label: Image, name: image, widget: image, allow_multiple: false, hint: "JPG/JPEG, PNG, or WebP under 2MB. Recommended: portrait/vertical image, 1200px tall or larger." }
               - { label: CTA Label, name: ctaLabel, widget: string }
               - { label: CTA URL, name: ctaHref, widget: string, hint: "Use a relative URL like /services/." }
               - label: Items
@@ -242,7 +253,7 @@ collections:
                 fields:
                   - { label: Name, name: name, widget: string }
                   - { label: Role, name: role, widget: string }
-                  - { label: Image, name: image, widget: image, allow_multiple: false, hint: "Recommended: square portrait 900x900px." }
+                  - { label: Image, name: image, widget: image, allow_multiple: false, hint: "JPG/JPEG, PNG, or WebP under 2MB. Recommended: square portrait 900x900px." }
                   - { label: URL, name: href, widget: string, hint: "Use a relative URL like /team/." }
                   - label: Social Links
                     name: socials
@@ -284,7 +295,7 @@ collections:
                 fields:
                   - { label: Name, name: name, widget: string }
                   - { label: Company, name: company, widget: string }
-                  - { label: Customer Photo, name: image, widget: image, allow_multiple: false, hint: "Required for the circular review selector. Recommended: square portrait 400x400px." }
+                  - { label: Customer Photo, name: image, widget: image, allow_multiple: false, hint: "JPG/JPEG, PNG, or WebP under 2MB. Required for the circular review selector. Recommended: square portrait 400x400px." }
                   - { label: Quote, name: quote, widget: text }
           - label: Partners
             name: partners
@@ -292,7 +303,7 @@ collections:
             collapsed: true
             summary: "{{fields.image}}"
             fields:
-              - { label: Image, name: image, widget: image, allow_multiple: false, hint: "Partner logo, preferably transparent PNG/SVG." }
+              - { label: Image, name: image, widget: image, allow_multiple: false, hint: "PNG, WebP, or SVG under 2MB. Partner logo, preferably transparent. Recommended width: 300-600px." }
               - { label: URL, name: href, widget: string, hint: "Use # if the logo should not link anywhere." }
               - { label: Width, name: width, widget: string }
           - label: Home Gallery Preview
@@ -312,7 +323,7 @@ collections:
                   - { label: Title, name: title, widget: string }
                   - { label: Category, name: category, widget: string }
                   - { label: Date Label, name: date, widget: string }
-                  - { label: Image, name: image, widget: image, allow_multiple: false, hint: "Recommended: landscape 1600x1000px." }
+                  - { label: Image, name: image, widget: image, allow_multiple: false, hint: "JPG/JPEG, PNG, or WebP under 2MB. Recommended: landscape 1600x1000px." }
                   - { label: URL, name: href, widget: string, hint: "Use a relative URL like /gallery/case-study-slug/." }
                   - { label: Excerpt, name: excerpt, widget: text }
           - label: Call To Action
@@ -336,6 +347,7 @@ collections:
             name: form
             widget: object
             fields:
+              - { label: Show Form, name: visible, widget: boolean, default: true, hint: "Turn off to hide the design-only form until a backend/form provider is connected." }
               - { label: Name Label, name: nameLabel, widget: string }
               - { label: Email Label, name: emailLabel, widget: string }
               - { label: Message Label, name: messageLabel, widget: string }
@@ -480,7 +492,7 @@ collections:
     fields:
       - { label: Project Title, name: title, widget: string }
       - { label: Short Summary, name: summary, widget: text, hint: "One short paragraph used on cards and detail pages." }
-      - { label: Cover Image, name: cover, widget: image, allow_multiple: false, hint: "Recommended: landscape 1600x1000px, JPG/PNG/WebP under 5MB." }
+      - { label: Cover Image, name: cover, widget: image, allow_multiple: false, hint: "JPG/JPEG, PNG, or WebP under 2MB. Recommended: landscape 1600x1000px." }
       - label: Detail Page Layout
         name: detailLayout
         widget: select
@@ -504,6 +516,7 @@ collections:
           name: image
           widget: image
           allow_multiple: false
+          hint: "JPG/JPEG, PNG, or WebP under 2MB. Recommended: 1600px wide or larger."
       - { label: Client, name: client, widget: string }
       - { label: Year, name: year, widget: number }
       - { label: Project Date, name: date, widget: datetime, required: false, hint: "Optional. Used as fallback sorting when Display Order is the same." }
@@ -555,7 +568,7 @@ collections:
     fields:
       - { label: Member Name, name: name, widget: string }
       - { label: Role / Title, name: role, widget: string }
-      - { label: Portrait Image, name: image, widget: image, allow_multiple: false, hint: "Recommended: square portrait 900x900px, JPG/PNG/WebP." }
+      - { label: Portrait Image, name: image, widget: image, allow_multiple: false, hint: "JPG/JPEG, PNG, or WebP under 2MB. Recommended: square portrait 900x900px." }
       - label: Socials
         name: socials
         widget: list
@@ -604,9 +617,9 @@ collections:
         collapsed: false
         required: true
         summary: "{{fields.image}}"
-        hint: "Upload all images for this Gallery. Mark one image as Cover; if none is marked, the first image becomes the cover automatically. Recommended: 1600px wide or larger, JPG/PNG/WebP under 5MB."
+        hint: "Upload all images for this Gallery. Mark one image as Cover; if none is marked, the first image becomes the cover automatically. Use JPG/JPEG, PNG, or WebP under 2MB. Recommended: 1600px wide or larger."
         fields:
-          - { label: Image, name: image, widget: image, allow_multiple: false, hint: "One image per row. Use Add another image for extra slides." }
+          - { label: Image, name: image, widget: image, allow_multiple: false, hint: "JPG/JPEG, PNG, or WebP under 2MB. One image per row. Recommended: 1600px wide or larger." }
           - { label: Use as Cover, name: useAsCover, widget: boolean, default: false, required: false, hint: "Turn on for the image used in Home and Gallery listing. If multiple are selected, the first one wins." }
           - { label: Alt Text, name: alt, widget: string, required: false, hint: "Short description for accessibility and image fallback." }
           - { label: Caption, name: caption, widget: string, required: false, hint: "Optional caption shown in lightbox." }
@@ -630,7 +643,7 @@ collections:
       - { label: Publication Title, name: title, widget: string }
       - { label: Publish Date, name: date, widget: datetime }
       - { label: Intro Summary, name: excerpt, widget: text }
-      - { label: Cover Image, name: cover, widget: image, allow_multiple: false, hint: "Recommended: landscape 1600x1000px." }
+      - { label: Cover Image, name: cover, widget: image, allow_multiple: false, hint: "JPG/JPEG, PNG, or WebP under 2MB. Recommended: landscape 1600x1000px." }
       - label: Inline Gallery Images
         name: gallery
         widget: list
@@ -640,8 +653,29 @@ collections:
           name: image
           widget: image
           allow_multiple: false
+          hint: "JPG/JPEG, PNG, or WebP under 2MB. Recommended: 1600px wide or larger."
       - { label: Tags, name: tags, widget: list, required: false }
       - { label: Display Order, name: order, widget: number, default: 999 }
       - { label: SEO Title, name: seoTitle, widget: string, required: false }
       - { label: SEO Description, name: seoDescription, widget: text, required: false }
       - { label: Body, name: body, widget: markdown, required: false }
+  - name: legal
+    label: Legal Pages
+    label_singular: Legal Page
+    description: "Terms, privacy, cookie, and other legal pages. Disabled or empty pages are hidden from footer/menu and are not generated."
+    folder: src/content/legal
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}}"
+    preview_path: "{{slug}}/"
+    sortable_fields: [title, order]
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Slug, name: slug, widget: string, hint: "URL path without slashes, for example privacy." }
+      - { label: Enabled, name: enabled, widget: boolean, default: false, hint: "Only enabled pages with body content are published." }
+      - { label: Show in Footer, name: showInFooter, widget: boolean, default: false }
+      - { label: Show in Menu, name: showInMenu, widget: boolean, default: false }
+      - { label: Display Order, name: order, widget: number, default: 999, hint: "Lower numbers appear first." }
+      - { label: SEO Title, name: seoTitle, widget: string, required: false }
+      - { label: SEO Description, name: seoDescription, widget: text, required: false }
+      - { label: Body, name: body, widget: markdown, required: true }

@@ -1,5 +1,6 @@
 ---
 import type { SiteSettings } from '@lib/siteContent';
+import { normalizeImagePath } from '@lib/media';
 
 type Props = {
   site: SiteSettings;
@@ -12,7 +13,7 @@ type Props = {
 const { site, title, description, image, canonical } = Astro.props;
 const pageTitle = title ?? site.seo.title;
 const pageDescription = description ?? site.seo.description;
-const pageImage = image ?? site.seo.image;
+const pageImage = normalizeImagePath(image ?? site.seo.image);
 const pageUrl = canonical ?? Astro.url.pathname;
 const normalizeBaseUrl = (value: string): string => {
   const trimmed = value.trim().replace(/\/+$/, '');
@@ -27,7 +28,7 @@ const baseUrl = normalizeBaseUrl(site.brand.domain || site.seo.canonicalBaseUrl)
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <meta name="description" content={pageDescription} />
 <link rel="canonical" href={new URL(pageUrl, baseUrl).toString()} />
-<link rel="icon" href={site.seo.favicon} />
+<link rel="icon" href={normalizeImagePath(site.seo.favicon)} />
 <meta property="og:type" content="website" />
 <meta property="og:title" content={pageTitle} />
 <meta property="og:description" content={pageDescription} />

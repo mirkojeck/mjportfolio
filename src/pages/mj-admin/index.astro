@@ -20,6 +20,32 @@
     </script>
     <script is:inline>
       (function () {
+        var MAX_UPLOAD_SIZE = 2 * 1024 * 1024;
+        var ALLOWED_EXTENSIONS = /\.(jpe?g|png|webp|svg)$/i;
+
+        function validateUploadFiles(event) {
+          var input = event.target;
+          if (!input || input.type !== 'file' || !input.files || !input.files.length) return;
+
+          for (var i = 0; i < input.files.length; i += 1) {
+            var file = input.files[i];
+            var validType = ALLOWED_EXTENSIONS.test(file.name || '');
+            var validSize = file.size <= MAX_UPLOAD_SIZE;
+
+            if (!validType || !validSize) {
+              input.value = '';
+              window.alert('Images must be JPG, JPEG, PNG, WebP, or SVG and below 2MB.');
+              return;
+            }
+          }
+        }
+
+        // Decap's Git media library has no schema-level file-size limit, so this is a best-effort browser guard.
+        document.addEventListener('change', validateUploadFiles, true);
+      })();
+    </script>
+    <script is:inline>
+      (function () {
         var FEATURE = 'unload *';
 
         function patchIframe(iframe) {
@@ -88,7 +114,7 @@
           if (document.querySelector('.mj-admin-credit')) return;
           var credit = document.createElement('div');
           credit.className = 'mj-admin-credit';
-          credit.innerHTML = 'Made with <span aria-label="love">&hearts;</span> by <a href="https://www.dxbmark.com" target="_blank" rel="noreferrer">DXBMARK LLC</a>';
+          credit.innerHTML = 'Made with <span aria-label="love">&hearts;</span> by <a href="https://www.dxbmark.com" target="_blank" rel="noopener noreferrer">DXBMARK LLC</a>';
           document.body.appendChild(credit);
         }
 

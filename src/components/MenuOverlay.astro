@@ -1,12 +1,17 @@
 ---
 import type { Navigation, SiteSettings } from '@lib/siteContent';
+import type { LegalEntry } from '@lib/legalContent';
+import { getLegalHref } from '@lib/legalContent';
+import { getLinkAttrs } from '@lib/links';
 import Logo from './Logo.astro';
 
-const { site, navigation, projects } = Astro.props as {
+const { site, navigation, projects, legalEntries = [] } = Astro.props as {
   site: SiteSettings;
   navigation: Navigation;
   projects: Array<{ id: string; data: { title: string } }>;
+  legalEntries?: LegalEntry[];
 };
+const locations = site.contact.locations ?? [];
 ---
 
 <div class="mil-menu-frame">
@@ -26,7 +31,7 @@ const { site, navigation, projects } = Astro.props as {
             <ul>
               {navigation.main.map((item) => (
                 <li class={Astro.url.pathname === item.href ? 'mil-active' : ''}>
-                  <a href={item.href}>{item.label}</a>
+                  <a {...getLinkAttrs(item.href)}>{item.label}</a>
                 </li>
               ))}
             </ul>
@@ -41,34 +46,42 @@ const { site, navigation, projects } = Astro.props as {
             </div>
             <div class="mil-menu-right">
               <div class="row">
-                <div class="col-lg-8 mil-mb-60">
-                  <h6 class="mil-muted mil-mb-30">Selected Projects</h6>
-                  <ul class="mil-menu-list">
-                    {projects.map((project) => (
-                      <li>
-                        <a href={`/projects/${project.id}/`} class="mil-light-soft">{project.data.title}</a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div class="col-lg-4 mil-mb-60">
-                  <h6 class="mil-muted mil-mb-30">Useful Links</h6>
-                  <ul class="mil-menu-list">
-                    {site.legalLinks.map((item) => (
-                      <li><a href={item.href} class="mil-light-soft">{item.label}</a></li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-              <div class="mil-divider mil-mb-60"></div>
-              <div class="row justify-content-between">
-                {site.contact.locations.map((location) => (
-                  <div class="col-lg-4 mil-mb-60">
-                    <h6 class="mil-muted mil-mb-30">{location.label}</h6>
-                    <p class="mil-light-soft mil-up">{location.address} <span class="mil-no-wrap">{location.phone}</span></p>
+                {projects.length > 0 && (
+                  <div class="col-lg-8 mil-mb-60">
+                    <h6 class="mil-muted mil-mb-30">Selected Projects</h6>
+                    <ul class="mil-menu-list">
+                      {projects.map((project) => (
+                        <li>
+                          <a href={`/projects/${project.id}/`} class="mil-light-soft">{project.data.title}</a>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                ))}
+                )}
+                {legalEntries.length > 0 && (
+                  <div class="col-lg-4 mil-mb-60">
+                    <h6 class="mil-muted mil-mb-30">Useful Links</h6>
+                    <ul class="mil-menu-list">
+                      {legalEntries.map((entry) => (
+                        <li><a {...getLinkAttrs(getLegalHref(entry))} class="mil-light-soft">{entry.data.title}</a></li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
+              {locations.length > 0 && (
+                <>
+                  <div class="mil-divider mil-mb-60"></div>
+                  <div class="row justify-content-between">
+                    {locations.map((location) => (
+                      <div class="col-lg-4 mil-mb-60">
+                        <h6 class="mil-muted mil-mb-30">{location.label}</h6>
+                        <p class="mil-light-soft mil-up">{location.address} <span class="mil-no-wrap">{location.phone}</span></p>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>

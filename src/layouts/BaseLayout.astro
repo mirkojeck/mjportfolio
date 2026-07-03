@@ -7,6 +7,7 @@ import MenuOverlay from '@components/MenuOverlay.astro';
 import Preloader from '@components/Preloader.astro';
 import ScriptLoader from '@components/ScriptLoader.astro';
 import SiteFrame from '@components/SiteFrame.astro';
+import { getFooterLegalEntries, getMenuLegalEntries } from '@lib/legalContent';
 import { getHomeSettings, getNavigation, getSiteSettings, sortByOrder } from '@lib/siteContent';
 import '../styles/style.scss';
 
@@ -21,6 +22,12 @@ const site = getSiteSettings();
 const home = getHomeSettings();
 const navigation = getNavigation();
 const projects = sortByOrder(await getCollection('projects'));
+const menuProjects = projects
+  .filter((project) => project.data.isFeatured)
+  .slice(0, site.projects.featuredLimit || 6);
+const legalEntries = await getCollection('legal');
+const footerLegalEntries = getFooterLegalEntries(legalEntries);
+const menuLegalEntries = getMenuLegalEntries(legalEntries);
 ---
 
 <!DOCTYPE html>
@@ -41,13 +48,13 @@ const projects = sortByOrder(await getCollection('projects'));
       </div>
       <Preloader site={site} home={home} />
       <div class="mil-progress-track"><div class="mil-progress"></div></div>
-      <MenuOverlay site={site} navigation={navigation} projects={projects} />
+      <MenuOverlay site={site} navigation={navigation} projects={menuProjects} legalEntries={menuLegalEntries} />
       <div class="mil-curtain"></div>
       <SiteFrame site={site} />
       <div class="mil-content">
         <div id="swupMain" class="mil-main-transition">
           <slot />
-          <Footer site={site} navigation={navigation} />
+          <Footer site={site} navigation={navigation} legalEntries={footerLegalEntries} />
           <HiddenSvgAssets />
         </div>
       </div>
