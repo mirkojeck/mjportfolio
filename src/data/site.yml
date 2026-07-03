@@ -48,18 +48,6 @@ socials:
   - platform: linkedin
     label: LinkedIn
     href: https://www.linkedin.com/in/mirko-jeck/
-  - platform: facebook
-    label: Facebook
-    href: https://facebook.com/
-  - platform: behance
-    label: Behance
-    href: https://behance.net/
-  - platform: x
-    label: X
-    href: https://x.com/
-  - platform: whatsapp
-    label: WhatsApp
-    href: https://wa.me/
 legalLinks:
   - label: Privacy Policy
     href: /privacy/
