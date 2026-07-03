@@ -11,7 +11,7 @@ brand:
       footer: ""
       fallback: ""
     display:
-      height: 88
+      height: 86
       scale: 1
       positionX: 50
       positionY: 50
@@ -47,7 +47,7 @@ socials:
     href: https://instagram.com/
   - platform: linkedin
     label: LinkedIn
-    href: https://linkedin.com/
+    href: https://www.linkedin.com/in/mirko-jeck-46b919a1/
   - platform: facebook
     label: Facebook
     href: https://facebook.com/
