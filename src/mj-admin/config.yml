@@ -347,7 +347,6 @@ collections:
             name: form
             widget: object
             fields:
-              - { label: Show Form, name: visible, widget: boolean, default: true, hint: "Turn off to hide the design-only form until a backend/form provider is connected." }
               - { label: Name Label, name: nameLabel, widget: string }
               - { label: Email Label, name: emailLabel, widget: string }
               - { label: Message Label, name: messageLabel, widget: string }
@@ -665,6 +664,8 @@ collections:
     description: "Terms, privacy, cookie, and other legal pages. Disabled or empty pages are hidden from footer/menu and are not generated."
     folder: src/content/legal
     create: true
+    format: frontmatter
+    extension: md
     slug: "{{slug}}"
     summary: "{{title}}"
     preview_path: "{{slug}}/"
